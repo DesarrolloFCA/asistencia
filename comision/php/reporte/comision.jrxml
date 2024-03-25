@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comision" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab5bcd3c-d900-4b7e-9bec-ba7a3a2a26b5">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     comision."id_comision" AS comision_id_comision,
+     comision."legajo" AS comision_legajo,
+     comision."catedra" AS comision_catedra,
+     comision."lugar" AS comision_lugar,
+     comision."motivo" AS comision_motivo,
+     comision."fecha" AS comision_fecha,
+     comision."horario" AS comision_horario,
+     comision."observaciones" AS comision_observaciones,
+     comision."legajo_sup" AS comision_legajo_sup,
+     comision."legajo_aut" AS comision_legajo_aut
+FROM
+     "reloj"."comision" comision]]>
+	</queryString>
+	<field name="comision_legajo" class="java.lang.Long"/>
+	<field name="comision_catedra" class="java.lang.String"/>
+	<field name="comision_lugar" class="java.lang.String"/>
+	<field name="comision_motivo" class="java.lang.String"/>
+	<field name="comision_fecha" class="java.sql.Date"/>
+	<field name="comision_horario" class="java.sql.Time"/>
+	<field name="comision_observaciones" class="java.lang.String"/>
+	<field name="comision_legajo_sup" class="java.lang.Long"/>
+	<field name="comision_legajo_aut" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+ pg:
+  image: postgres:14
+  ports:
+   - "7432:5432"
+  container_name: pg
+  environment:
+    POSTGRES_USER       : postgres
+    POSTGRES_PASSWORD   : postgres
+
+ <NOMBRE PROYECTO>:
+  image: siudocker/php:8.1-web-v1.0.3
+  container_name: <NOMBRE PROYECTO>
+  ports:
+   - "7008:8080"
+  environment:
+    DOCKER_NAME                       : <NOMBRE PROYECTO>
+    DOCKER_WEB_PORT                   : 7008
+    TOBA_PASS                         : toba
+    TOBA_BASE_PASS                    : postgres
+    TOBA_INSTALACION_DIR              : /var/local/docker-data/<NOMBRE PROYECTO>-instalacion
+    TOBA_BASE_HOST                    : pg
+    TOBA_BASE_NOMBRE                  : toba_<NOMBRE PROYECTO>
+    TOBA_PROYECTO                     : <NOMBRE PROYECTO>
+    TOBA_PROYECTO_DIR                 : /var/local/<NOMBRE PROYECTO>
+    TOBA_PROYECTO_ALIAS               : /<NOMBRE PROYECTO>
+    TOBA_PROYECTO_INSTALAR            : "True"
+    TOBA_INSTALAR_REFERENCIA          : "True"
+    TOBA_INSTALAR_USUARIOS            : "True"
+  links:
+   - pg
+  volumes:
+   - .:/var/local/<NOMBRE PROYECTO>
+   - ./instalacion:/var/local/docker-data/<NOMBRE PROYECTO>-instalacion

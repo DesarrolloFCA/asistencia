@@ -1,0 +1,27 @@
+{
+  "name": "siu-toba/template-proyecto-toba",
+  "description": "",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://satis.siu.edu.ar",
+      "exclude": ["siu-toba/framework", "siu-toba/rest"]
+    }
+  ],
+  "require": {
+    "siu-toba/framework": "3.3.26"
+  },
+  "config": {
+     "bin-dir": "./bin" 
+  },
+  "scripts": {
+     "post-install-cmd": [
+           "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ],
+     "post-update-cmd": [
+            "composer run-script post-install-cmd -d ./vendor/siu-toba/framework/"
+     ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
