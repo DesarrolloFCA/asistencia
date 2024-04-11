@@ -94,7 +94,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 	NULL, --estilo
 	'apex', --imagen_recurso_origen
 	NULL, --imagen
-	'1', --en_botonera
+	'0', --en_botonera
 	NULL, --ayuda
 	'2', --orden
 	NULL, --ci_predep
@@ -187,7 +187,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --inicializacion
 	'1', --permitir_html
 	'0', --deshabilitar_rest_func
-	'172.22.8.60/comision/1.1/?ai=comision||1842000002', --estado_defecto
+	'sistemas.fca.uncu.edu.ar/solicitudes/?ai=comision||1842000002', --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
 	NULL, --carga_metodo
