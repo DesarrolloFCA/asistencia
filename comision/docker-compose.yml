@@ -23,17 +23,17 @@ services:
     DOCKER_WEB_PORT                   : 7008
     TOBA_PASS                         : toba
     TOBA_BASE_PASS                    : postgres
-    TOBA_INSTALACION_DIR              : /usr/local/proyectos/comision/instalacion
+    TOBA_INSTALACION_DIR              : /usr/local/proyectos/comision/vendor/siu-toba/framework/instalacion
     TOBA_BASE_HOST                    : pg
     TOBA_BASE_NOMBRE                  : toba_comision
     TOBA_PROYECTO                     : comision
     TOBA_PROYECTO_DIR                 : /usr/local/proyectos/comision
-    TOBA_PROYECTO_ALIAS               : /comision
+    TOBA_PROYECTO_ALIAS               : /solicitudes
     TOBA_PROYECTO_INSTALAR            : "True"
     TOBA_INSTALAR_REFERENCIA          : "false"
     TOBA_INSTALAR_USUARIOS            : "True"
   links:
    - pg
   volumes:
-   - C:/Users/Leonardo/Code/proyectos:/usr/local/proyectos
+   - E:/Users/Guarani Prod/code/proyectos:/usr/local/proyectos
    #- ./instalacion:/var/local/docker-data/comision-instalacion
