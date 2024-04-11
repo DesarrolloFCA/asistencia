@@ -66,8 +66,21 @@ class ci_recordatorio_pwd extends toba_ci
 		//$this->enviar_mail_aviso_cambio();
 		$this->guardar_datos_solicitud_cambio($tmp_rand,$this->s__usuario);
 		$this->disparar_confirmacion_cambio($this->s__usuario,$tmp_rand);
+		if(! is_null($tmp_rand)){
+			
 		toba::notificacion()->agregar('Se ha enviado un mail a la cuenta especificada, por favor verifiquela', 'info');
-		$this->set_pantalla('pant_inicial');
+		
+		}    
+		//$this->set_pantalla('pant_inicial');
+		//--- Salir
+		//$js = toba_editor::modo_prueba() ? 'window.close()' : 'salir()';
+		//toba::output()->get('PaginaNormal')->getSalir($js);
+		//$sesion = toba::instancia()->get_id_sesion();
+		//toba::instancia()->cerrar_sesion($sesion, null);
+		//toba_js::ejecutar('window.close()');
+		toba::vinculador()->navegar_a('comision',35736730000045);
+		//toba::notificacion()->agregar('Se ha enviado un mail a la cuenta especificada, por favor verifiquela', 'info');
+		//  echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";
 		//ei_arbol($this->s__usuario);
 	}
 
@@ -223,7 +236,7 @@ class ci_recordatorio_pwd extends toba_ci
 		//Genero un pseudorandom unico... 
 		$tmp_rand = $this->get_random_temporal();
 		$link = $this->generar_link_confirmacion($this->s__usuario, $tmp_rand);    //Genero el link para el mail
-		 
+			
 		//Se envia el mail a la direccion especificada por el usuario.
 		$asunto = 'Solicitud de cambio de contraseñaa';
 		$cuerpo_mail = '<p>Este mail fue enviado a esta cuenta porque se <strong>solicito un cambio de contraseña</strong>.'
@@ -250,19 +263,19 @@ class ci_recordatorio_pwd extends toba_ci
 			$mail->Subject =$asunto;
 			$mail->IsHTML(true);
 			//$mail = new toba_mail($this->s__email, $asunto, $cuerpo_mail);
-		//	$mail->set_html(true);
-		//	$mail->enviar();
-		//	}
+		//    $mail->set_html(true);
+		//    $mail->enviar();
+		//    }
 			if(!$mail->Send()) {
 				toba::instancia()->get_db()->abortar_transaccion();
 				echo "Error: " . $mail->ErrorInfo;
 				toba::logger()->debug('Proceso de envio de random a cuenta: '. $mail->ErrorInfo); //$e->getMessage());
-				throw new toba_error('Se produjo un error en el proceso de cambio, contactese con un administrador del sistema.');	
+				throw new toba_error('Se produjo un error en el proceso de cambio, contactese con un administrador del sistema.');    
 			} else {
 				toba::instancia()->get_db()->cerrar_transaccion();
 				echo "Enviado!";
 
-			}	
+			}    
 			
 		/*} catch (toba_error $e) {
 			toba::instancia()->get_db()->abortar_transaccion();
@@ -313,16 +326,16 @@ class ci_recordatorio_pwd extends toba_ci
 		}
 				
 		//Aca tengo que generar una clave temporal y enviarsela para que confirme el cambio e ingrese con ella.
-		do {			
+		do {            
 			try {
 				$claveok = true;
 				$clave_tmp = toba_usuario::generar_clave_aleatoria('10');
 				toba_usuario::verificar_composicion_clave($clave_tmp, 10);
-				toba_usuario::verificar_clave_no_utilizada($clave_tmp, $datos_orig['id_usuario']);	
+				toba_usuario::verificar_clave_no_utilizada($clave_tmp, $datos_orig['id_usuario']);    
 			} catch(toba_error_pwd_conformacion_invalida $e) {
 				$claveok = false;
 			} catch(toba_error_usuario $e) {
-				toba::logger()->error('Se estan generando claves aleatorias repetidas!! '. $clave_tmp);				//Debe aparecer en el log para revisar la generacion de la clave aleatoria
+				toba::logger()->error('Se estan generando claves aleatorias repetidas!! '. $clave_tmp);                //Debe aparecer en el log para revisar la generacion de la clave aleatoria
 				$claveok = false;
 			}
 		} while(! $claveok);
@@ -331,7 +344,7 @@ class ci_recordatorio_pwd extends toba_ci
 		$asunto = 'Nueva clave';
 		$cuerpo_mail = '<p>Se ha recibido su pedido de cambio de clave, la misma fue cambiada a: <br>' .
 		$clave_tmp . '<br><br> Por favor cambiela a una contraseña más segura y fácil de recordar. <br>
-				Haga <a href = "http://172.22.8.60/comision/1.1/aplicacion.php?ah=st65f47db32bc843.79319988&ai=comision%7C%7C35736730000045"> click aqui</a></br> Gracias. </p> ';
+				Haga <a href = "http://sistemas.fca.uncu.edu.ar/solicitudes/aplicacion.php?ah=st65f47db32bc843.79319988&ai=comision%7C%7C35736730000045"> click aqui</a></br> Gracias. </p> ';
 		
 		//Cambio la clave del flaco, envio el nuevo mail y bloqueo el random
 		toba::instancia()->get_db()->abrir_transaccion();

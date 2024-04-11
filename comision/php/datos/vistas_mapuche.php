@@ -33,7 +33,7 @@ class vistas_mapuche extends toba_datos_relacion
                         WHERE cod_depcia_destino = '".$filtro['cod_depcia']."' 
                         AND fecha_inicio <= '".date("Y-m-d")."' 
                         AND fecha_fin is null";
-                $legajos1 =  toba::db('ctrl_asis')->consultar($sql); 
+                $legajos1 =  toba::db('comision')->consultar($sql); 
                 if (count($legajos1)>0) {
                     foreach($legajos1 as $k=> $legajo){
                         if($k==0){
@@ -52,7 +52,7 @@ class vistas_mapuche extends toba_datos_relacion
                         WHERE cod_depcia_origen = '".$filtro['cod_depcia']."' 
                         AND fecha_inicio <= '".date("Y-m-d")."' 
                         AND fecha_fin is null";
-                $legajos2 =  toba::db('ctrl_asis')->consultar($sql); 
+                $legajos2 =  toba::db('comision')->consultar($sql); 
                 if (count($legajos2)>0) {
                     foreach($legajos2 as $k=> $legajo){
                         if($k==0){

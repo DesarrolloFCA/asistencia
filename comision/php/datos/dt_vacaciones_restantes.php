@@ -20,7 +20,22 @@ class dt_vacaciones_restantes extends comision_datos_tabla
 		}
 		return toba::db('comision')->consultar($sql);
 	}
+	function get_dias($legajo, $anio ) //, $agrupamiento)
+	{
 
-}
+		//ei_arbol($legajo,$anio);
+		$sql = "SELECT
+			sum(t_vt.dias) as dias_restantes																																																																						
+		FROM
+			vacaciones_restantes as t_vt where t_vt.legajo = '$legajo' and t_vt.anio = '$anio' ";
+
+		$datos = toba::db('comision')->consultar_fila($sql);
+		if(is_numeric($datos['dias_restantes'])){
+			return $datos['dias_restantes'];
+		}else{
+			return NULL;
+		}
+	}
+}	
 
 ?>
