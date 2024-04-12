@@ -6,12 +6,12 @@ class ci_dias_pendientes_en_licencias extends comision_ci
 
 	//---- Filtro -----------------------------------------------------------------------
 
-	function conf__filtro(toba_ei_formulario $filtro)
+	/*function conf__filtro(toba_ei_formulario $filtro)
 	{
 		
 		if (isset($this->s__datos_filtro)) {
 			$usuario = toba::usuario()->get_id();
-				
+			ei_arbol($usuario);	
 				$sql = "SELECT legajo from reloj.agentes_mail
 						WHERE email = '$usuario' ";
 				$leg_usu = toba::db('comision')->consultar_fila($sql);
@@ -28,13 +28,14 @@ class ci_dias_pendientes_en_licencias extends comision_ci
 	function evt__filtro__cancelar()
 	{
 		unset($this->s__datos_filtro);
-	}
+	}*/
 
 	//---- Cuadro -----------------------------------------------------------------------
 
 	function conf__cuadro(toba_ei_cuadro $cuadro)
 	{
 		include ("usuario_logueado.php");
+
 		$agente = usuario_logueado::get_legajo(toba::usuario()-> get_id());
 			
 		$legajo = $agente[0]['legajo'];
@@ -49,8 +50,9 @@ class ci_dias_pendientes_en_licencias extends comision_ci
 						WHERE EXTRACT(YEAR FROM fecha_inicio_licencia) = $anio
 						AND legajo = $legajo ";
 				$dias = toba::db('comision')->consultar($sql);
+			
 				
-			if (is_null($dias)){
+			if ( ! is_null($dias)){
 				$cuadro->set_datos($dias);
 			} else {
 				toba::notificacion()->agregar('Este a&ntilde;o no se ha tomado ninguna licencia', "info");
@@ -59,10 +61,10 @@ class ci_dias_pendientes_en_licencias extends comision_ci
 		
 	}
 
-	function evt__cuadro__seleccion($datos)
+	/*function evt__cuadro__seleccion($datos)
 	{
 		$this->dep('datos')->cargar($datos);
-	}
+	}*/
 
 	//---- Formulario -------------------------------------------------------------------
 

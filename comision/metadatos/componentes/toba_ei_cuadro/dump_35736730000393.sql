@@ -79,11 +79,33 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --desplegable_activo
 	'1', --scroll
 	'250px', --scroll_alto
-	NULL, --cc_modo
-	NULL, --cc_modo_anidado_colap
+	't', --cc_modo
+	'0', --cc_modo_anidado_colap
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
+
+------------------------------------------------------------
+-- apex_objeto_cuadro_cc
+------------------------------------------------------------
+
+--- INICIO Grupo de desarrollo 24234
+INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
+	'comision', --objeto_cuadro_proyecto
+	'35736730000393', --objeto_cuadro
+	'24234000001', --objeto_cuadro_cc
+	'motivo', --identificador
+	'Motivo de la licencia', --descripcion
+	'1', --orden
+	'motivo', --columnas_id
+	'motivo', --columnas_descripcion
+	'0', --pie_contar_filas
+	'0', --pie_mostrar_titular
+	'0', --pie_mostrar_titulos
+	NULL, --imp_paginar
+	'0'  --modo_inicio_colapsado
+);
+--- FIN Grupo de desarrollo 24234
 
 ------------------------------------------------------------
 -- apex_objeto_ei_cuadro_columna
@@ -93,71 +115,9 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo, evento_asociado) VALUES (
 	'comision', --objeto_cuadro_proyecto
 	'35736730000393', --objeto_cuadro
-	'35736730000526', --objeto_cuadro_col
-	'legajo', --clave
-	'1', --orden
-	'Legajo', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'0', --estilo
-	NULL, --ancho
-	'1', --formateo
-	NULL, --vinculo_indice
-	'0', --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	'0', --total
-	NULL, --total_cc
-	'0', --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	NULL, --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL, --vinculo_celda
-	NULL, --vinculo_servicio
-	'0', --permitir_html
-	NULL, --grupo
-	NULL  --evento_asociado
-);
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo, evento_asociado) VALUES (
-	'comision', --objeto_cuadro_proyecto
-	'35736730000393', --objeto_cuadro
-	'35736730000531', --objeto_cuadro_col
-	'ayp', --clave
-	'2', --orden
-	'Apellido y Nombre', --titulo
-	'ei-cuadro-col-tit', --estilo_titulo
-	'4', --estilo
-	NULL, --ancho
-	'1', --formateo
-	NULL, --vinculo_indice
-	NULL, --no_ordenar
-	NULL, --mostrar_xls
-	NULL, --mostrar_pdf
-	NULL, --pdf_propiedades
-	NULL, --desabilitado
-	NULL, --total
-	NULL, --total_cc
-	NULL, --usar_vinculo
-	NULL, --vinculo_carpeta
-	NULL, --vinculo_item
-	NULL, --vinculo_popup
-	NULL, --vinculo_popup_param
-	NULL, --vinculo_target
-	NULL, --vinculo_celda
-	NULL, --vinculo_servicio
-	'0', --permitir_html
-	NULL, --grupo
-	NULL  --evento_asociado
-);
-INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, clave, orden, titulo, estilo_titulo, estilo, ancho, formateo, vinculo_indice, no_ordenar, mostrar_xls, mostrar_pdf, pdf_propiedades, desabilitado, total, total_cc, usar_vinculo, vinculo_carpeta, vinculo_item, vinculo_popup, vinculo_popup_param, vinculo_target, vinculo_celda, vinculo_servicio, permitir_html, grupo, evento_asociado) VALUES (
-	'comision', --objeto_cuadro_proyecto
-	'35736730000393', --objeto_cuadro
 	'35736730000532', --objeto_cuadro_col
 	'motivo', --clave
-	'3', --orden
+	'1', --orden
 	'Motivo', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -188,7 +148,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'35736730000393', --objeto_cuadro
 	'35736730000533', --objeto_cuadro_col
 	'dias_tomados', --clave
-	'5', --orden
+	'3', --orden
 	'Días Tomados', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'0', --estilo
@@ -219,7 +179,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'35736730000393', --objeto_cuadro
 	'35736730000534', --objeto_cuadro_col
 	'fecha_inicio_licencia', --clave
-	'4', --orden
+	'2', --orden
 	'Fecha Inicio', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
@@ -246,3 +206,14 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	NULL  --evento_asociado
 );
 --- FIN Grupo de desarrollo 35736730
+
+------------------------------------------------------------
+-- apex_objeto_cuadro_col_cc
+------------------------------------------------------------
+INSERT INTO apex_objeto_cuadro_col_cc (objeto_cuadro_cc, objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_col, total) VALUES (
+	'24234000001', --objeto_cuadro_cc
+	'comision', --objeto_cuadro_proyecto
+	'35736730000393', --objeto_cuadro
+	'35736730000533', --objeto_cuadro_col
+	'1'  --total
+);
