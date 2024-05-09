@@ -6,6 +6,7 @@ class dt_articulo extends comision_datos_tabla
 		$sql = "SELECT id_articulo, descripcion FROM articulo ORDER BY descripcion";
 		return toba::db('comision')->consultar($sql);
 	}
+
 	function get_dias($legajo, $agrupamiento, $fecha_inicio_licencia, $id_articulo, $anio)
 	{
 		$sql = "SELECT id_articulo, id_motivo, descripcion, dias_disponibles, limite_mensual FROM reloj.articulo WHERE id_articulo = '$id_articulo'";
@@ -133,5 +134,4 @@ class dt_articulo extends comision_datos_tabla
 		}
 
 }
-
 ?>

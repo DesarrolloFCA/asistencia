@@ -7,6 +7,6 @@ class dt_decreto extends comision_datos_tabla
 		return toba::db('comision')->consultar($sql);
 	}
 
-}
 
+}
 ?>

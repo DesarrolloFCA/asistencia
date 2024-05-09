@@ -15,9 +15,9 @@ class ci_articulo extends comision_ci
 		$datos['anio']= date('Y');
 
 		$bandera_nodo = true;   
-		$temp = $this->$s__agentes;
-		$datos['legajo']=$temp[0]['legajo'];
-		ei_arbol($datos);
+		//$temp = $this->$s__agentes;
+		//$datos['legajo']=$temp[0]['legajo'];
+		//ei_arbol($datos);
 		$legajo =$datos['legajo'];
 		$id_catedra = $datos['catedra'];
 		$anio=$datos['anio'];
@@ -1539,7 +1539,7 @@ class ci_articulo extends comision_ci
 	}
 function enviar_correos($correo)
 	{
-		require_once('3ros/phpmailer/class.phpmailer.php');
+		require_once('phpmailer/class.phpmailer.php');
 
 
 				$datos =$this->s__datos;  
@@ -1578,7 +1578,7 @@ $mail->SMTPAuth   = true;
 
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "Elitou01";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)
@@ -1727,7 +1727,7 @@ if(!$mail->Send()) {
 	}
 function enviar_correos_sup($correo,$destino)
 	{
-		require_once('3ros/phpmailer/class.phpmailer.php');
+		require_once('phpmailer/class.phpmailer.php');
 
 				$datos =$this-> s__datos;   
 				$fecha=date('d/m/Y',strtotime($datos['fecha_inicio_licencia'] ) );
@@ -1755,7 +1755,7 @@ $mail->SMTPAuth   = true;
 
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "Elitou01";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)

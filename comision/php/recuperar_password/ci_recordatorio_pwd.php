@@ -256,7 +256,8 @@ class ci_recordatorio_pwd extends toba_ci
 			$mail->SMTPSecure = 'tls';
 			$mail->SMTPAuth   = true;
 			$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-			$mail->Password   = "gvcghltncpblkjbl";
+			$mail->Password   = "Elitou01";
+			//"gvcghltncpblkjbl";
 			$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 			$mail->AddAddress($this->s__email);
 			$mail->Body = $cuerpo_mail;
@@ -366,7 +367,7 @@ class ci_recordatorio_pwd extends toba_ci
 			$mail->SMTPSecure = 'tls';
 			$mail->SMTPAuth   = true;
 			$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-			$mail->Password   = "gvcghltncpblkjbl";
+			$mail->Password   = "Elitou01";
 			$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 			$mail->AddAddress($datos_orig['email']);
 			$mail->Body = $cuerpo_mail;
@@ -380,7 +381,7 @@ class ci_recordatorio_pwd extends toba_ci
 			toba::instancia()->get_db()->cerrar_transaccion();
 		} catch (toba_error $e) {
 			toba::instancia()->get_db()->abortar_transaccion();
-			toba::logger()->debug('Proceso de cambio de contrase�a en base: ' . $e->getMessage());
+			toba::logger()->debug('Proceso de cambio de contrase&ntilde;a en base: ' . $e->getMessage());
 			throw new toba_error('Se produjo un error en el proceso de cambio, contactese con un administrador del sistema.');
 		}
 	}

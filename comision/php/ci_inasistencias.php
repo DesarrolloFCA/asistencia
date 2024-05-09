@@ -149,7 +149,7 @@ class ci_inasistencias extends ctrl_asis_ci
 
 	function enviar_correos($correo,$aprobado)
 	{
-		require_once('3ros/phpmailer/class.phpmailer.php');
+		require_once('phpmailer/class.phpmailer.php');
 		$datos =$this->s__datos_correo;
 		//$formula = $this->s__formula;    
 	$fecha=date('d/m/Y',strtotime($datos['fecha_inicio'] ) );
@@ -179,7 +179,7 @@ $mail->SMTPAuth   = true;
 //Definimos la cuenta que vamos a usar. Dirección completa de la misma
 $mail->Username   = "formularios_personal@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "djxgidwlytoydsow";
+$mail->Password   = "Elitou01";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_personal@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)
@@ -249,23 +249,6 @@ $mail->Body = $body;
 	}
 }
 
-	//-----------------------------------------------------------------------------------
-	//---- filtro -----------------------------------------------------------------------
-	//-----------------------------------------------------------------------------------
-
-	function conf__filtro(ctrl_asis_ei_filtro $filtro)
-	{
-	}
-
-	function evt__filtro__filtrar($datos)
-	{
-		$this->s__datos_filtro = $datos;
-	}
-
-	function evt__filtro__cancelar()
-	{
-		unset($this->s__datos_filtro);
-	}
-
+	
 }
 ?>

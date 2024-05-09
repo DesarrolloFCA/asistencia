@@ -89,7 +89,7 @@ class comision extends toba_ci
 			$this->enviar_correos_sup($datos['superior']);
 		
 			}
-			ei_arbol($correo_sup);
+			//ei_arbol($correo_sup);
 			/*if (!empty ($datos['legajo_sup'])){
 				
 			}
@@ -113,20 +113,10 @@ class comision extends toba_ci
 		
 	}
 
-	function evt__formulario__modificacion($datos)
-	{
-		
-		
-
-		//$this->dep('datos')->tabla('comision')->set($datos);
-	}
-
-	function evt__formulario__cancelar()
-	{
-	}
+	
 	function enviar_correos($correo)
 	{
-		require_once('3ros/phpmailer/class.phpmailer.php');
+		require_once('phpmailer/class.phpmailer.php');
 
 				$datos =$this-> s__datos;    
 				
@@ -151,7 +141,7 @@ $mail->SMTPAuth   = true;
 //Leo: cambiamos de cuenta porque la hackearon esta esta contraseña para aplicaciones
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "Elitou01";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)
@@ -159,7 +149,7 @@ $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //$mail->AddReplyTo('caifca@fca.uncu.edu.ar','El de la réplica');
 //Y, ahora sí, definimos el destinatario (dirección y, opcionalmente, nombre)
 //$mail -> AddAddress('ebermejillo@fca.uncu.edu.ar', 'Tester');
-$mail->AddAddress($correo, 'El Destinatario'); //Descomentar linea cuando pase a produccion
+$mail->AddAddress($correo, $datos['descripcion']); //Descomentar linea cuando pase a produccion
 //Definimos el tema del email
 $mail->Subject = 'Formulario Comision de Servicio';
 //Para enviar un correo formateado en HTML lo cargamos con la siguiente función. Si no, puedes meterle directamente una cadena de texto.
@@ -187,7 +177,7 @@ $mail->Body = $body;
 }
 	function enviar_correos_sup($correo)
 	{
-		require_once('3ros/phpmailer/class.phpmailer.php');
+		require_once('phpmailer/class.phpmailer.php');
 
 				$datos =$this-> s__datos;    
 				
@@ -211,7 +201,7 @@ $mail->SMTPAuth   = true;
 //Leo: cambiamos de cuenta porque la hackearon esta esta contraseña para aplicaciones
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "Elitou01";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)

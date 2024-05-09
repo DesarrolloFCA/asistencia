@@ -1,15 +1,15 @@
 ------------------------------------------------------------
---[35736730000294]--  Permiso Horario - datos - permiso_horarios 
+--[24234000034]--  Comisiones - datos 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
 -- apex_objeto
 ------------------------------------------------------------
 
---- INICIO Grupo de desarrollo 35736730
+--- INICIO Grupo de desarrollo 24234
 INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, clase_proyecto, clase, punto_montaje, subclase, subclase_archivo, objeto_categoria_proyecto, objeto_categoria, nombre, titulo, colapsable, descripcion, fuente_datos_proyecto, fuente_datos, solicitud_registrar, solicitud_obj_obs_tipo, solicitud_obj_observacion, parametro_a, parametro_b, parametro_c, parametro_d, parametro_e, parametro_f, usuario, creacion, posicion_botonera) VALUES (
 	'comision', --proyecto
-	'35736730000294', --objeto
+	'24234000034', --objeto
 	NULL, --anterior
 	NULL, --identificador
 	NULL, --reflexivo
@@ -20,7 +20,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
-	'Permiso Horario - datos - permiso_horarios', --nombre
+	'Comisiones - datos', --nombre
 	NULL, --titulo
 	NULL, --colapsable
 	NULL, --descripcion
@@ -36,24 +36,24 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --parametro_e
 	NULL, --parametro_f
 	NULL, --usuario
-	'2023-03-13 10:16:43', --creacion
+	'2024-05-08 18:55:16', --creacion
 	NULL  --posicion_botonera
 );
---- FIN Grupo de desarrollo 35736730
+--- FIN Grupo de desarrollo 24234
 
 ------------------------------------------------------------
 -- apex_objeto_db_registros
 ------------------------------------------------------------
 INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, min_registros, punto_montaje, ap, ap_clase, ap_archivo, tabla, tabla_ext, alias, modificar_claves, fuente_datos_proyecto, fuente_datos, permite_actualizacion_automatica, esquema, esquema_ext) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
+	'24234000034', --objeto
 	NULL, --max_registros
 	NULL, --min_registros
 	'35736730000002', --punto_montaje
 	'1', --ap
 	NULL, --ap_clase
 	NULL, --ap_archivo
-	'permisos_horarios', --tabla
+	'comision', --tabla
 	NULL, --tabla_ext
 	NULL, --alias
 	'0', --modificar_claves
@@ -71,39 +71,22 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 --- INICIO Grupo de desarrollo 24234
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'24234000001', --col_id
-	'observaciones', --columna
-	'C', --tipo
-	'0', --pk
-	'', --secuencia
-	'250', --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	NULL, --externa
-	'permisos_horarios'  --tabla
-);
---- FIN Grupo de desarrollo 24234
-
---- INICIO Grupo de desarrollo 35736730
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000343', --col_id
-	'id_permiso', --columna
+	'24234000034', --objeto
+	'24234000102', --col_id
+	'id_comision', --columna
 	'E', --tipo
 	'1', --pk
-	'permisos_horarios_id_permiso_seq', --secuencia
+	'comision_id_comision_seq', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000344', --col_id
+	'24234000034', --objeto
+	'24234000103', --col_id
 	'legajo', --columna
 	'E', --tipo
 	'0', --pk
@@ -111,55 +94,55 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000345', --col_id
-	'id_motivo', --columna
-	'E', --tipo
-	'0', --pk
-	'', --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000346', --col_id
-	'id_catedra', --columna
-	'E', --tipo
-	'0', --pk
-	'', --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000347', --col_id
-	'razon', --columna
+	'24234000034', --objeto
+	'24234000104', --col_id
+	'catedra', --columna
 	'C', --tipo
 	'0', --pk
 	'', --secuencia
-	'70', --largo
+	'255', --largo
 	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000348', --col_id
+	'24234000034', --objeto
+	'24234000105', --col_id
+	'lugar', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'255', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000106', --col_id
+	'motivo', --columna
+	'C', --tipo
+	'0', --pk
+	'', --secuencia
+	'255', --largo
+	NULL, --no_nulo
+	'1', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000107', --col_id
 	'fecha', --columna
 	'F', --tipo
 	'0', --pk
@@ -167,105 +150,147 @@ INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, colum
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000349', --col_id
-	'horario_incio', --columna
+	'24234000034', --objeto
+	'24234000108', --col_id
+	'horario', --columna
 	'T', --tipo
 	'0', --pk
 	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000350', --col_id
+	'24234000034', --objeto
+	'24234000109', --col_id
+	'observaciones', --columna
+	'X', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000110', --col_id
+	'legajo_sup', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000111', --col_id
+	'legajo_aut', --columna
+	'E', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000112', --col_id
+	'autoriza_sup', --columna
+	'L', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000113', --col_id
+	'autoriza_aut', --columna
+	'L', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000114', --col_id
+	'fecha_fin', --columna
+	'F', --tipo
+	'0', --pk
+	'', --secuencia
+	NULL, --largo
+	NULL, --no_nulo
+	'0', --no_nulo_db
+	NULL, --externa
+	'comision'  --tabla
+);
+INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
+	'comision', --objeto_proyecto
+	'24234000034', --objeto
+	'24234000115', --col_id
 	'horario_fin', --columna
 	'T', --tipo
 	'0', --pk
 	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
-	'1', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000351', --col_id
-	'leg_aut', --columna
-	'E', --tipo
-	'0', --pk
-	'', --secuencia
-	NULL, --largo
-	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000352', --col_id
-	'auto_aut', --columna
+	'24234000034', --objeto
+	'24234000116', --col_id
+	'fuera', --columna
 	'L', --tipo
 	'0', --pk
 	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
 INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
 	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000353', --col_id
-	'leg_sup', --columna
-	'E', --tipo
-	'0', --pk
-	'', --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
-);
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000354', --col_id
-	'aut_sup', --columna
+	'24234000034', --objeto
+	'24234000117', --col_id
+	'pasada', --columna
 	'L', --tipo
 	'0', --pk
 	'', --secuencia
 	NULL, --largo
 	NULL, --no_nulo
 	'0', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
+	NULL, --externa
+	'comision'  --tabla
 );
-INSERT INTO apex_objeto_db_registros_col (objeto_proyecto, objeto, col_id, columna, tipo, pk, secuencia, largo, no_nulo, no_nulo_db, externa, tabla) VALUES (
-	'comision', --objeto_proyecto
-	'35736730000294', --objeto
-	'35736730000355', --col_id
-	'procesado', --columna
-	'L', --tipo
-	'0', --pk
-	'', --secuencia
-	NULL, --largo
-	NULL, --no_nulo
-	'0', --no_nulo_db
-	'0', --externa
-	'permisos_horarios'  --tabla
-);
---- FIN Grupo de desarrollo 35736730
+--- FIN Grupo de desarrollo 24234

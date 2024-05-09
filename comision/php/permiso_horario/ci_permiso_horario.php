@@ -92,7 +92,7 @@ class ci_permiso_horario extends comision_ci
 	}
 	 function enviar_correos($correo) 
 	 {
-	 	require_once('3ros/phpmailer/class.phpmailer.php');
+	 	require_once('phpmailer/class.phpmailer.php');
 
 				$datos =$this-> s__datos;   
 				 
@@ -118,7 +118,7 @@ $mail->SMTPAuth   = true;
 //Leo: cambiamos de cuenta porque la hackearon esta esta contraseña para aplicaciones
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "Elitou01";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)

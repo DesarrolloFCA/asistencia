@@ -9,5 +9,22 @@ class usuario_logueado
 		$leg_usu = toba::db('comision')->consultar($sql);
 		return $leg_usu;
     }
+	public function get_agentes ($legajo){
+		$sql = "SELECT apellido||', '|| nombre as descripcion from reloj.agentes
+		WHERE legajo = $legajo";
+		return toba::db('comision')->consultar($sql);
+	}
+	public function get_jefe ($legajo){
+		$sql = "SELECT * FROM reloj.catedras_agentes
+		where legajo = $legajo
+		and jefe = true";
+		$jefe = toba::db('comision')->consultar($sql);
+		if (count($jefe)> 0) {
+			return true;
+		}else{
+			return false;
+		}
+
+	}
 }
 ?>

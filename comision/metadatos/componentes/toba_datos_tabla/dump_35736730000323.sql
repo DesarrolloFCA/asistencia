@@ -59,7 +59,7 @@ INSERT INTO apex_objeto_db_registros (objeto_proyecto, objeto, max_registros, mi
 	'0', --modificar_claves
 	'comision', --fuente_datos_proyecto
 	'comision', --fuente_datos
-	'1', --permite_actualizacion_automatica
+	'0', --permite_actualizacion_automatica
 	'reloj', --esquema
 	'reloj'  --esquema_ext
 );
