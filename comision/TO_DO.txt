@@ -1,0 +1,13 @@
+*** Ver el tema de los mails que van y vienen para que diga.
+
+Comisión de servicios pisa el día completo, debería, poner dos renglones uno con la comisión y otro con lo que marcaste.
+Parte medico
+Permiso horario, no lo suma a lo trabajado.
+Artesania del excel de Elisa
+Licencias 
+
+Poder agregar a mano a los que no pueden marcar porque falla el reloj
+
+
+Version 3
+Mail mensual de cumplimiento, en un grafico.
