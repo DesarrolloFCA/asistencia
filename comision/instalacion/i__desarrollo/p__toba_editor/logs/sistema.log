@@ -11376,3 +11376,584 @@ Host: 172.18.0.1
 [DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
 [INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
 [INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/marco.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:46:53
+Operacion: Login
+Usuario: no_autentificado
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66436ad00dca73.53448639&ai=toba_editor%7C%7C1000239&tcm=lateral
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st66436acf6a2a59.70918830&ai=toba_editor%7C%7C1000239&tcm=lateral&tm=1
+Host: 172.18.0.1
+==========
+[DEBUG][toba_editor] Guardando parametros del item original
+[DEBUG][toba_editor] array (
+)
+[ERROR][toba_editor] sh: svn: not found
+
+[ERROR][toba_editor] sh: svn: not found
+
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[NOTICE][toba] Fallo la carga de una operación publica. Se intenta con la operación predeterminada
+[DEBUG][toba] Se cambia el ítem solicitado a =>NULL
+[DEBUG][toba] Se cambia el ítem solicitado a =>array (
+  0 => 'toba_editor',
+  1 => '33000040',
+)
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/ci_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(33000139): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(33000139): Pantalla de servicio: 'login'
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__login'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/eiform_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__datos'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:46:54
+Operacion: Login
+Usuario: no_autentificado
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st66436ad00dca73.53448639&ai=toba_editor%7C%7C1000239&tcm=lateral
+Host: 172.18.0.1
+==========
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[DEBUG][toba] Se cambia el ítem solicitado a =>array (
+  0 => 'toba_editor',
+  1 => '33000040',
+)
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/ci_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(33000139): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(33000139): Pantalla de servicio: 'login'
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__login'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/eiform_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__datos'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:46:55
+Operacion: Login
+Usuario: no_autentificado
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[DEBUG][toba] Se cambia el ítem solicitado a =>array (
+  0 => 'toba_editor',
+  1 => '33000040',
+)
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/ci_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(33000139): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(33000139): Pantalla de servicio: 'login'
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__login'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/eiform_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__datos'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:05
+Operacion: Catálogo
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66437967c19847.97089686&ai=toba_editor%7C%7C1000239
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643795e1de485.83364371&ai=toba_editor%7C%7C33000040
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/ci_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(1381): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(1381): Pantalla de servicio: '1'
+[INFO][toba] componente(1381): [ callback ] 'conf__1' no fue atrapado
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/cuadro_fotos.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__fotos'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/filtro_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(1381): [ callback ] 'conf__items'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:06
+Operacion: Catálogo
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66437967c19847.97089686&ai=toba_editor%7C%7C1000239
+Host: 172.18.0.1
+==========
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/ci_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(1381): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(1381): Pantalla de servicio: '1'
+[INFO][toba] componente(1381): [ callback ] 'conf__1' no fue atrapado
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/cuadro_fotos.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__fotos'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/filtro_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(1381): [ callback ] 'conf__items'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:16
+Operacion: Catálogo
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st664379691e9dd2.46547282&ai=toba_editor%7C%7C1000239
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st66437967c19847.97089686&ai=toba_editor%7C%7C1000239
+Host: 172.18.0.1
+==========
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/ci_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(1381): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(1381): Pantalla de servicio: '1'
+[INFO][toba] componente(1381): [ callback ] 'conf__1' no fue atrapado
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/cuadro_fotos.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__fotos'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/filtro_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(1381): [ callback ] 'conf__items'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:17
+Operacion: Catálogo
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st664379691e9dd2.46547282&ai=toba_editor%7C%7C1000239
+Host: 172.18.0.1
+==========
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/ci_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(1381): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(1381): Pantalla de servicio: '1'
+[INFO][toba] componente(1381): [ callback ] 'conf__1' no fue atrapado
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/cuadro_fotos.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__fotos'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/filtro_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(1381): [ callback ] 'conf__items'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:41
+Operacion: Login
+Usuario: no_autentificado
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/
+Host: 172.18.0.1
+==========
+[DEBUG][toba_editor] Guardando parametros del item original
+[DEBUG][toba_editor] array (
+)
+[ERROR][toba_editor] sh: svn: not found
+
+[ERROR][toba_editor] sh: svn: not found
+
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[DEBUG][toba] Se cambia el ítem solicitado a =>array (
+  0 => 'toba_editor',
+  1 => '33000040',
+)
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/ci_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(33000139): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(33000139): Pantalla de servicio: 'login'
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__login'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase login/eiform_login.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(33000139): [ callback ] 'conf__datos'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:52
+Operacion: Marco
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st6643799715e374.45831378&ai=toba_editor%7C%7C1000231
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643798c328172.77114641&ai=toba_editor%7C%7C33000040
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/marco.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:53
+Operacion: Catálogo
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66437998499a60.19830186&ai=toba_editor%7C%7C1000239&tcm=lateral&tm=1
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799715e374.45831378&ai=toba_editor%7C%7C1000231
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto acceso desde el menu. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/ci_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(1381): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(1381): Pantalla de servicio: '1'
+[INFO][toba] componente(1381): [ callback ] 'conf__1' no fue atrapado
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/cuadro_fotos.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__fotos'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/filtro_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(1381): [ callback ] 'conf__items'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:54
+Operacion: Menu
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66437998499a60.19830186&ai=toba_editor%7C%7C1000241
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799715e374.45831378&ai=toba_editor%7C%7C1000231
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/control.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:54
+Operacion: Inicio
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66437998499a60.19830186&ai=toba_editor%7C%7C1000265
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799715e374.45831378&ai=toba_editor%7C%7C1000231
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/inicio.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:57
+Operacion: Menu
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st66437998499a60.19830186&ai=toba_editor%7C%7C1000241
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st66437998499a60.19830186&ai=toba_editor%7C%7C1000241
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/control.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:57
+Operacion: Marco
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st6643799cc4f640.52202540&ai=toba_editor%7C%7C1000231
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st66437998499a60.19830186&ai=toba_editor%7C%7C1000241
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/marco.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:58
+Operacion: Menu
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st6643799d8780e8.06685181&ai=toba_editor%7C%7C1000241
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799cc4f640.52202540&ai=toba_editor%7C%7C1000231
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/control.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba_editor] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_editor] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_editor] INSTANCIA "desarrollo"
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:59
+Operacion: Catálogo
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st6643799d8780e8.06685181&ai=toba_editor%7C%7C1000239&tcm=lateral&tm=1
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799cc4f640.52202540&ai=toba_editor%7C%7C1000231
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto acceso desde el menu. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/ci_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(1381): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(1381): Pantalla de servicio: '1'
+[INFO][toba] componente(1381): [ callback ] 'conf__1' no fue atrapado
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/cuadro_fotos.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__fotos'
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase catalogos/filtro_catalogo_items.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] componente(1381): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(1381): [ callback ] 'conf__items'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:47:59
+Operacion: Inicio
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_editor/3.3/aplicacion.php?ah=st6643799d8780e8.06685181&ai=toba_editor%7C%7C1000265
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799cc4f640.52202540&ai=toba_editor%7C%7C1000231
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto cambio de operación. Se limpia la memoria de la operacion
+[DEBUG][toba_editor] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase customizacion_toba/sesion_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[INFO][toba_editor] PUNTO MONTAJE: se cargó la clase acciones/inicio.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor/php

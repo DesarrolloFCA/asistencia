@@ -13604,3 +13604,612 @@ Se resetea el cursor
 [DEBUG][toba] componente(2190): [ callback ] 'conf__filtro'
 [DEBUG][toba] componente(2190): [ callback ] 'conf__cuadro'
 [DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:48:02
+Operacion: Inicio
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_usuarios/3.3/?ai=toba_usuarios&tcm=previsualizacion&tm=1
+Referrer: http://localhost:7001/toba_editor/3.3/aplicacion.php?ah=st6643799d8780e8.06685181&ai=toba_editor%7C%7C1000241
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto acceso desde el menu. Se limpia la memoria de la operacion
+[DEBUG][toba_usuarios] Guardando parametros del item original
+[DEBUG][toba_usuarios] array (
+  'tm' => '1',
+)
+[DEBUG][toba_usuarios] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase extension_toba/sesion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] Cargando USUARIO 'toba' en el proyecto 'toba_usuarios'
+[DEBUG][toba] Crear SESION '1842000260' en el proyecto 'toba_usuarios'
+[DEBUG][toba] Se creo la SESION [usuario: toba ]
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase extension_toba/sesion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba_usuarios] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_usuarios] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_usuarios] INSTANCIA "desarrollo"
+[DEBUG][toba_usuarios] Conectando a base 'toba_3_3'
+[DEBUG][toba_usuarios] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba] Se cambia el ítem solicitado a =>array (
+  0 => 'toba_usuarios',
+  1 => '1000228',
+)
+[INFO][toba] Se detecto acceso desde el menu. Se limpia la memoria de la operacion
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase item_inicial.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:48:08
+Operacion: Mantenimiento de usuarios
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_usuarios/3.3/aplicacion.php?tm=1&tcm=previsualizacion&ai=toba_usuarios||3432
+Referrer: http://localhost:7001/toba_usuarios/3.3/?ai=toba_usuarios&tcm=previsualizacion&tm=1
+Host: 172.18.0.1
+==========
+[INFO][toba] Se detecto acceso desde el menu. Se limpia la memoria de la operacion
+[DEBUG][toba_usuarios] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase extension_toba/sesion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba_usuarios] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_usuarios] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_usuarios] INSTANCIA "desarrollo"
+[DEBUG][toba_usuarios] Conectando a base 'toba_3_3'
+[DEBUG][toba_usuarios] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ci_navegacion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2190): [callback][ ini__operacion ]
+[DEBUG][toba] [SECCION] Procesando eventos...
+[INFO][toba] componente(2190): No hay señales de un servicio anterior, no se atrapan eventos
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(2190): Pantalla de servicio: 'seleccionar'
+[DEBUG][toba] componente(2190): [ callback ] 'conf__seleccionar'
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ei_form_filtro_usuarios.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2190): [ callback ] 'conf__filtro'
+[DEBUG][toba] Se filtro el evento: cancelar
+[DEBUG][toba] componente(2190): [ callback ] 'conf__cuadro'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:48:11
+Operacion: Mantenimiento de usuarios
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_usuarios/3.3/aplicacion.php?ah=st664379a7535dc8.60061414&ai=toba_usuarios%7C%7C3432&tcm=previsualizacion
+Referrer: http://localhost:7001/toba_usuarios/3.3/aplicacion.php?tm=1&tcm=previsualizacion&ai=toba_usuarios||3432
+Host: 172.18.0.1
+==========
+[DEBUG][toba_usuarios] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase extension_toba/sesion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba_usuarios] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_usuarios] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_usuarios] INSTANCIA "desarrollo"
+[DEBUG][toba_usuarios] Conectando a base 'toba_3_3'
+[DEBUG][toba_usuarios] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ci_navegacion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2190): Pantalla de eventos: 'seleccionar'
+[DEBUG][toba] [SECCION] Procesando eventos...
+[DEBUG][toba] componente(2190): [ inicializar_dependencias ]
+array (
+  0 => 'filtro',
+  1 => 'cuadro',
+)
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ei_form_filtro_usuarios.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2190): [ registrar_evento ] 'filtrar' -> [ evt__filtro__filtrar ]
+array (
+  0 => 
+  array (
+    'usuario' => NULL,
+    'nombre' => NULL,
+    'pertenencia' => 'T',
+    'proyecto' => 'comision',
+  ),
+)
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(2190): Pantalla de servicio: 'seleccionar'
+[DEBUG][toba] componente(2190): [ callback ] 'conf__seleccionar'
+[DEBUG][toba] componente(2190): [ callback ] 'conf__filtro'
+[DEBUG][toba] componente(2190): [ callback ] 'conf__cuadro'
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
+-o-o-o-o-o-
+Fecha: 14-05-2024 11:48:31
+Operacion: Mantenimiento de usuarios
+Usuario: toba
+Version-PHP: 7.4.33
+Servidor: localhost
+URI: /toba_usuarios/3.3/aplicacion.php?ah=st664379aabcc086.03725695&ai=toba_usuarios%7C%7C3432&tcm=previsualizacion
+Referrer: http://localhost:7001/toba_usuarios/3.3/aplicacion.php?ah=st664379a7535dc8.60061414&ai=toba_usuarios%7C%7C3432&tcm=previsualizacion
+Host: 172.18.0.1
+==========
+[DEBUG][toba_usuarios] PUNTO DE MONTAJE: se cargó exitosamente el autoload del punto de montaje proyecto
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase extension_toba/sesion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba_usuarios] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba_usuarios] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][toba_usuarios] INSTANCIA "desarrollo"
+[DEBUG][toba_usuarios] Conectando a base 'toba_3_3'
+[DEBUG][toba_usuarios] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] PROYECTO "toba_usuarios"
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba_usuarios] (
+				SELECT 	amo.padre,
+							amo.carpeta,
+							amo.proyecto,
+							amo.item,
+							amo.descripcion as nombre,
+							ai.orden as 		orden,
+							ai.imagen,
+							ai.imagen_recurso_origen,
+							amo.padre = '1000229' as es_primer_nivel
+				   FROM 
+							apex_usuario_grupo_acc auga
+						JOIN apex_menu_operaciones amo ON (auga.menu_usuario = amo.menu_id AND auga.proyecto = amo.proyecto)
+						JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc AND augai.item = amo.item)
+						JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				  WHERE (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(amo.proyecto = 'toba_usuarios')
+					AND auga.menu_usuario IS NOT NULL
+			UNION
+				SELECT 	ai.padre,
+						ai.carpeta,
+						ai.proyecto,
+						ai.item,
+						ai.nombre as nombre,
+						ai.orden as 		orden,
+						ai.imagen,
+						ai.imagen_recurso_origen,
+						ai.padre = '1000229' as es_primer_nivel
+				FROM 
+						apex_usuario_grupo_acc auga
+					JOIN apex_usuario_grupo_acc_item augai ON (auga.proyecto = augai.proyecto AND auga.usuario_grupo_acc = augai.usuario_grupo_acc)
+					JOIN apex_item ai ON (augai.item = ai.item AND augai.proyecto = ai.proyecto)	
+				WHERE auga.menu_usuario is null
+					AND (ai.menu = 1)
+					AND ai.item != ai.padre
+					AND	(auga.usuario_grupo_acc IN ('admin') OR ai.publico = 1)
+					AND	(ai.proyecto = 'toba_usuarios')
+			) ORDER BY 1, 6
+[DEBUG][toba] [SECCION] Iniciando componentes...
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ci_navegacion.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2190): Pantalla de eventos: 'seleccionar'
+[DEBUG][toba] [SECCION] Procesando eventos...
+[DEBUG][toba] componente(2190): [ evento ] 'agregar' -> [ evt__agregar ]
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ci_editor.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2188): [callback][ ini__operacion ]
+[INFO][toba] componente(2190): [ callback ] 'evt__seleccionar__salida' no fue atrapado
+[INFO][toba] componente(2190): [ callback ] 'evt__editar__entrada' no fue atrapado
+[DEBUG][toba] [SECCION] Configurando dependencias para responder al servicio...
+[DEBUG][toba] componente(2190): Pantalla de servicio: 'editar'
+[INFO][toba] componente(2190): [ callback ] 'conf__editar' no fue atrapado
+[DEBUG][toba] Se elimino el evento: eliminar
+[DEBUG][toba] componente(2188): Pantalla de servicio: 'usuario'
+[INFO][toba] componente(2188): [ callback ] 'conf__usuario' no fue atrapado
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase usuarios/ei_form_basica.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(2185):  IMPLICITO: modificacion
+[DEBUG][toba] componente(2188): [ callback ] 'conf__basica'
+[INFO][toba_usuarios] PUNTO MONTAJE: se cargó la clase /usuarios/form_ml_resp_secreta.php del punto de montaje proyecto. El path del mismo es /usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios/php
+[DEBUG][toba] componente(33000065):  IMPLICITO: modificacion
+[DEBUG][toba] componente(2188): [ callback ] 'conf__form_pregunta_secreta'
+[INFO][toba] componente(2190): [ callback ] 'conf__editor' no fue atrapado
+[DEBUG][toba] [SECCION] Respondiendo al servicio__generar_html...
