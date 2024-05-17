@@ -24,7 +24,7 @@ class ci_razones_particulares extends comision_ci
 		for($i=0;$i<$cant;$i++){
 			$legajo=$datos[$i]['legajo'];
 			$id = $datos[$i]['id_inasistencia'];
-			$obs = $datos[$i]['observaciones'];
+			$obs = $datos[$i]['obs'];
 			$datos[$i]['fecha_inicio']=$this->s__datos[$i]['fecha_inicio'];
 			if ($datos[$i]['auto_sup'] == 1){
 				$aut_sup = 'true';
@@ -81,7 +81,7 @@ class ci_razones_particulares extends comision_ci
 						legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 						apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo,  tipo_sexo,usuario_cierre,fecha_cierre)
 						VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
-						'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+						'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto, $id_motivo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
 					toba::db('comision')->ejecutar($sql);
 					$sql = "SELECT max(id_parte) ultimo FROM reloj.parte";
 					$a= toba::db('comision')->consultar($sql);
@@ -114,13 +114,15 @@ class ci_razones_particulares extends comision_ci
 		$legajo = $legajo[0]['legajo'];
 		if (usuario_logueado::get_jefe($legajo)){
 		$sql = "SELECT * FROM reloj.inasistencias
+				join reloj.motivo  ON motivo.id_motivo = inasistencias.id_motivo
+				join reloj.catedras ON catedras.id_catedra = inasistencias.id_catedra
 			WHERE  estado = 'A'
-			AND id_motivo not in (57,35)
-			and id_catedra in ((Select id_catedra from reloj.catedras_agentes
+			AND inasistencias.id_motivo not in (57,35)
+			and inasistencias.id_catedra in ((Select id_catedra from reloj.catedras_agentes
 										where legajo = $legajo
 										and jefe = true))
 					and legajo <> $legajo
-			Order by id_catedra, fecha_inicio,  legajo";
+			Order by inasistencias.id_catedra, fecha_inicio,  legajo";
 		$datos = toba::db('comision')->consultar($sql);
 		$this ->s__datos = $datos;
 		$ruta = 'certificados/';

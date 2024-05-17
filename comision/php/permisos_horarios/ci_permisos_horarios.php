@@ -130,12 +130,13 @@ class ci_permisos_horarios extends comision_ci
 		$legajo = $legajo[0]['legajo'];
 		if (usuario_logueado::get_jefe($legajo)){
 		$sql = "SELECT  *  FROM reloj.permisos_horarios
+						join reloj.catedras ON catedras.id_catedra = permisos_horarios.id_catedra
 					WHERE procesado is null
-					and id_catedra in ((Select id_catedra from reloj.catedras_agentes
+					and permisos_horarios.id_catedra in ((Select id_catedra from reloj.catedras_agentes
 										where legajo = $legajo
 										and jefe = true))
 					and legajo <> $legajo
-					order by id_catedra, fecha  ,legajo ";
+					order by permisos_horarios.id_catedra, fecha  ,legajo ";
 		$listado = toba::db('comision')->consultar($sql);
 		$tot = count($listado);
 		for($i=0;$i<$tot;$i++){
