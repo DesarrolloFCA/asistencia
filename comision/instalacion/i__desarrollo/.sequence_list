@@ -1,0 +1,152 @@
+{
+    "apex_clase_tipo_seq": {
+        "last_value": 24234000000
+    },
+    "apex_columna_estilo_seq": {
+        "last_value": 24234000000
+    },
+    "apex_columna_formato_seq": {
+        "last_value": 24234000000
+    },
+    "apex_nota_seq": {
+        "last_value": 24234000000
+    },
+    "apex_item_nota_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_nota_seq": {
+        "last_value": 24234000000
+    },
+    "apex_item_seq": {
+        "last_value": 24234000010
+    },
+    "apex_objeto_seq": {
+        "last_value": 24234000036
+    },
+    "apex_clase_relacion_seq": {
+        "last_value": 24234000000
+    },
+    "apex_item_msg_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_msg_seq": {
+        "last_value": 24234000000
+    },
+    "apex_msg_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_dbr_columna_seq": {
+        "last_value": 24234000117
+    },
+    "apex_objeto_dbr_ext_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_dbr_uniq_seq": {
+        "last_value": 24234000000
+    },
+    "apex_obj_ei_cuadro_col_seq": {
+        "last_value": 24234000000
+    },
+    "apex_obj_ci_pantalla_seq": {
+        "last_value": 24234000005
+    },
+    "apex_obj_ei_form_fila_seq": {
+        "last_value": 24234000199
+    },
+    "apex_obj_ei_cuadro_cc_seq": {
+        "last_value": 24234000001
+    },
+    "apex_objeto_dep_seq": {
+        "last_value": 24234000017
+    },
+    "apex_objeto_eventos_seq": {
+        "last_value": 24234000018
+    },
+    "apex_objeto_datos_rel_asoc_seq": {
+        "last_value": 24234000000
+    },
+    "apex_admin_persistencia_seq": {
+        "last_value": 24234000000
+    },
+    "apex_permiso_seq": {
+        "last_value": 24234000000
+    },
+    "apex_molde_operacion_tipo_seq": {
+        "last_value": 24234000000
+    },
+    "apex_molde_operacion_tipo_dato_seq": {
+        "last_value": 24234000000
+    },
+    "apex_molde_operacion_seq": {
+        "last_value": 24234000007
+    },
+    "apex_molde_operacion_abms_fila_seq": {
+        "last_value": 24234000107
+    },
+    "apex_molde_operacion_log_seq": {
+        "last_value": 24234000004
+    },
+    "apex_molde_operacion_log_elementos_seq": {
+        "last_value": 24234000046
+    },
+    "apex_consulta_php_seq": {
+        "last_value": 24234000000
+    },
+    "apex_relacion_tablas_seq": {
+        "last_value": 24234000000
+    },
+    "apex_dimension_seq": {
+        "last_value": 24234000000
+    },
+    "apex_dimension_gatillo_seq": {
+        "last_value": 24234000000
+    },
+    "apex_usuario_perfil_datos_seq": {
+        "last_value": 24234000000
+    },
+    "apex_usuario_perfil_datos_dims_seq": {
+        "last_value": 24234000000
+    },
+    "apex_restriccion_funcional_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_ei_filtro_col_seq": {
+        "last_value": 24234000000
+    },
+    "apex_tarea_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_dep_consumo_seq": {
+        "last_value": 24234000000
+    },
+    "apex_gadgets_seq": {
+        "last_value": 24234000000
+    },
+    "apex_puntos_montaje_seq": {
+        "last_value": 24234000000
+    },
+    "apex_objeto_db_columna_fks_seq": {
+        "last_value": 24234000000
+    },
+    "apex_sesion_browser_seq": {
+        "last_value": 24234000042
+    },
+    "apex_solicitud_seq": {
+        "last_value": 24234001734
+    },
+    "apex_solicitud_observacion_seq": {
+        "last_value": 24234000000
+    },
+    "apex_log_error_login_seq": {
+        "last_value": 24234000013
+    },
+    "apex_log_sistema_seq": {
+        "last_value": 24234000000
+    },
+    "apex_log_tarea_seq": {
+        "last_value": 24234000000
+    },
+    "apex_log_objeto_seq": {
+        "last_value": 24234000177
+    }
+}

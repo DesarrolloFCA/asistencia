@@ -1,4 +1,5 @@
 vendor/
-comision/instalacion/
 comision/entorno_toba.env
 comision/bin/
+comision/instalacion/bases.ini
+*.log
