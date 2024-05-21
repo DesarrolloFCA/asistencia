@@ -42,7 +42,7 @@ class ci_permiso_horario extends comision_ci
 		$a = toba::db('comision')->consultar($sql);
 		$cantidad = $a [0]['cantidad'];
 		
-		if ($cantidad <= 5 ) {
+		if ($cantidad < 5 ) {
 
 		$this->dep('datos')->tabla('permiso_horarios')->nueva_fila($datos);
 		$this->dep('datos')->sincronizar();

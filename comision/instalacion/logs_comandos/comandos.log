@@ -2180,6 +2180,7 @@ Argumentos: proyecto regenerar -p comision
 [DEBUG][comision] SECUENCIA apex_objeto_db_columna_fks_seq: 24234000000
 [DEBUG][toba] ************ CERRAR transaccion (toba_3_3@pg) ****************
 -o-o-o-o-o-
+<<<<<<< Updated upstream
 Fecha: 17-05-2024 11:10:52
 Version-PHP: 7.4.33
 Ruta: /usr/local/proyectos/comision
@@ -2187,6 +2188,15 @@ Argumentos: proyecto exportar -p comision -i desarrollo
 ==========
 [DEBUG][comision] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
 [DEBUG][comision] Parametros instancia desarrollo: array (
+=======
+Fecha: 17-05-2024 09:20:50
+Version-PHP: 7.4.33
+Ruta: /usr/local/proyectos/comision/vendor/siu-toba/framework/bin
+Argumentos: proyecto regenerar -p comision
+==========
+[DEBUG][toba] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][toba] Parametros instancia desarrollo: array (
+>>>>>>> Stashed changes
   'base' => 'toba_3_3',
   'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
   'tipo' => 'normal',
@@ -2211,6 +2221,7 @@ Argumentos: proyecto exportar -p comision -i desarrollo
     'url' => '/comision/1.0',
   ),
 )
+<<<<<<< Updated upstream
 [DEBUG][comision] INSTANCIA "desarrollo"
 [DEBUG][comision] Conectando a base 'toba_3_3'
 [DEBUG][comision] Parametros de conexion: array (
@@ -2373,3 +2384,8 @@ Argumentos: proyecto exportar -p comision -i desarrollo
 [DEBUG][comision] Exportando local PROYECTO toba_referencia
 [DEBUG][comision] Exportando local PROYECTO toba_usuarios
 [DEBUG][comision] Observaciones de sincronizacion: 
+=======
+[DEBUG][toba] INSTANCIA "desarrollo"
+[DEBUG][toba] Conectando a base 'toba_3_3'
+[ERROR][toba] No es posible realizar la conexión a la base. Mensaje: SQLSTATE[08006] [7] no se pudo traducir el nombre Â«pgÂ» a una direcciÃ³n: No existe ninguna direcciÃ³n asociada al nombre
+>>>>>>> Stashed changes
