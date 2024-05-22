@@ -1,0 +1,4 @@
+vendor/
+comision/entorno_toba.env
+comision/bin/
+*.log*
