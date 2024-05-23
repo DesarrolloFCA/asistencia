@@ -33,7 +33,8 @@ class comision extends toba_ci
 		if ($datos['fecha'] <= $datos['fecha_fin'])
 		{
 			$fecha=$datos['fecha'];    
-			$fecha_fin=date('d/m/Y',strtotime($datos['fecha_fin']));
+			//$fecha_fin=date('d/m/Y',strtotime($datos['fecha_fin']));
+			$fecha_fin=$datos['fecha_fin'];
 			$legajo=$datos['legajo'];
 			$superior=$datos['superior'];
 			$autoridad=$datos['autoridad'];

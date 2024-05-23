@@ -1,4 +1,6 @@
 vendor/
 comision/entorno_toba.env
 comision/bin/
-*.log*
+comision/instalacion/logs_comandos/
+comision/instalacion/i__desarrollo/p__comision/logs/
+comision/instalacion/i__desarrollo/p__toba_editor/logs/

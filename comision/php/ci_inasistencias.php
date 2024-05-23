@@ -36,10 +36,6 @@ class ci_inasistencias extends ctrl_asis_ci
 		
 		if ($datos[$i]['apex_ei_analisis_fila'] == 'M' ){
 		
-		
-		
-			
-				
 				$id_inasistencia= $formula[$i]['id_inasistencia'];
 				//ei_arbol($formula[$i]['inasistencia']);
 				$observaciones= $datos[$i]['observaciones'];
