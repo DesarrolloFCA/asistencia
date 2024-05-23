@@ -1777,7 +1777,7 @@ $mail->IsHTML(true); //el mail contiene html
 		$body = '<table>
 						El/la agente  <b>'.$datos['descripcion'].'</b> perteneciente a la <b>'.$datos['catedra'].'</b> solicita <b> Razones Particulares </b> a partir del d&iacute;a '.$fecha.' hasta '.$hasta. '.<br/>
 							Observaciones: ' .$datos['observaciones']. ' - <br/>
-							En caso de no estar de acuerdo con la autorizacion enviar un correo a asistencia@fca.uncu.edu.ar .
+							Usted deber&aacute; ingersar a <a href="https://sistemas.fca.uncu.edu.ar/solicitudes" target="_blank">https://sistemas.fca.uncu.edu.ar/solicitudes</a>, para aprobar o rechazar la solicitud .
 
 											
 			</table>';
@@ -1791,7 +1791,7 @@ $mail->IsHTML(true); //el mail contiene html
 
 						El/la agente  <b>'.$datos['descripcion'].'</b> perteneciente a  la <b>'.$datos['catedra'].'</b>.<br/>
 						Solicita <b> Licencia Anual por Vacaciones </b> correspondiente al  '.$datos['anio'].' a partir del d&iacute;a '.$fecha.' hasta '.$hasta. '.<br/>
-						En caso de no estar de acuerdo con la autorizacion enviar un correo a asistencia@fca.uncu.edu.ar .
+						Usted deber&aacute; ingersar a <a href="https://sistemas.fca.uncu.edu.ar/solicitudes" target="_blank">https://sistemas.fca.uncu.edu.ar/solicitudes</a>, para aprobar o rechazar la solicitud .
 
 											
 			</table>';
@@ -1803,7 +1803,7 @@ $mail->IsHTML(true); //el mail contiene html
 				El/la agente <b>'.$datos['descripcion'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
 				Solicita <b>los d&iacute;as pendientes de la licencia anual</b> correspondiente al ' .$datos['anio']. ' a partir del d&iacute;a '.$fecha. ' hasta '.$hasta. '<br/>
 				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones'].  '<br/>
-				En caso de no estar de acuerdo con la autorizacion enviar un correo a asistencia@fca.uncu.edu.ar .
+				Usted deber&aacute; ingersar a <a href="https://sistemas.fca.uncu.edu.ar/solicitudes" target="_blank">https://sistemas.fca.uncu.edu.ar/solicitudes</a>, para aprobar o rechazar la solicitud .
 			<table/>';
 
 
@@ -1815,7 +1815,7 @@ $mail->IsHTML(true); //el mail contiene html
 				El/la agente <b>'.$datos['descripcion'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
 				Solicita solicita Razones Particulares a partir SIN GOCE  a partir del d&iacute;a '.$fecha. ' hasta '.$hasta. '<br/>
 				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones'].  '<br/>
-				En caso de no estar de acuerdo con la autorizacion enviar un correo a asistencia@fca.uncu.edu.ar .
+				Usted deber&aacute; ingersar a <a href="https://sistemas.fca.uncu.edu.ar/solicitudes" target="_blank">https://sistemas.fca.uncu.edu.ar/solicitudes</a>, para aprobar o rechazar la solicitud .
 			<table/>';	
 
 		}
