@@ -2433,3 +2433,285 @@ Argumentos: instancia info
   'encoding' => 'LATIN1',
   'schema' => 'desarrollo',
 )
+-o-o-o-o-o-
+Fecha: 23-05-2024 09:11:04
+Version-PHP: 7.4.33
+Ruta: /usr/local/proyectos/comision
+Argumentos: proyecto regenerar -p comision
+==========
+[DEBUG][comision] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][comision] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][comision] INSTANCIA "desarrollo"
+[DEBUG][comision] Conectando a base 'toba_3_3'
+[ERROR][comision] INSTALACIÓN: La instalación '/usr/local/proyectos/comision/vendor/siu-toba/framework' es inválida. (El archivo de configuración '/usr/local/proyectos/comision/instalacion/instalacion.ini' no existe)
+[DEBUG][comision] Conectando a base 'toba_3_3'
+[ERROR][comision] INSTALACIÓN: La instalación '/usr/local/proyectos/comision/vendor/siu-toba/framework' es inválida. (El archivo de configuración '/usr/local/proyectos/comision/instalacion/instalacion.ini' no existe)
+[ERROR][comision] toba_error: INSTALACIÓN: La instalación es inválida. (El archivo de configuración no existe) Revise el log 
+[TRAZA]
+	
+	toba_modelo_instalacion->cargar_info_ini 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/modelo/toba_modelo_instalacion.php, lInea 58 
+	
+	toba_modelo_instalacion->get_parametros_base 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/modelo/toba_modelo_instalacion.php, lInea 288 
+	
+	toba_modelo_instalacion->conectar_base 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/modelo/toba_modelo_instancia.php, lInea 139 
+	
+	toba_modelo_instancia->get_db 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/modelo/toba_modelo_proyecto.php, lInea 54 
+	
+	toba_modelo_proyecto->__construct 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/modelo/toba_modelo_catalogo.php, lInea 77 
+	
+	toba_modelo_catalogo->get_proyecto 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/comandos/comando_toba.php, lInea 79 
+	
+	comando_toba->get_proyecto 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/comandos/comando_proyecto.php, lInea 419 
+	
+	comando_proyecto->opcion__regenerar 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/comandos/comando_proyecto.php, lInea 89 
+	
+	comando_proyecto->ejecutar_opcion 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/comando.php, lInea 90 
+	
+	comando->procesar 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/consola.php, lInea 78 
+	
+	consola->invocar_comando 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/consola.php, lInea 55 
+	
+	consola->run 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/run.php, lInea 32 
+	
+	require_once 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/bin/launcher.php, lInea 31 
+Parametros: 
+/usr/local/proyectos/comision/vendor/siu-toba/framework/php/consola/run.php		
+	
+	require_once 
+Archivo: /usr/local/proyectos/comision/vendor/siu-toba/framework/bin/toba, lInea 1 
+Parametros: 
+/usr/local/proyectos/comision/vendor/siu-toba/framework/bin/launcher.php		
+	
+	include 
+Archivo: /usr/local/proyectos/comision/bin/toba, lInea 115 
+Parametros: 
+/usr/local/proyectos/comision/vendor/siu-toba/framework/bin/toba		
+	
+	
+
+-o-o-o-o-o-
+Fecha: 24-05-2024 10:33:04
+Version-PHP: 7.4.33
+Ruta: /usr/local/proyectos/comision
+Argumentos: proyecto regenerar -p comision
+==========
+[DEBUG][comision] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][comision] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][comision] INSTANCIA "desarrollo"
+[DEBUG][comision] Conectando a base 'toba_3_3'
+[DEBUG][comision] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][comision] PROYECTO "comision"
+[DEBUG][comision] PROYECTO "comision"
+[DEBUG][comision] Regenerando PROYECTO comision
+[DEBUG][toba] ************ ABRIR transaccion (toba_3_3@pg) ****************
+[DEBUG][toba] ************ Se cambia el chequeo de constraints (DEFERRED) ****************
+[DEBUG][comision] Exportando local PROYECTO comision
+[DEBUG][comision] Eliminacion. Registros borrados: 119
+[DEBUG][comision] Cargando proyecto 'comision'
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/tablas/apex_consulta_php.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/tablas/apex_fuente_datos.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/tablas/apex_fuente_datos_schemas.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/tablas/apex_msg.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/tablas/apex_proyecto.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/tablas/apex_puntos_montaje.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_asistente_abms/dump_35736730000042.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_asistente_grilla/dump_24234000004.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_asistente_grilla/dump_24234000006.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_asistente_grilla/dump_24234000007.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_1842000005.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_24234000002.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_24234000012.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_24234000015.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_24234000019.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_24234000022.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_35736730000177.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_35736730000203.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_35736730000213.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_35736730000286.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ci/dump_35736730000396.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_1842000001.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_1842000006.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_24234000003.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_24234000013.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_24234000035.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_24234000036.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000179.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000218.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000219.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000222.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000233.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000291.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_relacion/dump_35736730000292.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_1842000002.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_24234000011.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_24234000017.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_24234000034.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000184.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000205.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000215.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000216.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000217.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000220.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000221.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000234.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000246.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000247.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000294.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000323.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_datos_tabla/dump_35736730000390.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_cuadro/dump_35736730000176.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_cuadro/dump_35736730000393.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_1842000003.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_1842000004.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000172.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000173.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000174.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000175.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000180.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000204.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000214.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario/dump_35736730000290.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario_ml/dump_24234000001.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario_ml/dump_24234000010.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario_ml/dump_24234000014.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario_ml/dump_24234000018.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_ei_formulario_ml/dump_24234000023.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_1.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_1842000002.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_2.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_24234000001.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_24234000002.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_24234000007.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_24234000009.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_24234000010.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000045.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000046.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000053.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000054.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000055.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000073.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000074.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/componentes/toba_item/dump_35736730000098.sql (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/permisos/grupo_acceso__admin.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/metadatos/permisos/grupo_acceso__personal.sql. (1)
+[DEBUG][comision] Cargando datos de la instancia del proyecto 'comision'
+[DEBUG][comision] /usr/local/proyectos/comision/instalacion/i__desarrollo/p__comision/datos.sql. (1)
+[DEBUG][comision] /usr/local/proyectos/comision/instalacion/i__desarrollo/p__comision/usuarios.sql. (1)
+[DEBUG][comision] Actualizando SECUENCIAS
+[DEBUG][comision] SECUENCIA apex_usuario_pregunta_secreta_seq: 
+[DEBUG][comision] SECUENCIA apex_usuario_pwd_usados_seq: 3
+[DEBUG][comision] SECUENCIA apex_menu_operaciones_seq: 38
+[DEBUG][comision] SECUENCIA apex_clase_tipo_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_columna_estilo_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_columna_formato_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_nota_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_item_nota_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_nota_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_item_seq: 24234000010
+[DEBUG][comision] SECUENCIA apex_objeto_seq: 24234000036
+[DEBUG][comision] SECUENCIA apex_clase_relacion_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_item_msg_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_msg_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_msg_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_dbr_columna_seq: 24234000117
+[DEBUG][comision] SECUENCIA apex_objeto_dbr_ext_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_dbr_uniq_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_obj_ei_cuadro_col_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_obj_ci_pantalla_seq: 24234000005
+[DEBUG][comision] SECUENCIA apex_obj_ei_form_fila_seq: 24234000205
+[DEBUG][comision] SECUENCIA apex_obj_ei_cuadro_cc_seq: 24234000001
+[DEBUG][comision] SECUENCIA apex_objeto_dep_seq: 24234000017
+[DEBUG][comision] SECUENCIA apex_objeto_eventos_seq: 24234000017
+[DEBUG][comision] SECUENCIA apex_objeto_datos_rel_asoc_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_admin_persistencia_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_permiso_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_molde_operacion_tipo_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_molde_operacion_tipo_dato_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_molde_operacion_seq: 24234000007
+[DEBUG][comision] SECUENCIA apex_molde_operacion_abms_fila_seq: 24234000107
+[DEBUG][comision] SECUENCIA apex_molde_operacion_log_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_molde_operacion_log_elementos_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_consulta_php_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_relacion_tablas_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_dimension_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_dimension_gatillo_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_usuario_perfil_datos_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_usuario_perfil_datos_dims_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_restriccion_funcional_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_ei_filtro_col_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_tarea_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_dep_consumo_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_gadgets_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_puntos_montaje_seq: 24234000000
+[DEBUG][comision] SECUENCIA apex_objeto_db_columna_fks_seq: 24234000000
+[DEBUG][toba] ************ CERRAR transaccion (toba_3_3@pg) ****************
