@@ -21,11 +21,11 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Login Genérico', --nombre
-	'Autentificación de Usuarios', --titulo
+	'Autenticación de Usuarios', --titulo
 	'0', --colapsable
 	NULL, --descripcion
-	'comision', --fuente_datos_proyecto
-	'comision', --fuente_datos
+	NULL, --fuente_datos_proyecto
+	NULL, --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion

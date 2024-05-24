@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[35736730000045]--  Autentificación de Usuarios 
+--[35736730000045]--  Autenticación de Usuarios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -17,13 +17,13 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --carpeta
 	'0', --nivel_acceso
 	'web', --solicitud_tipo
-	'toba', --pagina_tipo_proyecto
-	'logon', --pagina_tipo
+	'comision', --pagina_tipo_proyecto
+	'tp_login', --pagina_tipo
 	'toba', --actividad_buffer_proyecto
 	'0', --actividad_buffer
 	'toba', --actividad_patron_proyecto
 	'abms_cd_c', --actividad_patron
-	'Autentificación de Usuarios', --nombre
+	'Autenticación de Usuarios', --nombre
 	NULL, --descripcion
 	'35736730000002', --punto_montaje
 	'', --actividad_accion
