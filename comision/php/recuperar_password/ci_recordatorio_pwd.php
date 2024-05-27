@@ -256,7 +256,7 @@ class ci_recordatorio_pwd extends toba_ci
 			$mail->SMTPSecure = 'tls';
 			$mail->SMTPAuth   = true;
 			$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-			$mail->Password   = "Elitou01";
+			$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
 			//"gvcghltncpblkjbl";
 			$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 			$mail->AddAddress($this->s__email);
@@ -367,7 +367,7 @@ class ci_recordatorio_pwd extends toba_ci
 			$mail->SMTPSecure = 'tls';
 			$mail->SMTPAuth   = true;
 			$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-			$mail->Password   = "Elitou01";
+			$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
 			$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 			$mail->AddAddress($datos_orig['email']);
 			$mail->Body = $cuerpo_mail;
