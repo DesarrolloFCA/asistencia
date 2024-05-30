@@ -1,0 +1,14 @@
+{
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "username": "formularios_asistencia@fca.uncu.edu.ar",
+    "from": "formularios_asistencia@fca.uncu.edu.ar",
+    "from_name": "Formulario Personal",
+    "security": "PHPMailer::ENCRYPTION_SMTPS",
+    "auth": true,
+    "auto_tls": true,
+    "debug": "SMTP::DEBUG_SERVER",
+    "client_id": "343875159031-b35h3qbe4ifuqpojisbu69337rc8dach.apps.googleusercontent.com",
+    "client_secret": "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",
+    "refresh_token": "1//0hS3_VhKrVVEtCgYIARAAGBESNwF-L9IroGM62AdqXS-RNt5Mr9GL-XK3mOejZuzfGCh7anKMhI2k016BzJUe71-6DM6tgogijOw"
+}

@@ -2715,3 +2715,119 @@ Argumentos: proyecto regenerar -p comision
 [DEBUG][comision] SECUENCIA apex_puntos_montaje_seq: 24234000000
 [DEBUG][comision] SECUENCIA apex_objeto_db_columna_fks_seq: 24234000000
 [DEBUG][toba] ************ CERRAR transaccion (toba_3_3@pg) ****************
+-o-o-o-o-o-
+Fecha: 30-05-2024 10:48:36
+Version-PHP: 7.4.33
+Ruta: /usr/local/proyectos/comision
+Argumentos: proyecto
+==========
+[DEBUG][comision] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][comision] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][comision] INSTANCIA "desarrollo"
+[DEBUG][comision] Conectando a base 'toba_3_3'
+[DEBUG][comision] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][comision] PROYECTO "comision"
+-o-o-o-o-o-
+Fecha: 30-05-2024 10:49:10
+Version-PHP: 7.4.33
+Ruta: /usr/local/proyectos/comision
+Argumentos: proyecto eliminar -p toba_referencia
+==========
+[DEBUG][comision] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][comision] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_referencia, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_referencia' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_referencia',
+    'url' => '/toba_referencia/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][comision] INSTANCIA "desarrollo"
+[DEBUG][comision] Conectando a base 'toba_3_3'
+[DEBUG][comision] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][comision] PROYECTO "toba_referencia"
+[DEBUG][comision] PROYECTO "toba_referencia"
+[DEBUG][toba] ************ ABRIR transaccion (toba_3_3@pg) ****************
+[DEBUG][toba] ************ Se cambia el chequeo de constraints (DEFERRED) ****************
+[DEBUG][comision] Eliminacion. Registros borrados: 621
+[DEBUG][toba] ************ CERRAR transaccion (toba_3_3@pg) ****************
+[DEBUG][comision] Desvinculado el proyecto 'toba_referencia' de la instancia
+[DEBUG][comision] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
