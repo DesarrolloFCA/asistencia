@@ -9,9 +9,9 @@ $cuerpo = 'Este es el cuerpo del correo en texto plano o HTML';
 $desde = 'lfontes@fca.uncu.edu.ar'; // Opcional
 
 // Ruta absoluta al archivo de configuración JSON
-$config_file = '/usr/local/proyectos/comision/php/mail/config_smtp.json';
+//$config_file = '/usr/local/proyectos/comision/php/mail/config_smtp.json';
 
-$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde, $config_file);
+$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde);
 
 $mail->setHtml(true); // Si el cuerpo es HTML
 //$mail->setCc(['cc1@example.com', 'cc2@example.com']); // Direcciones CC
