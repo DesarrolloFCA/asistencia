@@ -37,12 +37,13 @@ class TobaMail
      * @param string $desde Direccion de email desde la cual se envia (opcionalmente se obtiene desde los parametros)
      * @param string $config_file Ruta al archivo de configuración JSON
      */
-    public function __construct($hacia, $asunto, $cuerpo, $desde = null)
+    public function __construct($hacia, $asunto, $cuerpo, $desde = null, $ccopia)
     {
         $this->hacia = $hacia;
         $this->asunto = $asunto;
         $this->cuerpo = $cuerpo;
         $this->desde = $desde;
+        $this->cc = $ccopia;
         //$this->config_file = $config_file;
     }
    
