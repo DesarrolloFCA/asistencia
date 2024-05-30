@@ -1,0 +1,14 @@
+{
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "username": "formularios_asistencia@fca.uncu.edu.ar",
+    "from": "formularios_asistencia@fca.uncu.edu.ar",
+    "from_name": "Formulario Personal",
+    "security": "PHPMailer::ENCRYPTION_SMTPS",
+    "auth": true,
+    "auto_tls": true,
+    "debug": "SMTP::DEBUG_SERVER",
+    "client_id": "",
+    "client_secret": "",
+    "refresh_token": ""
+}
