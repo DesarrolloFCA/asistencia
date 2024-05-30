@@ -27,7 +27,7 @@ class TobaMail
     protected $reply_to;
     protected $confirmacion;
     protected $nombre_conf = null;
-    protected $config_file = 'config_smtp.json';
+    protected $config_file = '/usr/local/proyectos/comision/php/mail/config_smtp.json';
 
     /**
      * Constructor de la clase
@@ -37,15 +37,15 @@ class TobaMail
      * @param string $desde Direccion de email desde la cual se envia (opcionalmente se obtiene desde los parametros)
      * @param string $config_file Ruta al archivo de configuración JSON
      */
-    public function __construct($hacia, $asunto, $cuerpo, $desde = null,$config_file)
+    public function __construct($hacia, $asunto, $cuerpo, $desde = null)
     {
         $this->hacia = $hacia;
         $this->asunto = $asunto;
         $this->cuerpo = $cuerpo;
         $this->desde = $desde;
-        $this->config_file = $config_file;
+        //$this->config_file = $config_file;
     }
-
+   
     /**
      * Permite modificar en runtime el nombre de la configuracion smtp a ser utilizada
      * @param string $nombre_conf  Nombre de la configuracion en el archivo smtp.ini

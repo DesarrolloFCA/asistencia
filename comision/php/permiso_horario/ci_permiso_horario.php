@@ -91,9 +91,7 @@ class ci_permiso_horario extends comision_ci
 		$datos = $this->s__datos;
 		$hacia = $correo;
 		$asunto = 'Formulario Permiso Horario';
-		//$desde = 'lfontes@fca.uncu.edu.ar';
-		// Ruta absoluta al archivo de configuración JSON
-		$config_file = '/usr/local/proyectos/comision/php/mail/config_smtp.json';
+		
 		//Formateamos el cuerpo del mensaje
 		$fecha = date('d/m/Y', strtotime($datos['fecha']));
 		$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
@@ -107,14 +105,14 @@ class ci_permiso_horario extends comision_ci
 				</table>';
 
 
-		$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde, $config_file);
+		$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde);
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
 
 		try {
 			$mail->ejecutar();
-			echo "Correo enviado exitosamente.";
+			echo "Correo enviado exitosamente.<br>";
 		} catch (Exception $e) {
 			echo "Error al enviar el correo: " . $e->getMessage();
 		}
