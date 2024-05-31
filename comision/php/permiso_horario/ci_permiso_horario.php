@@ -89,7 +89,6 @@ class ci_permiso_horario extends comision_ci
 		require_once('mail/tobamail.php');
 
 		$datos = $this->s__datos;
-		$hacia = $correo;
 		$asunto = 'Formulario Permiso Horario';
 		
 		//Formateamos el cuerpo del mensaje
@@ -105,7 +104,7 @@ class ci_permiso_horario extends comision_ci
 				</table>';
 
 
-		$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde);
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde);
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');

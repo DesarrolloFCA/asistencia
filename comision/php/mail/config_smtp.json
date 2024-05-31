@@ -1,9 +1,6 @@
 {
     "host": "smtp.gmail.com",
     "port": 465,
-    "username": "lfontes@fca.uncu.edu.ar",
-    "from": "lfontes@fca.uncu.edu.ar",
-    "from_name": "Formularios Personal",
     "security": "PHPMailer::ENCRYPTION_SMTPS",
     "auth": true,
     "auto_tls": true,
