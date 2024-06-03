@@ -1394,7 +1394,7 @@ class ci_articulo extends comision_ci
 
 								if (isset($legajo)) {
 									$sql = "SELECT email from reloj.agentes_mail
-					where legajo=$legajo";
+											where legajo=$legajo";
 									$correo = toba::db('comision')->consultar($sql);
 									$this->enviar_correos($correo[0]['email']);
 								}
@@ -1403,7 +1403,7 @@ class ci_articulo extends comision_ci
 									$superior = $datos['superior'];
 
 									$sql = "SELECT email from reloj.agentes_mail
-					where legajo=$superior";
+											where legajo=$superior";
 									$correo = toba::db('comision')->consultar($sql);
 									$this->enviar_correos_sup($correo[0]['email'], $datos['superior_ayn']);
 								}
@@ -1422,15 +1422,9 @@ class ci_articulo extends comision_ci
 
 	function evt__guardar()
 	{
-
-
-
 		//verificamos que no exista otro parte abiertos(estado) con el mismo legajo, motivo y dependencia.
 		$datos = $this->dep('datos')->tabla('parte')->get();
-		//ei_arbol ($datos);    
-		/*$filtro['legajo']     = $datos['legajo'];
-			$filtro['id_motivo']  = $datos['id_motivo'];
-			$filtro['cod_depcia'] = 04;*/
+
 
 		$this->dep('datos')->sincronizar();
 		toba::notificacion()->agregar('Parte de inasistencia agregado correctamente.', 'info');
@@ -1470,16 +1464,7 @@ class ci_articulo extends comision_ci
 						
 											
 			</table>';
-			/*} else if ($datos['id_motivo'] == 55)
-	{
-		$asunto = 'Formulario de Adelanto de Licencia Anual';
-		$cuerpo = '<table>
-
-				El/la agente <b>'.$datos['agente_ayn'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
-				Solicita adelanto de licencia anual correspondiente al' .$datos['anio']. ' a partir del d&iacute;a'.$fecha. ' hasta '.$hasta. '<br/>
-				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones']. 'Estos d&iacute;as de adelanto que ud ha solicitado,
-				serán restados del total de vacaciones correspondientes al año en curso
-			<table/>';*/
+			
 		} else if ($datos['id_motivo'] == 57) {
 			$asunto = 'Formulario de D&iacute&as Pendientes de la Licencia Anual';
 			$cuerpo = '<table>
@@ -1552,10 +1537,9 @@ class ci_articulo extends comision_ci
 					break;
 			}
 		}; //date("d/m/y",$fecha)
-		//ei_arbol ($cuerpo);
-		//$mail->Body = $cuerpo;
+	
 		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde);
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde,'');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
@@ -1673,7 +1657,7 @@ class ci_articulo extends comision_ci
 			}
 		}
 		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde);
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde,'');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');

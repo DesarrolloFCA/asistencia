@@ -759,16 +759,7 @@ class ci_parte extends toba_ci
 						
 											
 			</table>';
-			/*} else if ($datos['id_motivo'] == 55)
-	{
-		$cuerpo = 'Formulario de Adelanto de Licencia Anual';
-		$cuerpo = '<table>
-
-				El/la agente <b>'.$datos['agente_ayn'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
-				Solicita adelanto de licencia anual correspondiente al' .$datos['anio']. ' a partir del d&iacute;a'.$fecha. ' hasta '.$hasta. '<br/>
-				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones']. 'Estos d&iacute;as de adelanto que ud ha solicitado,
-				ser�n restados del total de vacaciones correspondientes al a�o en curso
-			<table/>';*/
+			
 		} else if ($datos['id_motivo'] == 57) {
 			$asunto = 'Formulario de D&iacute&as Pendientes de la Licencia Anual';
 			$cuerpo = '<table>
@@ -843,7 +834,7 @@ class ci_parte extends toba_ci
 		}; //date("d/m/y",$fecha)
 		
 		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde);
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde,'');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');

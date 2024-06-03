@@ -142,63 +142,35 @@ class comision extends toba_ci
 	}
 	function enviar_correos_sup($correo)
 	{
-		require_once('phpmailer/class.phpmailer.php');
+		require_once('mail/tobamail.php');
 
 		$datos = $this->s__datos;
 
-		//ei_arbol ($correo);                
-		$mail = new phpmailer();
-		$mail->IsSMTP();
-		//Esto es para activar el modo depuración. En entorno de pruebas lo mejor es 2, en producción siempre 0
-		// 0 = off (producción)
-		// 1 = client messages
-		// 2 = client and server messages
-		$mail->SMTPDebug  = 0;
-		//Ahora definimos gmail como servidor que aloja nuestro SMTP
-		$mail->Host       = 'smtp.gmail.com';
-		//El puerto será el 587 ya que usamos encriptación TLS
-		$mail->Port       = 587;
-		//Definmos la seguridad como TLS
-		$mail->SMTPSecure = 'tls';
-		//Tenemos que usar gmail autenticados, así que esto a TRUE
-		$mail->SMTPAuth   = true;
-		//Definimos la cuenta que vamos a usar. Dirección completa de la misma
-		//Leo: cambiamos de cuenta porque la hackearon esta esta contraseña para aplicaciones
-		$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-		//Introducimos nuestra contraseña de gmail
-		$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
-		//Definimos el remitente (dirección y, opcionalmente, nombre)
-		$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
-		//Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)
-
-		//$mail->AddReplyTo('caifca@fca.uncu.edu.ar','El de la réplica');
-		//Y, ahora sí, definimos el destinatario (dirección y, opcionalmente, nombre)
-		$mail->AddAddress($correo, 'Superior');
-		//$mail->AddAddress($correo, 'El Destinatario'); //Descomentar linea cuando pase a produccion
-		//Definimos el tema del email
-		$mail->Subject = 'Formulario Comision de Servicio - Agente';
-		//Para enviar un correo formateado en HTML lo cargamos con la siguiente función. Si no, puedes meterle directamente una cadena de texto.
-		//$mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-		//Y por si nos bloquean el contenido HTML (algunos correos lo hacen por seguridad) una versión alternativa en texto plano (también será válida para lectores de pantalla)
-		$mail->IsHTML(true); //el mail contiene html
+		$asunto = 'Formulario Comision de Servicio - Agente';
 		$fecha = date('d/m/Y', strtotime($datos['fecha']));
 		$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
 
-		$body = '<table>
+		$cuerpo = '<table>
 						El/la agente  <b>' . $datos['descripcion'] . '</b> perteneciente a la catedra/oficina/ direccion <b>' . $datos['catedra'] . '</b>.<br/>
 						Solicita <b>Comision de Servicio</b> con motivo de ' . $datos['motivo'] . ' a realizarse el dia ' . $fecha . ' hasta el dia' . $fecha_fin . '
 						en ' . $datos['lugar'] . ' a partir de la hora ' . $datos['horario'] . ' hasta la hora ' . $datos['horario_fin'] . '. Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '</br>
-						En caso de rechazar la solicitud del agente, debera enviar un correo a la siguiente direccion: asistencia@fca.uncu.edu.ar </br>
+						Para aprobar/rechazar la solicitud ingresar a https://sistemas.fca.uncu.edu.ar/solicitudes, menu autorizaciones -> Comisiones </br>
 
 
 											
 			</table>'; //date("d/m/y",$fecha)
-		$mail->Body = $body;
-		//Enviamos el correo
-		if (!$mail->Send()) {
-			echo "Error: " . $mail->ErrorInfo;
-		} else {
-			echo "Enviado!";
-		}
+
+			//Enviamos el correo
+			$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, '');
+
+			// Agregar un archivo adjunto
+			//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
+	
+			try {
+				$mail->ejecutar();
+				echo "Correo enviado exitosamente.<br>";
+			} catch (Exception $e) {
+				echo "Error al enviar el correo: " . $e->getMessage();
+			}
 	}
 }
