@@ -173,7 +173,7 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 	NULL, --eventos
 	'pant_login', --subclase
 	'login/pant_login.php', --subclase_archivo
-	NULL, --template
+	'<p style="text-align: center;">[dep id=datos]&lt;hr&gt;[dep id=openid]&lt;hr&gt;[dep id=seleccion_usuario]&lt;hr&gt;[dep id=cas]</p>', --template
 	NULL, --template_impresion
 	'35736730000002'  --punto_montaje
 );

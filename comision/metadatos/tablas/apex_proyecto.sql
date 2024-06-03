@@ -51,8 +51,8 @@ INSERT INTO apex_proyecto (proyecto, descripcion, descripcion_corta, estilo, con
 	'7', --log_archivo_nivel
 	'comision', --fuente_datos
 	NULL, --pagina_tipo
-	'1.1', --version
-	'2024-03-04', --version_fecha
+	'1.2.1', --version
+	'2024-05-30', --version_fecha
 	NULL, --version_detalle
 	NULL, --version_link
 	NULL, --tiempo_espera_ms

@@ -2831,3 +2831,191 @@ Argumentos: proyecto eliminar -p toba_referencia
     'url' => '/comision/1.0',
   ),
 )
+-o-o-o-o-o-
+Fecha: 03-06-2024 19:37:35
+Version-PHP: 7.4.33
+Ruta: /usr/local/proyectos/comision
+Argumentos: proyecto exportar -p comision
+==========
+[DEBUG][comision] INSTALACIÓN "/usr/local/proyectos/comision/instalacion"
+[DEBUG][comision] Parametros instancia desarrollo: array (
+  'base' => 'toba_3_3',
+  'proyectos' => 'toba_editor, toba_usuarios, comision',
+  'tipo' => 'normal',
+  'toba_editor' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_editor',
+    'url' => '/toba_editor/3.3',
+  ),
+  'toba_usuarios' => 
+  array (
+    'path' => '/usr/local/proyectos/comision/vendor/siu-toba/framework/proyectos/toba_usuarios',
+    'url' => '/toba_usuarios/3.3',
+  ),
+  'comision' => 
+  array (
+    'path' => '/usr/local/proyectos/comision',
+    'url' => '/comision/1.0',
+  ),
+)
+[DEBUG][comision] INSTANCIA "desarrollo"
+[DEBUG][comision] Conectando a base 'toba_3_3'
+[DEBUG][comision] Parametros de conexion: array (
+  'motor' => 'postgres7',
+  'profile' => 'pg',
+  'usuario' => 'postgres',
+  'clave' => 'postgres',
+  'base' => 'toba_3_3',
+  'puerto' => '5432',
+  'encoding' => 'LATIN1',
+  'schema' => 'desarrollo',
+)
+[DEBUG][comision] PROYECTO "comision"
+[DEBUG][comision] PROYECTO "comision"
+[DEBUG][comision] Exportando PROYECTO comision
+[DEBUG][comision] TABLA  apex_proyecto  (1 reg.)
+[DEBUG][comision] TABLA  apex_estilo  (0 reg.)
+[DEBUG][comision] TABLA  apex_puntos_montaje  (1 reg.)
+[DEBUG][comision] TABLA  apex_fuente_datos  (3 reg.)
+[DEBUG][comision] TABLA  apex_fuente_datos_schemas  (3 reg.)
+[DEBUG][comision] TABLA  apex_elemento_formulario  (0 reg.)
+[DEBUG][comision] TABLA  apex_solicitud_obs_tipo  (0 reg.)
+[DEBUG][comision] TABLA  apex_pagina_tipo  (1 reg.)
+[DEBUG][comision] TABLA  apex_ptos_control  (0 reg.)
+[DEBUG][comision] TABLA  apex_ptos_control_param  (0 reg.)
+[DEBUG][comision] TABLA  apex_ptos_control_ctrl  (0 reg.)
+[DEBUG][comision] TABLA  apex_consulta_php  (2 reg.)
+[DEBUG][comision] TABLA  apex_perfil_datos_set_prueba  (0 reg.)
+[DEBUG][comision] TABLA  apex_item_zona  (0 reg.)
+[DEBUG][comision] TABLA  apex_clase  (0 reg.)
+[DEBUG][comision] TABLA  apex_clase_relacion  (0 reg.)
+[DEBUG][comision] TABLA  apex_conversion  (0 reg.)
+[DEBUG][comision] TABLA  apex_msg  (1 reg.)
+[DEBUG][comision] TABLA  apex_item_msg  (0 reg.)
+[DEBUG][comision] TABLA  apex_objeto_msg  (0 reg.)
+[DEBUG][comision] TABLA  apex_nota  (0 reg.)
+[DEBUG][comision] TABLA  apex_item_nota  (0 reg.)
+[DEBUG][comision] TABLA  apex_objeto_nota  (0 reg.)
+[DEBUG][comision] TABLA  apex_relacion_tablas  (0 reg.)
+[DEBUG][comision] TABLA  apex_dimension  (0 reg.)
+[DEBUG][comision] TABLA  apex_dimension_gatillo  (0 reg.)
+[DEBUG][comision] TABLA  apex_gadgets  (0 reg.)
+[DEBUG][comision] TABLA  apex_objeto_ei_filtro_tipo_col  (0 reg.)
+[DEBUG][comision] TABLA  apex_molde_opciones_generacion  (0 reg.)
+[DEBUG][comision] TABLA  apex_permiso  (0 reg.)
+[DEBUG][comision] TABLA  apex_servicio_web  (0 reg.)
+[DEBUG][comision] TABLA  apex_servicio_web_param  (0 reg.)
+[DEBUG][comision] COMPONENTE toba_asistente_abms  --  35736730000042 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_asistente_grilla  --  24234000004 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_asistente_grilla  --  24234000006 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_asistente_grilla  --  24234000007 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_cuadro  --  35736730000176 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_cuadro  --  35736730000393 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  1842000003 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  1842000004 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000172 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000173 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000174 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000175 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000180 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000204 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000214 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario  --  35736730000290 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario_ml  --  24234000001 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario_ml  --  24234000010 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario_ml  --  24234000014 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario_ml  --  24234000018 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ei_formulario_ml  --  24234000023 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  1842000005 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  24234000002 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  24234000012 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  24234000015 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  24234000019 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  24234000022 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  35736730000177 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  35736730000203 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  35736730000213 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  35736730000286 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_ci  --  35736730000396 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  1842000001 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  1842000006 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  24234000003 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  24234000013 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  24234000035 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  24234000036 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000179 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000218 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000219 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000222 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000233 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000291 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_relacion  --  35736730000292 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  1842000002 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  24234000011 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  24234000017 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  24234000034 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000184 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000205 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000215 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000216 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000217 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000220 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000221 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000234 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000246 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000247 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000294 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000323 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_datos_tabla  --  35736730000390 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  1 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  1842000002 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  2 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  24234000001 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  24234000002 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  24234000007 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  24234000009 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  24234000010 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000045 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000046 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000053 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000054 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000055 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000073 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000074 (0 reg.)
+[DEBUG][comision] COMPONENTE toba_item  --  35736730000098 (0 reg.)
+[DEBUG][comision] PERMISO  admin
+[DEBUG][comision] TABLA  apex_usuario_grupo_acc  (1 reg.)
+[DEBUG][comision] TABLA  apex_usuario_grupo_acc_miembros  (1 reg.)
+[DEBUG][comision] TABLA  apex_usuario_grupo_acc_item  (16 reg.)
+[DEBUG][comision] TABLA  apex_permiso_grupo_acc  (0 reg.)
+[DEBUG][comision] TABLA  apex_grupo_acc_restriccion_funcional  (0 reg.)
+[DEBUG][comision] PERMISO  personal
+[DEBUG][comision] TABLA  apex_usuario_grupo_acc  (1 reg.)
+[DEBUG][comision] TABLA  apex_usuario_grupo_acc_miembros  (0 reg.)
+[DEBUG][comision] TABLA  apex_usuario_grupo_acc_item  (13 reg.)
+[DEBUG][comision] TABLA  apex_permiso_grupo_acc  (0 reg.)
+[DEBUG][comision] TABLA  apex_grupo_acc_restriccion_funcional  (0 reg.)
+[DEBUG][comision] TABLA  apex_usuario_perfil_datos  (0 reg.)
+[DEBUG][comision] TABLA  apex_usuario_perfil_datos_dims  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional_cols  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional_ef  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional_ei  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional_evt  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional_filtro_cols  (0 reg.)
+[DEBUG][comision] TABLA  apex_restriccion_funcional_pantalla  (0 reg.)
+[DEBUG][comision] TABLA  apex_menu  (0 reg.)
+[DEBUG][comision] TABLA  apex_menu_operaciones  (0 reg.)
+[DEBUG][comision] Actualizado el checksum del proyecto comision
+[DEBUG][comision] Tabla GLOBAL  --  apex_revision (2 reg.)
+[DEBUG][comision] Tabla GLOBAL  --  apex_instancia (1 reg.)
+[DEBUG][comision] Tabla GLOBAL  --  apex_checksum_proyectos (1 reg.)
+[DEBUG][comision] Tabla USUARIOS  --  apex_usuario (4 reg.)
+[DEBUG][comision] Tabla USUARIOS  --  apex_usuario_pregunta_secreta (0 reg.)
+[DEBUG][comision] Tabla USUARIOS  --  apex_usuario_pwd_usados (3 reg.)
+[DEBUG][comision] Exportando SECUENCIAS
+[DEBUG][comision] Exportando SECUENCIAS tablas log
+[DEBUG][comision] Exportando local PROYECTO comision
+[DEBUG][comision] Exportando local PROYECTO toba_editor
+[DEBUG][comision] Exportando local PROYECTO toba_usuarios
+[DEBUG][comision] Observaciones de sincronizacion: 

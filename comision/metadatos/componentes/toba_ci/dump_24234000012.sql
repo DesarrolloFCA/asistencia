@@ -17,7 +17,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba_ci', --clase
 	'35736730000002', --punto_montaje
 	'ci_razones_particulares', --subclase
-	'razones_particulares/ci_razones_particulares.php', --subclase_archivo
+	'autorizaciones/ci_razones_particulares.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'toba_ci generado automaticamente', --nombre
