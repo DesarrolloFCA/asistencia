@@ -1,4 +1,5 @@
 <?php
+//clase para autorizar inasistencias por permisos_horarios
 class ci_permisos_horarios extends comision_ci
 {
 	protected $s__datos;

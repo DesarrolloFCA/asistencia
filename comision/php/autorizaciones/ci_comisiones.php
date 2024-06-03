@@ -1,4 +1,5 @@
 <?php
+//clase para autorizar comisiones
 class ci_comisiones extends comision_ci
 {
 

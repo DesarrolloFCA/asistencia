@@ -1,4 +1,6 @@
 <?php
+
+//clase para autorizar inasistencias por razones particulares
 class ci_razones_particulares extends comision_ci
 {
 	protected $s__datos;
