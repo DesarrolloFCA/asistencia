@@ -190,7 +190,7 @@ class ci_inasistencias extends ctrl_asis_ci
 		}; //date("d/m/y",$fecha)
 		
 		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde);
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde,'');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
