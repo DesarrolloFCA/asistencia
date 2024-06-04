@@ -232,14 +232,14 @@ class ci_recordatorio_pwd extends toba_ci
 	{
 		
 		
-		include('phpmailer/class.phpmailer.php');
+		include('mail/tobamail.php');
 		//Genero un pseudorandom unico... 
 		$tmp_rand = $this->get_random_temporal();
 		$link = $this->generar_link_confirmacion($this->s__usuario, $tmp_rand);    //Genero el link para el mail
 			
 		//Se envia el mail a la direccion especificada por el usuario.
 		$asunto = 'Solicitud de cambio de contraseñaa';
-		$cuerpo_mail = '<p>Este mail fue enviado a esta cuenta porque se <strong>solicito un cambio de contraseña</strong>.'
+		$cuerpo = '<p>Este mail fue enviado a esta cuenta porque se <strong>solicito un cambio de contraseña</strong>.'
 		. 'Si usted solicito dicho cambio haga click en el siguiente link: </br></br>'
 		. $link. '</br> El mismo será válido unicamente por 24hs.</p>';
 		
@@ -248,26 +248,12 @@ class ci_recordatorio_pwd extends toba_ci
 		//ei_arbol($cuerpo_mail);
 		//try {
 			$this->guardar_datos_solicitud_cambio($tmp_rand, $this->s__email);
-			$mail = new phpmailer();
-			$mail->IsSMTP();
-			$mail->SMTPDebug  = 0;
-			$mail->Host       = 'smtp.gmail.com';
-			$mail->Port       = 587;
-			$mail->SMTPSecure = 'tls';
-			$mail->SMTPAuth   = true;
-			$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-			$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
-			//"gvcghltncpblkjbl";
-			$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
-			$mail->AddAddress($this->s__email);
-			$mail->Body = $cuerpo_mail;
-			$mail->Subject =$asunto;
-			$mail->IsHTML(true);
-			//$mail = new toba_mail($this->s__email, $asunto, $cuerpo_mail);
-		//    $mail->set_html(true);
-		//    $mail->enviar();
-		//    }
-			if(!$mail->Send()) {
+			
+			$correo= $this->s__email;
+			$mail = new toba_mail($correo, $asunto, $cuerpo,$desde,'');
+
+
+			if(!$mail->ejecutar()) {
 				toba::instancia()->get_db()->abortar_transaccion();
 				echo "Error: " . $mail->ErrorInfo;
 				toba::logger()->debug('Proceso de envio de random a cuenta: '. $mail->ErrorInfo); //$e->getMessage());
@@ -313,7 +299,7 @@ class ci_recordatorio_pwd extends toba_ci
 	*/
 	function disparar_confirmacion_cambio($usuario,$randr)
 	{
-		include('phpmailer/class.phpmailer.php');
+		include('mail/tobamail.php');
 		//Recupero mail del usuario junto con el hash de confirmacion
 		$datos_rs = $this->recuperar_datos_solicitud_cambio($usuario, $randr);
 		//$datos_rs = $this->recuperar_datos_solicitud_cambio($this->s__usuario, $this->randr);
@@ -343,7 +329,7 @@ class ci_recordatorio_pwd extends toba_ci
 		
 		//Armo el mail nuevo
 		$asunto = 'Nueva clave';
-		$cuerpo_mail = '<p>Se ha recibido su pedido de cambio de clave, la misma fue cambiada a: <br>' .
+		$cuerpo = '<p>Se ha recibido su pedido de cambio de clave, la misma fue cambiada a: <br>' .
 		$clave_tmp . '<br><br> Por favor cambiela a una contraseña más segura y fácil de recordar. <br>
 				Haga <a href = "http://sistemas.fca.uncu.edu.ar/solicitudes/aplicacion.php?ah=st65f47db32bc843.79319988&ai=comision%7C%7C35736730000045"> click aqui</a></br> Gracias. </p> ';
 		
@@ -359,23 +345,10 @@ class ci_recordatorio_pwd extends toba_ci
 			
 			//Enviar nuevo mail con la clave temporaria
 			//$mail = new toba_mail($datos_orig['email'], $asunto, $cuerpo_mail);
-			$mail = new phpmailer();
-			$mail->IsSMTP();
-			$mail->SMTPDebug  = 0;
-			$mail->Host       = 'smtp.gmail.com';
-			$mail->Port       = 587;
-			$mail->SMTPSecure = 'tls';
-			$mail->SMTPAuth   = true;
-			$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-			$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
-			$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
-			$mail->AddAddress($datos_orig['email']);
-			$mail->Body = $cuerpo_mail;
-			$mail->Subject =$asunto;
-			$mail->IsHTML(true);
-			//$mail->set_html(true);
-			//$mail->enviar();
-			$mail->Send();
+			$correo= $datos_orig['email'];
+			$mail = new TobaMail($correo, $asunto, $cuerpo, $desde,'');
+		
+			$mail->ejecutar();
 			//Bloqueo el pedido para que no pueda ser reutilizado
 			$this->bloquear_random_utilizado($this->s__usuario, $this->randr);
 			toba::instancia()->get_db()->cerrar_transaccion();
