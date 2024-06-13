@@ -16,7 +16,7 @@ class ci_incio extends comision_ci
 		$legajo = $legajo[0]['legajo'];
 		$sql= "SELECT * from reloj.vm_detalle_pres
 		where legajo = $legajo
-		and fecha between '2024-05-01' and '2024-06-04'";
+		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
 		$presentismo = toba::db('comision')->consultar($sql);
 		$this->s__datos = $presentismo;
 		
@@ -92,7 +92,7 @@ class ci_incio extends comision_ci
 			break;
 		}*/	
 	
-	$grafico->conf()->canvas__set_titulo('Horas Trabajadas del último mes del corriente año');
+	$grafico->conf()->canvas__set_titulo('Horas Trabajadas en los Últimos 30 días');
 	
           $grafico->conf()
                  ->serie__agregar('Horas Trabajadas', $datos_1)
