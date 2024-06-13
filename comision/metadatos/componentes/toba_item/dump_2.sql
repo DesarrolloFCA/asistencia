@@ -26,7 +26,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'Inicio', --nombre
 	'', --descripcion
 	'35736730000002', --punto_montaje
-	'item_inicial.php', --actividad_accion
+	NULL, --actividad_accion
 	'1', --menu
 	'0', --orden
 	'0', --solicitud_registrar
@@ -52,3 +52,15 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0'  --retrasar_headers
 );
 --- FIN Grupo de desarrollo 0
+
+------------------------------------------------------------
+-- apex_item_objeto
+------------------------------------------------------------
+INSERT INTO apex_item_objeto (item_id, proyecto, item, objeto, orden, inicializar) VALUES (
+	NULL, --item_id
+	'comision', --proyecto
+	'2', --item
+	'2306', --objeto
+	'0', --orden
+	NULL  --inicializar
+);

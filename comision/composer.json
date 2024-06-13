@@ -10,7 +10,8 @@
   ],
   "require": {
     "siu-toba/framework": "3.3.26",
-    "league/oauth2-google": "^4.0"
+    "league/oauth2-google": "^4.0",
+    "league/oauth2-client": "^2.7"
   },
   "config": {
      "bin-dir": "./bin" 
