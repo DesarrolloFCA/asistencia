@@ -45,13 +45,14 @@ class ci_dias_pendientes_en_licencias extends comision_ci
 				//ei_arbol($leg_usu);
 				//$legajo = $this->s__datos_filtro['legajo'];
 				$anio = date(Y);
-				$sql= "SELECT a.legajo, descripcion motivo, apellido ||', '|| nombre as ayp, dias dias_tomados,fecha_inicio_licencia  FROM reloj.parte a
+				$sql= "SELECT a.legajo, descripcion motivo, apellido ||', '|| nombre as ayp, dias dias_tomados,fecha_inicio_licencia 
+						FROM reloj.parte a
 						INNER JOIN reloj.motivo c on a.id_motivo = c.id_motivo
 						WHERE EXTRACT(YEAR FROM fecha_inicio_licencia) = $anio
 						AND legajo = $legajo ";
 				$dias = toba::db('comision')->consultar($sql);
 			
-				
+			
 			if ( ! is_null($dias)){
 				$cuadro->set_datos($dias);
 			} else {
