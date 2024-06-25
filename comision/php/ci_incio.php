@@ -14,7 +14,7 @@ class ci_incio extends comision_ci
 		include("usuario_logueado.php");
 		$legajo = usuario_logueado::get_legajo(toba::usuario()->get_id());
 		$legajo = $legajo[0]['legajo'];
-		$sql= "SELECT * from reloj.vm_detalle_pres
+		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad from reloj.vm_detalle_pres
 		where legajo = $legajo
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
 		$presentismo = toba::db('comision')->consultar($sql);
