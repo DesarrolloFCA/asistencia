@@ -19,11 +19,8 @@ class ci_incio extends comision_ci
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
 		$presentismo = toba::db('comision')->consultar($sql);
 		$this->s__datos = $presentismo;
-		
 		//ei_arbol($presentismo);
-		
 		$cuadro->set_datos($presentismo);
-	
 	}
 
 		
@@ -92,7 +89,7 @@ class ci_incio extends comision_ci
 			break;
 		}*/	
 	
-	$grafico->conf()->canvas__set_titulo('Horas Trabajadas en los Últimos 30 días');
+	$grafico->conf()->canvas__set_titulo('Horas Trabajadas');
 	
           $grafico->conf()
                  ->serie__agregar('Horas Trabajadas', $datos_1)
@@ -108,6 +105,7 @@ class ci_incio extends comision_ci
                   ->serie__set_leyenda('Horas Requeridas');
    
           $serie = $grafico->conf()->serie('Horas Requeridas')->SetWeight(3);
+		  $serie = $grafico->conf()->serie('Horas Trabajadas')->SetWeight(3);
 			$grafico->conf()->canvas()->xaxis->SetTickLabels($dias);
 		  $grafico->conf()->canvas()->ygrid->SetFill(true, '#EFEFEF@0.8', '#BBCCFF@0.1');
 		  
