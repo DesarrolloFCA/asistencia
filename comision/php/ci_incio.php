@@ -14,9 +14,23 @@ class ci_incio extends comision_ci
 		include("usuario_logueado.php");
 		$legajo = usuario_logueado::get_legajo(toba::usuario()->get_id());
 		$legajo = $legajo[0]['legajo'];
-		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion from reloj.vm_detalle_pres
+		$sql = "SELECT max(ncargo) cant from reloj.agentes
+				WHERE legajo = $legajo ";
+		$cargos = toba::db('comision')->consultar_fila($sql);
+		//ei_arbol($cargos);
+		if ($cargos['cant'] = 0){
+		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
+		from reloj.vm_detalle_pres
 		where legajo = $legajo
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
+		} else {
+		$sql= "SELECT fecha, hora_entrada, hora_salida, horas_trabajadas, SUM(horas_requeridad)::time AS horas_requeridad, 
+		 descripcion,estado
+		FROM  reloj.vm_detalle_pres
+		WHERE   legajo = $legajo
+		AND fecha >= CURRENT_DATE - INTERVAL '30 days'
+		GROUP BY fecha, hora_entrada, hora_salida, horas_trabajadas, descripcion,estado";
+		}
 		$presentismo = toba::db('comision')->consultar($sql);
 		$this->s__datos = $presentismo;
 		//ei_arbol($presentismo);
