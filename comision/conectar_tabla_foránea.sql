@@ -11,6 +11,6 @@ CREATE USER MAPPING FOR CURRENT_USER SERVER servidor_bd_remota
  OPTIONS (USER 'postgres', password '123--,.qaz098--xsw--123');
  
  IMPORT FOREIGN SCHEMA public
-FROM SERVER servidor_bd_remota INTO relojes;
+FROM SERVER servidor_bd_remota INTO reloj;
 
 SELECT * FROM relojes.user_attendance;
