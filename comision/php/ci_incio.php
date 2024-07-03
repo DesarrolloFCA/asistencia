@@ -19,8 +19,8 @@ class ci_incio extends comision_ci
 				WHERE legajo = $legajo ";
 		$cargos = toba::db('comision')->consultar_fila($sql);
 		//ei_arbol($cargos);
-		if ($cargos['cant'] = 0){
-		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
+		if ($cargos['cant'] == 0){
+		$sql= "SELECT fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
 		from reloj.vm_detalle_pres
 		where legajo = $legajo
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
@@ -34,7 +34,6 @@ class ci_incio extends comision_ci
 		}
 		$presentismo = toba::db('comision')->consultar($sql);
 		$this->s__datos = $presentismo;
-		//ei_arbol($presentismo);
 		$cuadro->set_datos($presentismo);
 	}
 
@@ -44,7 +43,7 @@ class ci_incio extends comision_ci
 
 	function conf__grafico(comision_ei_grafico $grafico)
 	{
-
+		/*
 		$j = count($this->s__datos);
 		for ($i = 0; $i < $j; $i++) {
 			list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
@@ -73,9 +72,10 @@ class ci_incio extends comision_ci
 		$serie = $grafico->conf()->serie('Horas Trabajadas')->SetWeight(3);
 		$grafico->conf()->canvas()->xaxis->SetTickLabels($dias);
 		$grafico->conf()->canvas()->ygrid->SetFill(true, '#EFEFEF@0.8', '#BBCCFF@0.1');
+		*/
 	}
 	//-----------------------------------------------------------------------------------
-	//---- grafico barras----------------------------------------------------------------------
+	//---- grafico barras ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function conf__graficob(toba_ei_grafico $graficob)

@@ -34,7 +34,7 @@ class ci_razones_particulares extends comision_ci
 				$aut_sup = 'false';
 			}
 
-
+			$correo = $this->dep('mapuche')->get_correos($legajo);
 			//ei_arbol($datos[$i]['apex_ei_analisis_fila']);
 			if ($datos[$i]['apex_ei_analisis_fila'] == 'M') {
 				if ($datos[$i]['estado'] == 'A') {
@@ -48,7 +48,7 @@ class ci_razones_particulares extends comision_ci
 					if ($datos[$i]['auto_sup'] == 1) {
 						//ei_arbol($legajo);
 						$filtro['legajo'] = $legajo;
-						$correo = $this->dep('mapuche')->get_correos($legajo);
+
 						$edad = $this->dep('mapuche')->get_edad($legajo, null);
 						$direccion = $this->dep('mapuche')->get_datos_agente($filtro);
 						$nombre = $direccion[0]['nombre'];
@@ -156,7 +156,7 @@ class ci_razones_particulares extends comision_ci
 		$fecha = date('d/m/Y', strtotime($datos['fecha_inicio']));
 		$hasta = date('d/m/Y', strtotime($datos['fecha_fin']));
 		$datos['agente_ayn'] = $datos['apellido'] . ', ' . $datos['nombre'];
-		
+
 
 		if ($aprobado == 1) {
 
@@ -170,7 +170,8 @@ class ci_razones_particulares extends comision_ci
 				</table>';
 		} else {
 			//$motivo = 'Razones Particulares con gose de haberes';
-			$ccopia('personal@fca.uncu.edu.ar');
+			
+			//$ccopia='personal@fca.uncu.edu.ar';
 			$asunto = 'Solicitud Inasistencia Justificada rechazada ';
 			$cuerpo = '<table>
 						El/la agente  <b>' . $datos['agente_ayn'] . '</b> perteneciente a la catedra/oficina/ direccion <b>' . $datos['catedra'] . '</b>.<br/>
@@ -178,11 +179,13 @@ class ci_razones_particulares extends comision_ci
 							Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '
 											
 				</table>';
-		}; //date("d/m/y",$fecha)
-		
-		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, $ccopia);
+				
+		} //date("d/m/y",$fecha)
 
+		//Enviamos el correo
+		
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, $ccopia);
+		
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
 

@@ -1,0 +1,7 @@
+Computar las comisiones de servicio como hora trabajadas, en las columnas no aparece.
+
+No aparece las marcas fuera de la semana.
+
+
+1 de agosto, lanzamiento. Vers.2
+
