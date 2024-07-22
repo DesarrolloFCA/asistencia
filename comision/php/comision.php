@@ -43,12 +43,18 @@ class comision extends toba_ci
 				Where id_catedra =$catedra";
 			$a = toba::db('comision')->consultar($sql);
 			$datos['catedra'] = $a[0]['nombre_catedra'];
+			
 			$horario = $datos['horario'];
 			$obs = $datos['observaciones'] . ' ';
 			$motivo = $datos['motivo'];
 			$fuera = $datos['fuera'];
 			//$datos['fecha_fin'] = $fecha_fin;
-
+			$sql="SELECT legajo, fecha,fecha_fin from reloj.comision
+			where legajo = $legajo
+			and fecha between '$fecha' and '$fecha_fin'
+			and catedra <> $catedra
+			and	(pasada is null or pasada = true)";
+			$comision_pedida = toba::db('comision')->consultar($sql);
 
 
 			if ($fuera == 1) {
@@ -59,7 +65,7 @@ class comision extends toba_ci
 			}
 
 			$horario_fin = $datos['horario_fin'];
-
+			if (count($comision_pedida)>0){
 			//ei_arbol ($datos);
 			if (!empty($datos['legajo'])) {
 				//$correo_agente = $this->dep('mapuche')->get_legajos_email($datos['legajo']);
@@ -83,8 +89,8 @@ class comision extends toba_ci
 			//ei_arbol($datos);
 			//ei_arbol($correo_sup);
 			if (!empty($datos['legajo'])) {
-				$this->enviar_correos($datos['agente']);
-				$this->enviar_correos_sup($datos['superior']);
+				//$this->enviar_correos($datos['agente']);
+				//$this->enviar_correos_sup($datos['superior']);
 			}
 			//ei_arbol($correo_sup);
 			/*if (!empty ($datos['legajo_sup'])){
@@ -99,7 +105,11 @@ class comision extends toba_ci
 					($legajo, $catedra, '$lugar', '$motivo','$fecha', '$horario', '$obs', $superior, $autoridad,'$fecha_fin','$horario_fin',$f);";
 
 			toba::db('comision')->ejecutar($sql);
-
+			}
+			else 
+			{
+				toba::notificacion()->agregar('Ud. ya ha solicitado una comision para la fechas consignadas', 'error');
+			}
 			if ($datos['fuera'] == 1) {
 				toba::notificacion()->agregar('Si viaja fuera de la provincia de Mendoza diríjase a la oficina de Personal para tramitar su seguro', 'info');
 			}

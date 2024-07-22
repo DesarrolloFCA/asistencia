@@ -19,7 +19,7 @@ class ci_incio extends comision_ci
 				WHERE legajo = $legajo ";
 		$cargos = toba::db('comision')->consultar_fila($sql);
 		//ei_arbol($cargos);
-		if ($cargos['cant'] = 0){
+		if ($cargos['cant'] == 0){
 		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
 		from reloj.vm_detalle_pres
 		where legajo = $legajo
