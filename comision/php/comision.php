@@ -89,8 +89,8 @@ class comision extends toba_ci
 			//ei_arbol($datos);
 			//ei_arbol($correo_sup);
 			if (!empty($datos['legajo'])) {
-				//$this->enviar_correos($datos['agente']);
-				//$this->enviar_correos_sup($datos['superior']);
+				$this->enviar_correos($datos['agente']);
+				$this->enviar_correos_sup($datos['superior']);
 			}
 			//ei_arbol($correo_sup);
 			/*if (!empty ($datos['legajo_sup'])){
