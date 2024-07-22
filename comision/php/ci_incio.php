@@ -20,7 +20,7 @@ class ci_incio extends comision_ci
 		$cargos = toba::db('comision')->consultar_fila($sql);
 		//ei_arbol($cargos);
 		if ($cargos['cant'] == 0){
-		$sql= "SELECT fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
+		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
 		from reloj.vm_detalle_pres
 		where legajo = $legajo
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
