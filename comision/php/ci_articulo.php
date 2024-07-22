@@ -1396,7 +1396,7 @@ class ci_articulo extends comision_ci
 									$sql = "SELECT email from reloj.agentes_mail
 											where legajo=$legajo";
 									$correo = toba::db('comision')->consultar($sql);
-							//		$this->enviar_correos($correo[0]['email']);
+									$this->enviar_correos($correo[0]['email']);
 								}
 
 								if (isset($datos['superior']) and $datos['superior'] <> 0) {
@@ -1405,7 +1405,7 @@ class ci_articulo extends comision_ci
 									$sql = "SELECT email from reloj.agentes_mail
 											where legajo=$superior";
 									$correo = toba::db('comision')->consultar($sql);
-								//	$this->enviar_correos_sup($correo[0]['email'], $datos['superior_ayn']);
+									$this->enviar_correos_sup($correo[0]['email'], $datos['superior_ayn']);
 								}
 							}
 						} else {
