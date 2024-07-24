@@ -2,6 +2,7 @@
 
 use JpGraph\Graph;
 use JpGraph\BarPlot;
+use Laminas\Validator\InArray;
 
 class ci_incio extends comision_ci
 {
@@ -33,8 +34,129 @@ class ci_incio extends comision_ci
 		GROUP BY fecha, hora_entrada, hora_salida, horas_trabajadas, descripcion,estado";
 		}
 		$presentismo = toba::db('comision')->consultar($sql);
+		$sql1 = "SELECT 
+			id_parte,
+			estado,
+			fecha_inicio_licencia,
+			dias
+			
+		FROM
+			sanidad.parte as t_p    
+			
+		where t_p.legajo = $legajo
+		and fecha_inicio_licencia >= CURRENT_DATE - INTERVAL '30 days'
+		and estado = 'C'
+
+		";
+		
+			$sanidad = toba::db('mapuche')->consultar($sql1);
+			$j= count($sanidad);
+			if ($j>0){
+				for ($i=0;$i<$j;$i++){
+					if ($sani[$i]['dias'] > 1) {
+					$k=$sanidad[$i]['dias'];
+						for ($h=1;$h<$k;$h++){
+						$fecha = new DateTime($sanidad[$i]['fecha_inicio_licencia']);
+						$fecha->modify('+'.$h.' day');
+						$sani[]=$fecha->format('Y-m-d');
+						}
+					}else {
+					
+					$sani[] = $sanidad[$i]['fecha_inicio_licencia'];
+					}
+				}
+		
+			}
+		$j = count($presentismo);
+		$sql = "SELECT   CONCAT(FLOOR(EXTRACT(EPOCH FROM (b.h2 - b.h1)) / 3600),':',LPAD(EXTRACT(MINUTE FROM (b.h2 - b.h1))::TEXT, 2, '0') )
+		 AS horas_corregidas from reloj.agentes a
+				left join reloj.conf_jornada b on a.legajo = b.legajo
+				where EXTRACT(EPOCH FROM (b.h2 - b.h1)) / 3600 < 6
+				AND a.legajo = $legajo
+				and (fecha_fin >= CURRENT_DATE - INTERVAL '30 days' or fecha_fin is null);";	
+		$jornada = 	toba::db('comision')->consultar($sql);
+		if (count($jornada)>0){
+			for($i=0;$i<$j;$i++){
+				$presentismo[$i]['horas_requeridad']=$jornada[0]['horas_corregidas'];
+			}
+		}	
+		
+		for ($i=0;$i<$j;$i++)	{
+			if(in_array($presentismo[$i]['fecha'],$sani )){
+				$presentismo[$i]['estado'] = 'Ausente Justificado';
+
+			}
+			
+		}
+		
+	//	ei_arbol($presentismo);
 		$this->s__datos = $presentismo;
-		$cuadro->set_datos($presentismo);
+				$cuadro->set_datos($presentismo);
+	}
+	function conf__cuadrograf(comision_ei_cuadro $cuadro){
+		$j = count($this->s__datos);
+		for ($i = 0; $i < $j; $i++) {
+			list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
+			$minu = intval($horas * 60) + (intval($minutos));
+			$datos_1[] = round($minu / 60, 2);
+		}
+		$prom_hora = round(array_sum ($datos_1)/count($datos_1),2);
+		
+		list($hora, $minuto, $segundos) = explode(":", $this->s__datos[0]['horas_requeridad']);
+		$minut = intval($hora * 60) + (intval($minuto));
+		$horas_requ = round($minut / 60, 2);
+		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
+		$script = "<html>
+  <head>
+   <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+   <script type='text/javascript'>
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Prom Horas', 10],
+          ]);
+
+        var options = {
+          width: 400, height: 220,
+          greenFrom: $horas_requ, greenTo: $horas_requ + 2 ,
+          yellowFrom:$horas_requ - 1, yellowTo: $horas_requ,
+		  max : $horas_requ + 2,
+		//  redFrom:80, redTo: 0
+          minorTicks: 10
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+		data.setValue(0, 1, $prom_hora);
+        chart.draw(data, options);
+
+        //setInterval(function() {
+        //  data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+        //  chart.draw(data, options);
+        //}, 1300);
+        // setInterval(function() {
+        //   data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+        //   chart.draw(data, options);
+        // }, 5000);
+        //setInterval(function() {
+         // data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+         // chart.draw(data, options);
+        //}, 260);
+      }
+    </script>
+  </head>
+  <body>
+    <div id='chart_div' style='width: 400px; height: 220px;'></div>
+  </body>
+</html>"
+;
+	$datos[0]['grafico'] = $script;
+	$cuadro->set_datos($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -42,8 +164,8 @@ class ci_incio extends comision_ci
 	//-----------------------------------------------------------------------------------
 
 	function conf__grafico(comision_ei_grafico $grafico)
-	{
-		/*
+	{/*
+
 		$j = count($this->s__datos);
 		for ($i = 0; $i < $j; $i++) {
 			list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
@@ -71,11 +193,10 @@ class ci_incio extends comision_ci
 		$serie = $grafico->conf()->serie('Horas Requeridas')->SetWeight(3);
 		$serie = $grafico->conf()->serie('Horas Trabajadas')->SetWeight(3);
 		$grafico->conf()->canvas()->xaxis->SetTickLabels($dias);
-		$grafico->conf()->canvas()->ygrid->SetFill(true, '#EFEFEF@0.8', '#BBCCFF@0.1');
-		*/
+		$grafico->conf()->canvas()->ygrid->SetFill(true, '#EFEFEF@0.8', '#BBCCFF@0.1');*/ 
 	}
 	//-----------------------------------------------------------------------------------
-	//---- grafico barras ----------------------------------------------------------------------
+	//---- grafico barras----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
 	function conf__graficob(toba_ei_grafico $graficob)
@@ -98,9 +219,9 @@ class ci_incio extends comision_ci
 		}
 
 		$canvas = new Graph(900, 400);
-		$canvas->SetScale("textlin", 0, 10);
+		$canvas->SetScale("textlin", 0, 12);
 		
-		$majorTickPositions = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10); // Posiciones principales
+		$majorTickPositions = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12); // Posiciones principales
 		$canvas->yaxis->SetTickPositions($majorTickPositions);
 		// Configurar los títulos
 		$canvas->title->Set("Horas Trabajadas vs Horas Requeridas");
@@ -145,4 +266,5 @@ class ci_incio extends comision_ci
 		$canvas->legend->SetPos(0.83,0.15,'left','bottom');
 		$graficob->conf()->canvas__set($canvas);
 	}
+
 }
