@@ -1,7 +1,24 @@
 Computar las comisiones de servicio como hora trabajadas, en las columnas no aparece.
-
 No aparece las marcas fuera de la semana.
 
 
 1 de agosto, lanzamiento. Vers.2
 
+1 de agosto
+Comisión
+ Informe y grafico personal a cargo.
+ Borrar el grafico de líneas.
+ Controlar usuarios. OK
+ Generación de clave probar.OK
+ Probar todo el menu con los dos perfiles.OK
+ Cambiar el usuario de envió de mail, y probarlo.OK
+ Linkear la base con la 10 (bases.ini). OK
+ Crear el script de cron para refresh.Ok
+ Arreglar el link de la pagina web.
+
+ 
+
+=========================================
+MEJORAS A FUTURO
+=========================================
+Agregar formulario de declaración de cargos y horarios.
