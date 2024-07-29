@@ -86,10 +86,10 @@ INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objet
 );
 INSERT INTO apex_objeto_dependencias (proyecto, dep_id, objeto_consumidor, objeto_proveedor, identificador, parametros_a, parametros_b, parametros_c, inicializar, orden) VALUES (
 	'comision', --proyecto
-	'1189', --dep_id
+	'1192', --dep_id
 	'2306', --objeto_consumidor
-	'2309', --objeto_proveedor
-	'grafico', --identificador
+	'2312', --objeto_proveedor
+	'cuadrograf', --identificador
 	NULL, --parametros_a
 	NULL, --parametros_b
 	NULL, --parametros_c
@@ -154,12 +154,12 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'1190', --pantalla
 	'2306', --objeto_ci
 	'1', --orden
-	'1189'  --dep_id
+	'1192'  --dep_id
 );
 INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
 	'comision', --proyecto
 	'1190', --pantalla
 	'2306', --objeto_ci
-	'2', --orden
+	'3', --orden
 	'24234000021'  --dep_id
 );
