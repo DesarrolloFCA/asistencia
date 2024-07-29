@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---[396000023]--  Usuarios Ctrl_Asis 
+--[396000023]--  Usuarios 
 ------------------------------------------------------------
 
 ------------------------------------------------------------
@@ -23,7 +23,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
 	NULL, --actividad_patron
-	'Usuarios Ctrl_Asis', --nombre
+	'Usuarios', --nombre
 	NULL, --descripcion
 	'4000021', --punto_montaje
 	NULL, --actividad_accion
@@ -47,7 +47,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	'0', --publico
 	NULL, --redirecciona
 	NULL, --usuario
-	'1', --exportable
+	'0', --exportable
 	'2015-08-18 08:17:12', --creacion
 	'0'  --retrasar_headers
 );

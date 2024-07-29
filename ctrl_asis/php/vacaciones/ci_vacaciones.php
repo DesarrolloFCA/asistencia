@@ -87,7 +87,7 @@ class ci_vacaciones extends ctrl_asis_ci
 					//$dia = $february->diff($january);
 					$dia = date_diff($fecha_inicio , $hoy);
 					$dias = $dia->format('%a') + 1;
-					ei_arbol($dias);
+					//ei_arbol($dias);
 					$fecha_ini=$datos[$i]['fecha_inicio'];
 					
 					
@@ -108,6 +108,7 @@ class ci_vacaciones extends ctrl_asis_ci
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo,  tipo_sexo,usuario_cierre,fecha_cierre)
 						VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
 						'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+
 					}    
 				toba::db('ctrl_asis')->ejecutar($sql);
 				
@@ -230,7 +231,7 @@ $mail->SMTPAuth   = true;
 //Definimos la cuenta que vamos a usar. Dirección completa de la misma
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)

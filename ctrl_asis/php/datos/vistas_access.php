@@ -69,10 +69,9 @@ class vistas_access extends toba_datos_relacion
 		} 
 
 		//-------------------------------------------
-		//$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		//list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "uid"=>"sa", "pwd"=>"R3l0j", "database"=>"access","Encrypt"=>"no");
-		$HOST="172.22.8.10";
+		$conf_access = file_get_contents('../php/datos/conf_access.txt');
+		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
+		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
 		$conn = sqlsrv_connect($HOST, $connectionInfo);
 
 		if( $conn === false ){
@@ -174,14 +173,13 @@ $inicio = microtime(true);
 }
 */
 
-//ei_arbol($sql);
-	//-------------------------------------------
-		//$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		//list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "uid"=>"sa", "pwd"=>"R3l0j", "database"=>"access","Encrypt"=>"no");
-		$HOST="172.22.8.10";
+
+		//-------------------------------------------
+		$conf_access = file_get_contents('../php/datos/conf_access.txt');
+		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
+		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
 		$conn = sqlsrv_connect($HOST, $connectionInfo);
-	
+
 		if( $conn === false ){
 		//echo "No es posible conectarse al servidor.</br>";
 		echo "179: No es posible conectarse al servidor.</br>";
@@ -189,18 +187,16 @@ $inicio = microtime(true);
 		}
 
 		$result = sqlsrv_query($conn,$sql);
-		//ei_arbol($result);
+		
 		if( $result === false ){
 		echo "Error al ejecutar consulta.</br>";
 		die( print_r( sqlsrv_errors(), true));
 		}
-		//ei_arbol(sqlsrv_has_rows($sql));
+
 		while ($row = sqlsrv_fetch_array($result)) {
-				
 			$array[] = $row;
 		}
 
-		//ei_arbol($array);
 		sqlsrv_free_stmt($result);
 		sqlsrv_close($conn);
 		
@@ -261,8 +257,8 @@ $inicio = microtime(true);
 echo $sql;  
 } */
 		//-------------------------------------------
-		//$conf_hander = file_get_contents('../php/datos/conf_hander.txt');
-		//list($UID,$PWD,$DB,$HOST)=explode(';',$conf_hander); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
+		$conf_hander = file_get_contents('../php/datos/conf_hander.txt');
+		list($UID,$PWD,$DB,$HOST)=explode(';',$conf_hander); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
 		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB); //$connectionInfo = array( "UID"=>"citreloj", "PWD"=>"reloj2015", "Database"=>"Hander");
 		$conn = sqlsrv_connect($HOST, $connectionInfo); //$conn = sqlsrv_connect( '172.22.32.27\SQLESPRESS,2523', $connectionInfo);
 
@@ -297,15 +293,14 @@ $final = microtime(true);
 echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br>';
 }
 */
-		
+
 		return $array;
 
 	}
 
-function get_marcas($filtro=array()){
+	function get_marcas($filtro=array()){
 		
 		$filtro['sin_errores'] = true;
-	
 		$array = $this->get_CHECKINOUT($filtro);
 		$datos = array();
 		
@@ -457,7 +452,6 @@ function get_marcas($filtro=array()){
 				$datos[$key]['horas']     = $this->restar_horas($dato['entrada'],$dato['salida']);
 			}
 		}
-		//ei_arbol($datos);
 		return $datos;
 	}
 
@@ -474,10 +468,9 @@ function get_marcas($filtro=array()){
 		WHERE A.id = M.area_id "; 
 
 		//-------------------------------------------
-		//$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		//list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "uid"=>"sa", "pwd"=>"R3l0j", "database"=>"access");
-		$HOST="172.22.8.10";
+		$conf_access = file_get_contents('../php/datos/conf_access.txt');
+		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
+		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
 		$conn = sqlsrv_connect($HOST, $connectionInfo);
 
 		if( $conn === false ){
@@ -540,10 +533,9 @@ function get_marcas($filtro=array()){
 			AND A.areaid= '$cod_depcia'"; 
 
 		//-------------------------------------------
-		//$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		//list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "uid"=>"sa", "pwd"=>"R3l0j", "database"=>"access");
-		$HOST="172.22.8.10";
+		$conf_access = file_get_contents('../php/datos/conf_access.txt');
+		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
+		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
 		$conn = sqlsrv_connect($HOST, $connectionInfo);
 
 		if( $conn === false ){

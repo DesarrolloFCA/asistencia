@@ -15,11 +15,11 @@ class ci_parte extends toba_ci
 	{
 		$info['basica'] = toba::solicitud()->get_datos_item();
 		$item = new toba_item_info($info);
-		if ($item->get_id() == '3481') {
+		if($item->get_id() == '3481'){
 			$this->set_pantalla('pant_alta');
 		}
 
-		if (isset($_GET['levantar']) and $_GET['levantar'] == 'true') {
+		if(isset($_GET['levantar']) and $_GET['levantar'] == 'true'){
 			$this->dep('datos')->tabla('parte')->cerrar_partes_vencidos();
 		}
 
@@ -36,11 +36,11 @@ class ci_parte extends toba_ci
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro->set_datos($this->s__datos_filtro);
-		} else {
-			if (!empty($_SESSION['dependencia'])) {
+		}else{
+			if(!empty($_SESSION['dependencia'])){ 
 				$f['cod_depcia']  = $_SESSION['dependencia'];
 			}
-			if (!empty($_SESSION['agente'])) {
+			if(!empty($_SESSION['agente'])){ 
 				$f['legajo']  = $_SESSION['agente'];
 			}
 			$filtro->set_datos($f);
@@ -49,7 +49,7 @@ class ci_parte extends toba_ci
 
 	function evt__filtro__filtrar($datos)
 	{
-
+		
 		$this->s__datos_filtro = $datos;
 	}
 
@@ -63,15 +63,16 @@ class ci_parte extends toba_ci
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro->set_datos($this->s__datos_filtro);
-		} else {
-			if (!empty($_SESSION['dependencia'])) {
+		}else{
+			if(!empty($_SESSION['dependencia'])){ 
 				$f['cod_depcia']  = $_SESSION['dependencia'];
 			}
-			if (!empty($_SESSION['agente'])) {
+			if(!empty($_SESSION['agente'])){ 
 				$f['legajo']  = $_SESSION['agente'];
 			}
 			$filtro->set_datos($f);
 		}
+
 	}
 
 	function evt__filtro2__filtrar($datos)
@@ -94,79 +95,79 @@ class ci_parte extends toba_ci
 		if (isset($this->s__datos_filtro)) {
 			$datos = $this->dep('datos')->tabla('parte')->get_listado($this->s__datos_filtro);
 			$max = count($datos);
-			for ($i = 0; $i < $max; $i++) {
-				$dias_calculo = $datos[$i]['dias'] - 1;
-				$dias = '+' . $dias_calculo . ' day';
-				$datos[$i]['fecha_fin_licencia']     = date('Y-m-d', strtotime($dias, strtotime($datos[$i]['fecha_inicio_licencia']))); //sumamos N dias a la fecha de inicio licencia
-				//list($y,$m,$d)=explode("-",$datos['fecha_fin_licencia']); //2011-03-31
-				//$datos[$i]['fecha_fin_licencia'] = $d."/".$m."/".$y;
-				$datos[$i]['nombre_completo'] = $datos[$i]['apellido'] . ", " . $datos[$i]['nombre'];
+			for($i=0;$i<$max;$i++){
+			$dias_calculo = $datos[$i]['dias'] - 1;
+			$dias = '+'.$dias_calculo.' day';
+			$datos[$i]['fecha_fin_licencia']     = date ( 'Y-m-d' , strtotime ( $dias , strtotime ( $datos[$i]['fecha_inicio_licencia'] ) )  ); //sumamos N dias a la fecha de inicio licencia
+			//list($y,$m,$d)=explode("-",$datos['fecha_fin_licencia']); //2011-03-31
+			//$datos[$i]['fecha_fin_licencia'] = $d."/".$m."/".$y;
+			$datos[$i]['nombre_completo'] = $datos[$i]['apellido'].", ".$datos[$i]['nombre'];
 			}
 			//ei_arbol($this->s__datos_filtro);
 			$this->s__datos = $datos;
 			$cuadro->set_datos($this->s__datos);
 			//ei_arbol($this->s__datos);
-
-			#} else {
-			#    $this->s__datos = $this->dep('datos')->tabla('parte')->get_listado();
+			
+		#} else {
+		#    $this->s__datos = $this->dep('datos')->tabla('parte')->get_listado();
 		}
 		#$cuadro->set_datos($this->s__datos);
 	}
 
-	//Si no esta en estado A (abierto), ocultamos el boton para levantar el parte
-	function conf_evt__cuadro__levantar($evento, $fila)
-	{
-		if ($this->s__datos[$fila]['estado'] <> 'A') {
-			$evento->anular();
+		//Si no esta en estado A (abierto), ocultamos el boton para levantar el parte
+		function conf_evt__cuadro__levantar($evento, $fila)
+		{
+				if ($this->s__datos[$fila]['estado'] <> 'A') {
+						$evento->anular();
+				}
 		}
-	}
 
-	//Si no esta en estado A (abierto), ocultamos el boton para levantar el parte
-	function conf_evt__cuadro__ver($evento, $fila)
-	{
-		if ($this->s__datos[$fila]['estado'] <> 'C') {
-			$evento->anular();
-		}
-	}
+			//Si no esta en estado A (abierto), ocultamos el boton para levantar el parte
+		function conf_evt__cuadro__ver($evento, $fila)
+		{
+				if ($this->s__datos[$fila]['estado'] <> 'C') {
+						$evento->anular();
+				}
+		}       
 
-	function evt__cuadro__eliminar($datos)
-	{
-		/*$this->dep('datos')->resetear();
+		function evt__cuadro__eliminar($datos)
+		{
+			/*$this->dep('datos')->resetear();
 			$this->dep('datos')->cargar($datos);
 			$this->dep('datos')->eliminar_todo();
 			$this->dep('datos')->resetear();*/
 
-		//$this->dep('datos')->eliminar_todo();
-		$this->dep('datos')->tabla('parte')->set_estado($datos['id_parte'], 'E');
+			//$this->dep('datos')->eliminar_todo();
+			$this->dep('datos')->tabla('parte')->set_estado($datos['id_parte'],'E');
 
-		$this->resetear();
-	}
+			$this->resetear();
+		}
 
-	function evt__cuadro__seleccion($datos)
-	{
-		$this->dep('datos')->cargar($datos);
-		$this->s__id_parte = $datos['id_parte'];
-		$_SESSION['id_parte'] = $datos['id_parte'];
-		$this->set_pantalla('pant_edicion');
-	}
+		function evt__cuadro__seleccion($datos)
+		{
+			$this->dep('datos')->cargar($datos);
+			$this->s__id_parte = $datos['id_parte'];
+			$_SESSION['id_parte'] = $datos['id_parte'];
+			$this->set_pantalla('pant_edicion');
+		}
+		
+
+		function evt__cuadro__levantar($datos)
+		{
+			$this->dep('datos')->cargar($datos);
+			$this->s__id_parte = $datos['id_parte'];
+			$_SESSION['id_parte'] = $datos['id_parte'];
+			$this->set_pantalla('pant_levantar');
+		}
 
 
-	function evt__cuadro__levantar($datos)
-	{
-		$this->dep('datos')->cargar($datos);
-		$this->s__id_parte = $datos['id_parte'];
-		$_SESSION['id_parte'] = $datos['id_parte'];
-		$this->set_pantalla('pant_levantar');
-	}
-
-
-	function evt__cuadro__ver($datos)
-	{
-		$this->dep('datos')->cargar($datos);
-		$this->s__id_parte = $datos['id_parte'];
-		$_SESSION['id_parte'] = $datos['id_parte'];
-		$this->set_pantalla('pant_vista');
-	}
+		function evt__cuadro__ver($datos)
+		{
+			$this->dep('datos')->cargar($datos);
+			$this->s__id_parte = $datos['id_parte'];
+			$_SESSION['id_parte'] = $datos['id_parte'];            
+			$this->set_pantalla('pant_vista');
+		}
 
 	//---- Cuadro2 -----------------------------------------------------------------------
 
@@ -178,28 +179,28 @@ class ci_parte extends toba_ci
 			$this->s__datos = $this->dep('datos')->tabla('parte')->get_listado($this->s__datos_filtro);
 			$cuadro->set_datos($this->s__datos);
 
-			#} else {
-			#    $this->s__datos = $this->dep('datos')->tabla('parte')->get_listado();
+		#} else {
+		#    $this->s__datos = $this->dep('datos')->tabla('parte')->get_listado();
 		}
 		#$cuadro->set_datos($this->s__datos);
 	}
 
 
-	function evt__cuadro2__seleccion($datos)
-	{
-		$this->dep('datos')->cargar($datos);
-		$this->s__id_parte = $datos['id_parte'];
-		$_SESSION['id_parte'] = $datos['id_parte'];
-		$this->set_pantalla('pant_edicion');
-	}
+		function evt__cuadro2__seleccion($datos)
+		{
+			$this->dep('datos')->cargar($datos);
+			$this->s__id_parte = $datos['id_parte'];
+			$_SESSION['id_parte'] = $datos['id_parte'];
+			$this->set_pantalla('pant_edicion');
+		}
 
-	function evt__cuadro2__ver($datos)
-	{
-		$this->dep('datos')->cargar($datos);
-		$this->s__id_parte = $datos['id_parte'];
-		$_SESSION['id_parte'] = $datos['id_parte'];
-		$this->set_pantalla('pant_vista');
-	}
+		function evt__cuadro2__ver($datos)
+		{
+			$this->dep('datos')->cargar($datos);
+			$this->s__id_parte = $datos['id_parte'];
+			$_SESSION['id_parte'] = $datos['id_parte'];            
+			$this->set_pantalla('pant_vista');
+		}
 
 	//---- Cuadro usado por el evente imprimir_xls  ------------------------------------
 
@@ -219,26 +220,27 @@ class ci_parte extends toba_ci
 	//---- Formulario -------------------------------------------------------------------
 
 	function conf__formulario(toba_ei_formulario $form)
-	{
+	{ 
 
 		if ($this->dep('datos')->esta_cargada()) { //modificacion
 
 			$datos = $this->dep('datos')->tabla('parte')->get();
-
+			
 			//En caso de que sea un parte de vacaciones
-			if (!empty($datos['id_motivo']) && $datos['id_motivo'] == 35) {
+			if(!empty($datos['id_motivo']) && $datos['id_motivo'] == 35){
 				$parte_anio = toba::tabla('parte')->get_parte_anio($datos['id_parte']);
 				$datos['anio']  = $parte_anio['anio'];
-			} else {
+			}else{
 				$datos['anio']  = "-";
 			}
 
 			$form->set_datos($datos);
 
-			$fecha_inicio_licencia = substr($datos['fecha_inicio_licencia'], 0, 7); //yyyy-mm
-			if ($fecha_inicio_licencia <> date("Y-m") and $_SESSION['admin'] <> true) {
+			$fecha_inicio_licencia = substr($datos['fecha_inicio_licencia'], 0,7); //yyyy-mm
+			if($fecha_inicio_licencia <> date("Y-m") and $_SESSION['admin'] <> true ){
 				$this->pantalla()->eliminar_evento('eliminar');
 			}
+
 		}
 	}
 
@@ -279,7 +281,7 @@ class ci_parte extends toba_ci
 		*/
 
 		$this->dep('datos')->tabla('parte')->set($datos);
-		$this->s__accion = 'modificacion';
+		$this->s__accion = 'modificacion';        
 	}
 
 
@@ -292,7 +294,7 @@ class ci_parte extends toba_ci
 	}
 
 	function evt__form_alta__modificacion($datos)
-	{
+	{        
 		//seteamos datos fijos, de campos ocultos
 		$datos['estado']           = 'C';  // A/Abierto - Vigente (el mÃ©dico lo puede editar),L/Levantado - Cerrado (ya no se puede modificar)
 		$datos['fecha_alta']    = date("Y-m-d H:i:s");
@@ -302,100 +304,148 @@ class ci_parte extends toba_ci
 		$datos['usuario_cierre']  = toba::usuario()->get_id();
 		$legajo = $datos['legajo'];
 		$dependencia = $datos['cod_depcia'];
-		$id_motivo = $datos['id_motivos'];
+		$id_motivo= $datos['id_motivos'];
+		$anio=$datos['anio'];
 		$agrupamiento = $datos['agrupamiento'];
-		$anio = $datos['anio'];
+		$dias_restantes = 0;
 		$dias = $datos['dias'];
 		//ei_arbol($datos);
 		$this->dep('datos')->tabla('parte')->set($datos);
+		//ei_arbol($datos);
 		//validar que venga un anio para partes de vacaciones
-		if (isset($datos['anio']) && $datos['id_motivo'] == '35') {
-			$dato_antiguedad = toba::tabla('antiguedad')->get_antiguedad($datos['legajo']);
-			//ei_arbol($dato_antiguedad);
-			if (!empty($dato_antiguedad['fecha_ingreso'])) {
-				$agente['fec_ingreso'] = $dato_antiguedad['fecha_ingreso'];
+		if ($datos['id_motivo']==57){
+			$sql = "SELECT max(anio) anio_v, sum(dias) dias_t from reloj.vacaciones_restantes
+					WHERE legajo = '$legajo';";
+			$agente = toba::db('ctrl_asis')->consultar($sql);
+			
+			if (isset($agente)){
+				$datos [anio] = $agente[0]['anio_v'];
+				$anio=$datos['anio'];
+				$dias_restantes = $agente [0]['dias_t'] - $dias;
+				$bandera= 1;
+				
+				$datos['dias_restantes'] = $dias_restantes;
+				if( $dias_restantes < 0 ){
+					toba::notificacion()->agregar('El agente '.$datos['legajo'].' - '.$datos['apellido'].', '.$datos['nombre'] .' tiene' .$agente['dias_t'].' dias pendientes de la licencia anual de año '.$datos['anio'] . '.Pro favor elegija una cantidad de dias menor o igual que la especificada', 'error');
+				$bandera= 0;
+				} else if($dias_restantes == 0) {
+					$sql = "DELETE from reloj.vacaciones_restantes
+							WHERE legajo = '$legajo' AND  anio = '$anio'";
+							toba::db('ctrl_asis')->ejecutar($sql);	
+
+				}else {
+
+				$sql = "UPDATE reloj.vacaciones_restantes
+						SET dias = $dias_restantes
+						WHERE legajo = '$legajo ' AND  anio ='$anio' ";
+						//ei_arbol($dias_restantes);
+						toba::db('ctrl_asis')->ejecutar($sql);	
+				}		
 			} else {
-
-				$sql = "SELECT fec_ingreso FROM reloj.agentes WHERE legajo = '$legajo' and agrupamiento = '$agrupamiento' ";
-				$agente =  toba::db('ctrol_asis')->consultar_fila($sql);
+				 toba::notificacion()->agregar('El agente'.$datos['legajo'].' - '.$datos['apellido'].', '.$datos['nombre'] .' no posee dias pendientes de la licencia anual de año '.$datos['anio'] . '.', 'error');  
+				$bandera= 0;
 			}
-			if (!empty($agente['fec_ingreso'])) {
+			
+			$this->s__datos =$datos;
+		}
+		
+	
+		if(isset($datos['anio']) && $datos['id_motivo'] == '35') {
+			$dato_antiguedad = toba::tabla('antiguedad')->get_antiguedad($datos['legajo']);
+			$bandera = 1;
+			//ei_arbol($dato_antiguedad);
+			if(!empty($dato_antiguedad['fecha_ingreso'])){
+						$agente['fec_ingreso'] = $dato_antiguedad['fecha_ingreso'];
+					}else{
+						
+						$sql = "SELECT fec_ingreso FROM reloj.agentes WHERE legajo = '$legajo' and agrupamiento = '$agrupamiento' ";
+						$agente =  toba::db('ctrl_asis')->consultar_fila($sql); 
+					}    
+					if(!empty($agente['fec_ingreso'])){
 
-				//obtenemos dias por antiguedad ------------------------------
-				$antiguedad = toba::tabla('vacaciones_antiguedad')->get_array_antiguedad($agente['fec_ingreso'], $agrupamiento, $anio);
-				$dias_tomados = 0;
-				list($anio_lic, $mes_lic, $dia_lic) = explode('-', $fecha_inicio_licencia);
-				$filtro['legajo']      = $legajo;
-				$filtro['id_motivo']   = $datos['id_motivo'];
-				$filtro['agrupamiento'] = $agrupamiento;
-				$filtro['parte_anio']  = $anio; //ano seleccionado por vacaciones
-				$filtro['anio']        = $anio; //date("Y"); //ano actual
-				/*for ($i=0; $i < date("m") ; $i++) {  // bucle en todos los meses hasta el mes actual
+						//obtenemos dias por antiguedad ------------------------------
+						$antiguedad = toba::tabla('vacaciones_antiguedad')->get_array_antiguedad($agente['fec_ingreso'],$agrupamiento, $anio);
+						$dias_tomados = 0;
+						list($anio_lic,$mes_lic,$dia_lic) = explode('-', $fecha_inicio_licencia);
+						$filtro['legajo']      = $legajo;
+						$filtro['id_motivo']   = $datos['id_motivo'];
+						$filtro['agrupamiento']= $agrupamiento;
+						$filtro['parte_anio']  = $anio; //ano seleccionado por vacaciones
+						$filtro['anio']        = $anio; //date("Y"); //ano actual
+						/*for ($i=0; $i < date("m") ; $i++) {  // bucle en todos los meses hasta el mes actual
 							$mes = $i+1;
 							if($mes<10){
 								$filtro['mes']  = "0".$mes;
 							}else{
 								$filtro['mes']  = $mes;
 							}*/
-				//ei_arbol($filtro);
+							//ei_arbol($filtro);
+							
+							$partes = toba::tabla('parte')->get_listado_vaca($filtro);
+							$lim=count($partes);
+							
+							if($lim>0){
 
-				$partes = toba::tabla('parte')->get_listado_vaca($filtro);
-				$lim = count($partes);
-
-				if ($lim > 0) {
-
-					/*for($i=0;$i<=$lim;$i++){
+								/*for($i=0;$i<=$lim;$i++){
 									$dias_tomados = $dias_tomados + $partes[$i]['dias'];
 								}
 								/*foreach ($partes as $parte) {
 									$dias_tomados = $dias_tomados + $parte['dias'];
 								}*/
-					//ei_arbol($partes);
-					//ei_arbol($dias_tomados);
-					$dias_tomados = $partes[0]['sum'];
-					//}
-				} else {
-					$dias_tomados = 0;
-				}
+								//ei_arbol($partes);
+								//ei_arbol($dias_tomados);
+								$dias_tomados = $partes[0]['sum'];
+							//}
+							} else 
+							{ 
+								$dias_tomados = 0;
+							}
+											
+						$vacaciones_restantes = toba::tabla('vacaciones_restantes')->get_dias($legajo, $anio, $agrupamiento);
+						
+						
+						if (is_null($vacaciones_restantes)){
 
-				$vacaciones_restantes = toba::tabla('vacaciones_restantes')->get_dias($legajo, $anio, $agrupamiento);
+							$dias_disponibles = $dato_antiguedad['dias'] - $dias_tomados ; //$antiguedad['dias'] - $dias_tomados;
 
-
-				if (is_null($vacaciones_restantes)) {
-
-					$dias_disponibles = $dato_antiguedad['dias'] - $dias_tomados; //$antiguedad['dias'] - $dias_tomados;
-
-				} else {
-					//ei_arbol($vacaciones_restantes);
-					$dias_disponibles = $vacaciones_restantes - $dias_tomados;
-				}
-			}
-
-			$dias_restantes = $dias_disponibles - $dias;
-
-			$sql = "INSERT INTO reloj.vacaciones_restantes(
+					
+						}else{
+							//ei_arbol($vacaciones_restantes);
+							$dias_disponibles = $vacaciones_restantes - $dias_tomados;
+						}
+					}
+					
+					$dias_restantes = $dias_disponibles - $dias;
+					
+					$sql = "INSERT INTO reloj.vacaciones_restantes(
 						legajo, cod_depcia, agrupamiento, anio, dias)
 						VALUES ($legajo, '04','$agrupamiento' , $anio, $dias_restantes);";
-			toba::db('ctrl_asis')->ejecutar($sql);
+						toba::db('ctrl_asis')->ejecutar($sql);	
+					
 
 
 
+			 $this->dep('datos')->tabla('parte_anio')->set($datos);
 
-			$this->dep('datos')->tabla('parte_anio')->set($datos);
-		}
-		if ($datos['id_motivo'] == '55') {
 
-			$anio == date('Y');
-			$sql = "INSERT INTO reloj.vacaciones_adelantadas ( legajo, anio, dias_adelanto) 
+		} 
+		if ($datos['id_motivo'] == '55' ){
+					
+					$anio== date('Y');
+						$sql = "INSERT INTO reloj.vacaciones_adelantadas ( legajo, anio, dias_adelanto) 
 						values ($legajo, $anio,$dias)";
-			toba::db('ctrl_asis')->ejecutar($sql);
+						toba::db('ctrl_asis')->ejecutar($sql);	
+
+					
 		}
-		$sql = "SELECT email from reloj.agentes_mail
+		$sql= "SELECT email from reloj.agentes_mail
 					where legajo=$legajo";
-		$correo = toba::db('ctrl_asis')->consultar($sql);
-		$this->s__datos = $datos;
+					$correo = toba::db('ctrl_asis')->consultar($sql);
+		$this->s__datos =$datos;
+		if ($bandera <> 0){
 		$this->enviar_correos($correo[0]['email']);
-		$this->s__accion = 'alta';
+		}
+		//$this->s__accion = 'alta';
 	}
 
 
@@ -406,49 +456,37 @@ class ci_parte extends toba_ci
 		if ($this->dep('datos')->esta_cargada()) { //modificacion
 			$datos = $this->dep('datos')->tabla('parte')->get();
 
-			if ($datos['t_manana'] == 1) {
-				$datos['t_manana_vista'] = 'Si';
-			} else {
-				$datos['t_manana_vista'] = 'No';
-			}
-			if ($datos['t_tarde']  == 1) {
-				$datos['t_tarde_vista']  = 'Si';
-			} else {
-				$datos['t_tarde_vista']  = 'No';
-			}
-			if ($datos['t_noche']  == 1) {
-				$datos['t_noche_vista']  = 'Si';
-			} else {
-				$datos['t_noche_vista']  = 'No';
-			}
+			if($datos['t_manana'] == 1) { $datos['t_manana_vista'] = 'Si'; }else{ $datos['t_manana_vista'] = 'No';  }
+			if($datos['t_tarde']  == 1) { $datos['t_tarde_vista']  = 'Si'; }else{ $datos['t_tarde_vista']  = 'No';  }
+			if($datos['t_noche']  == 1) { $datos['t_noche_vista']  = 'Si'; }else{ $datos['t_noche_vista']  = 'No';  }
 
 			$dependencia = $this->dep('mapuche')->get_dependencia($datos['cod_depcia']);
 			$datos['desc_depcia'] = $dependencia['desc_depcia'];
 
-			list($y, $m, $d) = explode("-", $datos['fecha_nacimiento']); //2011-03-31
-			$datos['fecha_nacimiento'] = $d . "/" . $m . "/" . $y;
+			list($y,$m,$d)=explode("-",$datos['fecha_nacimiento']); //2011-03-31
+			$datos['fecha_nacimiento'] = $d."/".$m."/".$y;
 
-			list($f, $h) = explode(" ", $datos['fecha_alta']);
-			list($y, $m, $d) = explode("-", $f); //2015-04-17 08:49:03
-			$datos['fecha_alta'] = $d . "/" . $m . "/" . $y . " " . $h;
+			list($f,$h)=explode(" ",$datos['fecha_alta']);
+			list($y,$m,$d)=explode("-",$f); //2015-04-17 08:49:03
+			$datos['fecha_alta'] = $d."/".$m."/".$y." ".$h;
 
 			$datos['usuario_alta_nombre']   = $this->dep('datos2')->tabla('apex_usuario')->get_nombre_usuario($datos['usuario_alta']);
 
 
 			// si es medico, lo pongo predeterminado -------------------------------------------
-			$grupos_acceso = toba::instancia()->get_grupos_acceso(toba::usuario()->get_id(), toba::proyecto()->get_id());
-			foreach ($grupos_acceso as $grupo) {
+			$grupos_acceso = toba::instancia()->get_grupos_acceso(toba::usuario()->get_id(), toba::proyecto()->get_id() );
+			foreach ($grupos_acceso as $grupo){
 				if ($grupo == 'medico') { //es medico
 					$datos['usuario_medico'] = toba::usuario()->get_id();
-					$form->set_solo_lectura('usuario_medico');
+					$form->set_solo_lectura('usuario_medico');           
 					break;
 				}
 			}
 
 			// si tiene certificado provisorio, avisamos ---------------------------------------
-			$cert = toba::tabla('examen')->get_certificado($datos['legajo']);
-			if (substr($cert, 0, 10) == 'PROVISORIO') {
-				toba::notificacion()->agregar('Atenciï¿½n: Legajo con certificado ' . $cert, 'info');
+			$cert = toba::tabla('examen')->get_certificado($datos['legajo']); 
+			if(substr($cert, 0, 10) == 'PROVISORIO'){
+				toba::notificacion()->agregar('Atención: Legajo con certificado '.$cert, 'info');
 			}
 
 			$form->set_datos($datos);
@@ -457,28 +495,28 @@ class ci_parte extends toba_ci
 
 	function evt__form_levantar__modificacion($datos)
 	{
-
-		if ($this->dep('datos')->esta_cargada()) { //modificacion
-
+		
+		if ($this->dep('datos')->esta_cargada()) {//modificacion
+		
 			//certificado ----------------------------------------------------------
 			$folder_path = "../www/certificados/";
 			if (isset($datos['certificado']) and !empty($datos['certificado']['name'])) {
-				$nombre_certificado = $_SESSION['id_parte'] . substr($datos['certificado']['name'], -4, 4);
-				$destino            = $folder_path . $nombre_certificado;
-				move_uploaded_file($datos['certificado']['tmp_name'], $destino);
-				if (is_file($destino)) {
-					$datos['certificado'] = $nombre_certificado;
-				}
-			} elseif (isset($datos['certificado']) and empty($datos['certificado']['name'])) {
-				$datos['certificado'] = $datos['certificado']['name'];
-			} else {
-				//Mantener el valor anterior
-				$url = $this->dep('datos')->tabla('parte')->get_certificado($_SESSION['id_parte']);
-				if (empty($url['certificado'])) {
+					$nombre_certificado = $_SESSION['id_parte'].substr($datos['certificado']['name'],-4,4); 
+					$destino            = $folder_path.$nombre_certificado;
+					move_uploaded_file($datos['certificado']['tmp_name'], $destino ) ;
+					if ( is_file( $destino ) ){
+							$datos['certificado'] = $nombre_certificado;
+					}
+			}elseif (isset($datos['certificado']) and empty($datos['certificado']['name'])) {
 					$datos['certificado'] = $datos['certificado']['name'];
-				} else {
-					$datos['certificado'] = $url['certificado'];
-				}
+			}else{
+					//Mantener el valor anterior
+					$url= $this->dep('datos')->tabla('parte')->get_certificado($_SESSION['id_parte']);
+					if(empty($url['certificado'])){
+							$datos['certificado'] = $datos['certificado']['name'];
+					}else{
+							$datos['certificado'] = $url['certificado'];
+					}
 			}
 
 			//seteamos datos fijos, de campos ocultos
@@ -488,55 +526,43 @@ class ci_parte extends toba_ci
 
 			$this->dep('datos')->tabla('parte')->set($datos);
 			$this->s__accion == 'levantar';
-		}
+		}    
 	}
 
 
 	//---- Formulario Vista-------------------------------------------------------------------
 
 	function conf__form_vista(toba_ei_formulario $form)
-	{
+	{ 
 		if ($this->dep('datos')->esta_cargada()) { //modificacion
 			$datos = $this->dep('datos')->tabla('parte')->get();
 
-			if ($datos['t_manana'] == 1) {
-				$datos['t_manana_vista'] = 'Si';
-			} else {
-				$datos['t_manana_vista'] = 'No';
-			}
-			if ($datos['t_tarde']  == 1) {
-				$datos['t_tarde_vista']  = 'Si';
-			} else {
-				$datos['t_tarde_vista']  = 'No';
-			}
-			if ($datos['t_noche']  == 1) {
-				$datos['t_noche_vista']  = 'Si';
-			} else {
-				$datos['t_noche_vista']  = 'No';
-			}
+			if($datos['t_manana'] == 1) { $datos['t_manana_vista'] = 'Si'; }else{ $datos['t_manana_vista'] = 'No';  }
+			if($datos['t_tarde']  == 1) { $datos['t_tarde_vista']  = 'Si'; }else{ $datos['t_tarde_vista']  = 'No';  }
+			if($datos['t_noche']  == 1) { $datos['t_noche_vista']  = 'Si'; }else{ $datos['t_noche_vista']  = 'No';  }
 
 			$dependencia = $this->dep('mapuche')->get_dependencia($datos['cod_depcia']);
 			$datos['desc_depcia'] = $dependencia['desc_depcia'];
 
-			list($y, $m, $d) = explode("-", $datos['fecha_nacimiento']); //2011-03-31
-			$datos['fecha_nacimiento'] = $d . "/" . $m . "/" . $y;
+			list($y,$m,$d)=explode("-",$datos['fecha_nacimiento']); //2011-03-31
+			$datos['fecha_nacimiento'] = $d."/".$m."/".$y;
 
 			$dias_calculo = $datos['dias'] - 1;
-			$dias = '+' . $dias_calculo . ' day';
-			$datos['fecha_fin_licencia']     = date('Y-m-d', strtotime($dias, strtotime($datos['fecha_inicio_licencia']))); //sumamos N dias a la fecha de inicio licencia
-			list($y, $m, $d) = explode("-", $datos['fecha_fin_licencia']); //2011-03-31
-			$datos['fecha_fin_licencia'] = $d . "/" . $m . "/" . $y;
+			$dias = '+'.$dias_calculo.' day';
+			$datos['fecha_fin_licencia']     = date ( 'Y-m-d' , strtotime ( $dias , strtotime ( $datos['fecha_inicio_licencia'] ) )  ); //sumamos N dias a la fecha de inicio licencia
+			list($y,$m,$d)=explode("-",$datos['fecha_fin_licencia']); //2011-03-31
+			$datos['fecha_fin_licencia'] = $d."/".$m."/".$y;
 
-			list($y, $m, $d) = explode("-", $datos['fecha_inicio_licencia']); //2011-03-31
-			$datos['fecha_inicio_licencia'] = $d . "/" . $m . "/" . $y;
+			list($y,$m,$d)=explode("-",$datos['fecha_inicio_licencia']); //2011-03-31
+			$datos['fecha_inicio_licencia'] = $d."/".$m."/".$y;   
 
-			list($f, $h) = explode(" ", $datos['fecha_alta']);
-			list($y, $m, $d) = explode("-", $f); //2015-04-17 08:49:03
-			$datos['fecha_alta'] = $d . "/" . $m . "/" . $y . " " . $h;
+			list($f,$h)=explode(" ",$datos['fecha_alta']);
+			list($y,$m,$d)=explode("-",$f); //2015-04-17 08:49:03
+			$datos['fecha_alta'] = $d."/".$m."/".$y." ".$h;
 
-			list($f, $h) = explode(" ", $datos['fecha_cierre']);
-			list($y, $m, $d) = explode("-", $f); //2015-04-17 08:49:03
-			$datos['fecha_cierre'] = $d . "/" . $m . "/" . $y . " " . $h;
+			list($f,$h)=explode(" ",$datos['fecha_cierre']);
+			list($y,$m,$d)=explode("-",$f); //2015-04-17 08:49:03
+			$datos['fecha_cierre'] = $d."/".$m."/".$y." ".$h;
 
 			$datos['usuario_alta_nombre']   = $this->dep('datos2')->tabla('apex_usuario')->get_nombre_usuario($datos['usuario_alta']);
 			$datos['usuario_cierre_nombre'] = $this->dep('datos2')->tabla('apex_usuario')->get_nombre_usuario($datos['usuario_cierre']);
@@ -544,33 +570,31 @@ class ci_parte extends toba_ci
 
 			$datos['id_motivo_vista']       = toba::tabla('motivo')->get_descripcion($datos['id_motivo']);
 			$datos['id_decreto_vista']         = toba::tabla('decreto')->get_descripcion($datos['id_decreto']);
-
-			if (!empty($datos['id_articulo'])) {
-				$datos['id_articulo_vista']     = toba::tabla('articulo')->get_descripcion($datos['id_articulo']);
+			
+			if(!empty($datos['id_articulo']) ) {
+			$datos['id_articulo_vista']     = toba::tabla('articulo')->get_descripcion($datos['id_articulo']);
 			}
-
-			if (!empty($datos['id_diagnostico'])) {
+			
+			if(!empty($datos['id_diagnostico']) ) {
 				$diagnostico = toba::tabla('diagnostico')->get_diagnostico($datos['id_diagnostico']);
 				$datos['diagnostico']  = $diagnostico['diagnostico'];
 			}
 
-			if (!empty($datos['certificado'])) {
+			if(!empty($datos['certificado']) ) {
 				$folder_path = "certificados/";
-				$datos['url_certificado']  = '<a href="' . $folder_path . $datos['certificado'] . '" target="_blank">Descargar certificado</a>';
+				$datos['url_certificado']  = '<a href="'.$folder_path.$datos['certificado'].'" target="_blank">Descargar certificado</a>';
 			}
 
 			//En caso de que sea un parte de vacaciones
-			if (!empty($datos['id_motivo']) && $datos['id_motivo'] == 35) {
+			if(!empty($datos['id_motivo']) && $datos['id_motivo'] == 35){
 				$parte_anio = toba::tabla('parte')->get_parte_anio($datos['id_parte']);
 				$datos['anio']  = $parte_anio['anio'];
-			} else {
+			}else{
 				$datos['anio']  = "-";
 			}
 
-			if ($datos['estado'] == 'C') {
-				$datos['estado'] = "Cerrado/Levantado";
-			}
-
+			if($datos['estado'] == 'C'){ $datos['estado'] = "Cerrado/Levantado"; }
+			
 			$form->set_datos($datos);
 		}
 	}
@@ -598,13 +622,13 @@ class ci_parte extends toba_ci
 		
 	}*/
 	function vista_excel(toba_vista_excel $salida)
-	{
-		$excel = $salida->get_excel();
-		$excel->setActiveSheetIndex(0);
-		$excel->getActiveSheet()->setTitle('Partes de Inasistencia');
-
-		$this->dependencia($this->s__cuadro_xls)->vista_excel($salida);
-	}
+		{
+			$excel = $salida->get_excel();
+			$excel->setActiveSheetIndex(0);
+			$excel->getActiveSheet()->setTitle('Partes de Inasistencia');
+			
+			$this->dependencia($this->s__cuadro_xls)->vista_excel($salida);
+		}
 
 	//---- EVENTOS CI -------------------------------------------------------------------
 
@@ -621,8 +645,8 @@ class ci_parte extends toba_ci
 	function evt__eliminar()
 	{
 		//$this->dep('datos')->eliminar_todo();
-
-		$this->dep('datos')->tabla('parte')->set_estado($_SESSION['id_parte'], 'E');
+	
+		$this->dep('datos')->tabla('parte')->set_estado($_SESSION['id_parte'],'E');
 
 		$this->resetear();
 	}
@@ -631,7 +655,7 @@ class ci_parte extends toba_ci
 	{
 
 		//mostramos mensaje segun accion
-		if ($this->s__accion == 'alta') {
+		if($this->s__accion == 'alta')    { 
 
 			//verificamos que no exista otro parte abiertos(estado) con el mismo legajo, motivo y dependencia.
 			$datos = $this->dep('datos')->tabla('parte')->get();
@@ -639,22 +663,23 @@ class ci_parte extends toba_ci
 			$filtro['legajo']     = $datos['legajo'];
 			$filtro['id_motivo']  = $datos['id_motivo'];
 			$filtro['cod_depcia'] = $datos['cod_depcia'];
-
+							
 			#$datos_parte = $this->dep('datos')->tabla('parte')->get_listado($filtro);
-
+			
 			#if(count($datos_parte) == 0){
 			$this->dep('datos')->sincronizar();
 			toba::notificacion()->agregar('Parte de inasistencia agregado correctamente.', 'info');
 			#}else{
 			#    toba::notificacion()->agregar('El Parte '.$datos_parte[0]['id_parte'].' posee el mismo legajo, motivo y dependencia. Por favor verifique si conincide con el que desea agregar.', 'error');    
 			#}
-		} elseif ($this->s__accion == 'modificacion') {
+		}elseif($this->s__accion == 'modificacion'){ 
 			$this->dep('datos')->sincronizar();
-			toba::notificacion()->agregar('Parte de inasistencia modificado correctamente.', 'info');
-		} elseif ($this->s__accion == 'levantar') {
+			toba::notificacion()->agregar('Parte de inasistencia modificado correctamente.', 'info');  
+
+		}elseif($this->s__accion == 'levantar'){ 
 			$this->dep('datos')->sincronizar();
-			toba::notificacion()->agregar('Parte de inasistencia cerrado/levantado correctamente.', 'info');
-		} else {
+			toba::notificacion()->agregar('Parte de inasistencia cerrado/levantado correctamente.', 'info');  
+		}else{
 			$this->dep('datos')->sincronizar();
 		}
 
@@ -665,6 +690,7 @@ class ci_parte extends toba_ci
 	{
 
 		$this->dep('datos')->tabla('parte')->cerrar_partes_vencidos();
+
 	}
 
 	//-----------------------------------------------------------------------------------
@@ -675,11 +701,11 @@ class ci_parte extends toba_ci
 	{
 		if (isset($this->s__datos_filtro)) {
 			$filtro->set_datos($this->s__datos_filtro);
-		} else {
-			if (!empty($_SESSION['dependencia'])) {
+		}else{
+			if(!empty($_SESSION['dependencia'])){
 				$f['cod_depcia']  = $_SESSION['dependencia'];
 			}
-			if (!empty($_SESSION['agente'])) {
+			if(!empty($_SESSION['agente'])){
 				$f['legajo']  = $_SESSION['agente'];
 			}
 			$filtro->set_datos($f);
@@ -706,144 +732,228 @@ class ci_parte extends toba_ci
 		if (isset($this->s__datos_filtro)) {
 			$this->s__datos = $this->dep('datos')->tabla('parte')->get_listado($this->s__datos_filtro);
 			$cuadro->set_datos($this->s__datos);
-		}
+		} 
 	}
 
-	function enviar_correos($correo)
+function enviar_correos($correo)
 	{
-		require_once('mail/tobamail.php');
+		require_once('3ros/phpmailer/class.phpmailer.php');
 
-		$datos = $this->s__datos;
 
-		//ei_arbol($datos);
-		if ($datos['id_motivo'] == 30) {
-			$datos['dias'] = $datos['dias'] - 1;
-		}
-		$fecha = date('d/m/Y', strtotime($datos['fecha_inicio_licencia']));
 
-		if ($datos['dias_restantes'] <= 0) {
-			$datos['dias_restantes'] = 0;
-		}
+$datos =$this->s__datos;
 
-		$fecha_inicio_licencia = $datos['fecha_inicio_licencia'];
-		$fechaentera1 = strtotime($fecha_inicio_licencia);
-		$fecha = date_create(date("Y-m-d", $fechaentera1));
-		$fecha_inicio = $fecha->format("Y-m-d");
+//ei_arbol($datos);
+if ($datos['id_motivo'] == 30) {
+	$datos['dias']=$datos['dias']-1;
 
-		$dias = $datos['dias'];
-
-		$dias = $datos['dias'] - 1;
-		$dias_to = '+ ' . $dias . ' days';
-
-		//$hasta=date('d/m/Y',strtotime($hasta) );
-		//$hasta = date ( 'd/m/Y' , strtotime ( $dias , strtotime ( $datos['fecha_inicio_licencia'] ) )  ); //sumamos N dias a la fecha de inicio licencia
-		$hasta = date('d/m/Y',  strtotime($datos['fecha_inicio_licencia']  . $dias_to));
-		$fecha = date('d/m/Y', strtotime($datos['fecha_inicio_licencia']));
+} 
+	$fecha=date('d/m/Y',strtotime($datos['fecha_inicio_licencia'] ) );
 
 	
-		if ($datos['id_motivo'] == 30) {
-			//$motivo = 'Razones Particulares con gose de haberes';
-			$asunto = 'Formulario de Solicitud Razones Particulares';
-			$cuerpo = '<table>
-						El/la agente  <b>' . $datos['descripcion'] . '</b> perteneciente a la catedra/oficina/ direcci&oacute;n <b>' . $datos['catedra'] . '</b>.<br/>
-						Solicita Justificaci&oacute;n de Inasistencia por Razones Particulares a partir del d&iacute;a ' . $fecha . ' hasta ' . $hasta . '.
-							Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '
+
+if ($datos['dias_restantes'] <= 0){
+	$datos['dias_restantes'] = 0;
+}
+	
+
+			$fecha_inicio_licencia = $datos['fecha_inicio_licencia'];
+			$fechaentera1 =strtotime($fecha_inicio_licencia);
+			$fecha = date_create(date("Y-m-d",$fechaentera1)); 
+			$fecha_inicio =$fecha ->format("Y-m-d");
+
+			$dias = $datos['dias'];
+
+			//$fecha_inicio_licencia = $datos['fecha_inicio_licencia'];
+			//$fechaentera1 =strtotime($fecha_inicio_licencia);
+			//$fecha = date_create(date("Y-m-d",$fechaentera1)); 
+			//$fecha_inicio =$fecha ->format("Y-m-d");
+			$dias = $datos['dias']-1;
+			$dias_to='+ '. $dias. ' days';
+			//$hasta = date_add($fecha , date_interval_create_from_date_string($dias_to));
+			//$hasta =$hasta ->format("Y-m-d"); 
+
+	
+		//$hasta=date('d/m/Y',strtotime($hasta) );
+		//$hasta = date ( 'd/m/Y' , strtotime ( $dias , strtotime ( $datos['fecha_inicio_licencia'] ) )  ); //sumamos N dias a la fecha de inicio licencia
+		$hasta = date ( 'd/m/Y' ,  strtotime ( $datos['fecha_inicio_licencia']  . $dias_to )  );	
+		$fecha=date('d/m/Y',strtotime($datos['fecha_inicio_licencia'] ) );
+
+//ei_arbol($hasta);
+		
+$mail = new phpmailer();
+$mail->IsSMTP();
+
+//Esto es para activar el modo depuración. En entorno de pruebas lo mejor es 2, en producción siempre 0
+// 0 = off (producción)
+// 1 = client messages
+// 2 = client and server messages
+$mail->SMTPDebug  = 0;
+//Ahora definimos gmail como servidor que aloja nuestro SMTP
+$mail->Host       = 'smtp.gmail.com';
+//El puerto será el 587 ya que usamos encriptación TLS
+$mail->Port       = 587;
+//Definmos la seguridad como TLS
+$mail->SMTPSecure = 'tls';
+//Tenemos que usar gmail autenticados, así que esto a TRUE
+$mail->SMTPAuth   = true;
+//Definimos la cuenta que vamos a usar. Dirección completa de la misma
+
+$mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
+//Introducimos nuestra contraseña de gmail
+$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
+//Definimos el remitente (dirección y, opcionalmente, nombre)
+$mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
+//Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)
+
+//$mail->AddReplyTo('caifca@fca.uncu.edu.ar','El de la réplica');
+//Y, ahora sí, definimos el destinatario (dirección y, opcionalmente, nombre)
+//$mail -> AddAddress('ebermejillo@fca.uncu.edu.ar', 'Tester');
+$mail->AddAddress($correo, 'El Destinatario'); //Descomentar linea cuando pase a produccion
+//Definimos el tema del email
+
+
+//Para enviar un correo formateado en HTML lo cargamos con la siguiente función. Si no, puedes meterle directamente una cadena de texto.
+//$mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
+//Y por si nos bloquean el contenido HTML (algunos correos lo hacen por seguridad) una versión alternativa en texto plano (también será válida para lectores de pantalla)
+$mail->IsHTML(true); //el mail contiene html
+
+
+	if ($datos['id_motivo'] == 30) {
+		//$motivo = 'Razones Particulares con gose de haberes';
+		$mail->Subject = 'Formulario de Solicitud Razones Particulares';
+		$body = '<table>
+						El/la agente  <b>'.$datos['apellido'].', '. $datos['nombre'].'</b> perteneciente a la catedra/oficina/ direcci&oacute;n <b>'.$datos['catedra'].'</b>.<br/>
+						Solicita Justificaci&oacute;n de Inasistencia por Razones Particulares a partir del d&iacute;a '.$fecha.' hasta '.$hasta. '.
+							Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones']. '
 											
 			</table>';
-		} else if ($datos['id_motivo'] == 35) {
-			$asunto = 'Formulario de Licencia Anual por Vacaciones';
-			//$motivo = 'Vacaciones'.$datos['anio'];
-			$cuerpo = '<table>
-						El/la agente  <b>' . $datos['apellido'] . ', ' . $datos['nombre'] . '</b>, legajo:  <b>' . $datos['legajo'] . '</b>.<br/>
-						Solicita laLicencia Anual por Vacaciones correspondiente al aï¿½o ' . $datos['anio'] . ' a partir del d&iacute;a ' . $fecha . ' hasta ' . $hasta . '. <br/>
+
+	} else if ($datos['id_motivo'] == 35)
+	{
+		$mail->Subject = 'Formulario de Licencia Anual por Vacaciones';
+		//$motivo = 'Vacaciones'.$datos['anio'];
+		$body = '<table>
+						El/la agente  <b>'.$datos['apellido'].', '. $datos['nombre'].'</b>, legajo:  <b>'.$datos['legajo'].'</b>.<br/>
+						Solicita laLicencia Anual por Vacaciones correspondiente al año '.$datos['anio'].' a partir del d&iacute;a '.$fecha.' hasta '.$hasta. '. <br/>
 						
 											
-			</table>';
-			
-		} else if ($datos['id_motivo'] == 57) {
-			$asunto = 'Formulario de D&iacute&as Pendientes de la Licencia Anual';
-			$cuerpo = '<table>
+			</table>'; 
+	/*} else if ($datos['id_motivo'] == 55)
+	{
+		$mail->Subject = 'Formulario de Adelanto de Licencia Anual';
+		$body = '<table>
 
-				El/la agente <b>' . $datos['descripcion'] . '</b> perteneciente a <b>' . $datos['catedra'] . '</b> <br/>
-				Solicita los d&iacute;as pendientes de la licencia anual correspondiente al ' . $datos['anio'] . ' a partir del d&iacute;a ' . $fecha . ' hasta ' . $hasta . '<br/>
-				Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] .  '<br/>
-				Ud. cuenta con ' . $datos['dias_restantes'] . ' d&iacute;as de vacaciones pendientes.
-			<table/>';
-		} else if ($$datos['id_motivo'] == 61) {
-			$asunto = 'Formulario de Justificacion de Inasistencia por Excesos de Inasistencia (SIN GOCE)';
-			$cuerpo = '<table>
+				El/la agente <b>'.$datos['agente_ayn'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
+				Solicita adelanto de licencia anual correspondiente al' .$datos['anio']. ' a partir del d&iacute;a'.$fecha. ' hasta '.$hasta. '<br/>
+				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones']. 'Estos d&iacute;as de adelanto que ud ha solicitado,
+				serán restados del total de vacaciones correspondientes al año en curso
+			<table/>';*/
 
-				El/la agente <b>' . $datos['descripcion'] . '</b> perteneciente a <b>' . $datos['catedra'] . '</b> <br/>
-				Solicita solicita Razones Particulares a partir SIN GOCE  a partir del d&iacute;a ' . $fecha . ' hasta ' . $hasta . '<br/>
-				Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] .  '<br/>
+
+	} else if ($datos ['id_motivo'] == 57)
+	{
+		$mail->Subject = 'Formulario de D&iacute&as Pendientes de la Licencia Anual';
+		$body = '<table>
+
+				El/la agente <b>'.$datos['apellido'].', '. $datos['nombre'].'</b> <br/>
+				Solicita los d&iacute;as pendientes de la licencia anual correspondiente al ' .$datos['anio']. ' a partir del d&iacute;a '.$fecha. ' hasta '.$hasta. '<br/>
+				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones'].  '<br/>
+				Ud. cuenta con '.$datos['dias_restantes'].' d&iacute;as de vacaciones pendientes.
 			<table/>';
+
+
+	} else if ($$datos ['id_motivo'] == 61)
+	 	{
+			$mail->Subject = 'Formulario de Justificacion de Inasistencia por Excesos de Inasistencia (SIN GOCE)';			
+			$body = '<table>
+
+				El/la agente <b>'.$datos['descripcion'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
+				Solicita solicita Razones Particulares a partir SIN GOCE  a partir del d&iacute;a '.$fecha. ' hasta '.$hasta. '<br/>
+				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones'].  '<br/>
+			<table/>';	
+
 		} else {
-			$cuerpo = '<table>
+		$body = '<table>
 
-				El/la agente <b>' . $datos['descripcion'] . '</b> perteneciente a <b>' . $datos['catedra'] . '</b> <br/>
-				Justific&oacute;  la inasistencia  desde ' . $fecha . ' hasta ' . $hasta . ' presentando el certificado correspondiente a dicha acci&oacute;n.
+				El/la agente <b>'.$datos['descripcion'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
+				Justific&oacute;  la inasistencia  desde '.$fecha.' hasta '.$hasta.' presentando el certificado correspondiente a dicha acci&oacute;n.
 			<table/>';
-
-			switch ($datos['id_motivo']) {
-				case 12:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Donaci&oacute;n de Sangre';
-					break;
-				case 22:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Realizaciï¿½n de Actividad Deportiva o Art&iacute;stica';
-					break;
-				case 49:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Citaci&oacute;n Judicial';
-					break;
-				case 17:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Fallecimiento de Cony&uacute;ge o Pariente de Primer Grado';
-					break;
-				case 16:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Fallecimiento de Pariente de Segundo Grado';
-					break;
-				case 18:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Fallecimiento de Pariente Pol&iacute;tico';
-					break;
-				case 27:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Nacimiento (Paternidad)';
-					break;
-				case 36:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Matrimonio';
-					break;
-				case 25:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Matrimonio de hijo/a';
-					break;
-				case 7:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Adopci&oacute;n (Maternidad)';
-					break;
-				case 59:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Adopci&oacute;n (Paternidad)';
-					break;
-				case 14:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Exam&eacute;n de Nivel Medio';
-					break;
-				case 15:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Exam&eacute;n de Nivel Superior';
-					break;
-				case 47:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Exam&eacute;n para Concurso';
-					break;
-				case 61:
-					$asunto = 'Formulario de Justificacion de Inasistencia por Excesos de Inasistencia (SIN GOCE)';
-					break;
-			}
-		}; //date("d/m/y",$fecha)
 		
-		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde,'');
-
-		// Agregar un archivo adjunto
-		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
-
-		try {
-			$mail->ejecutar();
-			echo "Correo enviado exitosamente.<br>";
-		} catch (Exception $e) {
-			echo "Error al enviar el correo: " . $e->getMessage();
-		}
+		switch ($datos ['id_motivo'] ){
+			case 12:
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Donaci&oacute;n de Sangre';
+				break;
+			case 22:
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Realización de Actividad Deportiva o Art&iacute;stica';
+				break;
+			case 49:
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Citaci&oacute;n Judicial';
+				break;
+			case 17:
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Fallecimiento de Cony&uacute;ge o Pariente de Primer Grado';
+				break;
+			case 16:
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Fallecimiento de Pariente de Segundo Grado';
+				break;
+			case 18: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Fallecimiento de Pariente Pol&iacute;tico';
+				break;
+			case 27: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Nacimiento (Paternidad)';
+				break;	
+			case 36: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Matrimonio';
+				break;
+			case 25: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Matrimonio de hijo/a';
+				break;				
+			case 7: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Adopci&oacute;n (Maternidad)';
+				break;
+			case 59: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Adopci&oacute;n (Paternidad)';
+				break;	
+			case 14: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Exam&eacute;n de Nivel Medio';
+				break;		
+			case 15: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Exam&eacute;n de Nivel Superior';
+				break;
+			case 47:
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Exam&eacute;n para Concurso';
+				break;
+			case 61: 
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Excesos de Inasistencia (SIN GOCE)';			
+				break;	
+			case 62 :
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Home Office por Resolucion';			
+				break;	
+			case 63 :
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Vacaciones Extraordinarias';			
+				break;	
+			case 64 :
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por A&ncute;o Sabatico';			
+				break;		
+			}
+	
 	}
+
+
+	
+
+	; //date("d/m/y",$fecha)
+//ei_arbol ($body);
+$mail->Body = $body;
+//Enviamos el correo
+if(!$mail->Send()) {
+	echo "Error: " . $mail->ErrorInfo;
+} else {
+	toba::notificacion()->agregar('Su formulario ha sido completado y enviado a su correo. Ya puede cerrar la ventana.' , "info");
+	echo "Enviado!";
+	
 }
+}
+
+}
+?>

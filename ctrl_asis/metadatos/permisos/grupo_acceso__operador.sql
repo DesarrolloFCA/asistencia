@@ -96,21 +96,6 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 );
 --- FIN Grupo de desarrollo 396
 
---- INICIO Grupo de desarrollo 1842
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'ctrl_asis', --proyecto
-	'operador', --usuario_grupo_acc
-	NULL, --item_id
-	'1842000003'  --item
-);
-INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
-	'ctrl_asis', --proyecto
-	'operador', --usuario_grupo_acc
-	NULL, --item_id
-	'1842000004'  --item
-);
---- FIN Grupo de desarrollo 1842
-
 --- INICIO Grupo de desarrollo 26960396
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'ctrl_asis', --proyecto

@@ -6,6 +6,7 @@ class dt_parte extends toba_datos_tabla
 	{
 		$legajo = $filtro['legajo'];
 		$anio = (string)$filtro['anio'];
+
 		$anio_anterior = (string)$filtro['anio'] -1 ;
 		$motivo = $filtro['id_motivo'];
 		$where = array();
@@ -30,9 +31,9 @@ class dt_parte extends toba_datos_tabla
 
 			$where[]= "t_p.id_motivo = $motivo ";
 			if ($filtro['id_motivo']== 35){
-			
+				
 				if (isset($filtro['anio'])) {
-				$where[] = "fecha_inicio_licencia between '$anio_anterior-12-01' AND '$anio-11-30' ";
+				$where[] = "fecha_inicio_licencia between '$anio_anterior-12-01' AND '$anio-11-30' and estado = 'C'";
 				}	
 
 			}
@@ -75,19 +76,20 @@ class dt_parte extends toba_datos_tabla
 
 			$where[]= "t_p.id_motivo = $motivo ";
 			if ($filtro['id_motivo']== 35){
-			
+				$anio = (string) date('Y');
+				$anio_anterior = (string) date('Y')-1;
 				if (isset($filtro['anio'])) {
-				$where[] = "fecha_inicio_licencia between '$anio_anterior-12-01' AND '$anio-11-30' ";
+				$where[] = "fecha_inicio_licencia between '$anio_anterior-12-01' AND '$anio-11-30' and estado = 'C' ";
 				}	
 
 			}
 		}
 		
 
-		if(isset($filtro['legajo'])){
+		/*if(isset($filtro['legajo'])){
 			$legajo =$filtro['legajo'];
 			$where[] = "legajo = $legajo";
-		}
+		}*/
 		if(isset($filtro['id_parte'])){
 			$id_parte =$filtro['id_parte'];
 			$where[] = "id_parte = $id_parte";
@@ -138,7 +140,7 @@ class dt_parte extends toba_datos_tabla
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		}
-
+	//	ei_arbol ($sql);
 		return toba::db('ctrl_asis')->consultar($sql);
 	}
 

@@ -219,8 +219,8 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 
 
 			//	$antiguedadv = toba::tabla('vacaciones_antiguedad')->get_array_antiguedad($agente['fec_ingreso'],$escalafon);
-				$agente['dias_vac_antiguedad']   = utf8_decode($dias_totales.' dÃ­as');
-				$agente['antiguedad']            = utf8_decode(intval($antiguedad).' aÃ±os');
+				$agente['dias_vac_antiguedad']   = utf8_decode($dias_totales .' días');
+				$agente['antiguedad']            = utf8_decode(intval($antiguedad).' años');
 				//$antiguedad['antiguedad']).' aÃ±os');
 
 				//obtenemos dias tomados---------------------------------------
@@ -248,7 +248,7 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 				
 				$dias_disponibles= toba::db('ctrl_asis')->consultar($sql);	
 				
-				if(isset($dias_disponibles)){
+				if(count($dias_disponible)> 0){
 					$dias_vac_disponibles= $dias_disponibles[0]['dias'];
 				}else {
 					
@@ -256,7 +256,7 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 				}
 				
 				//$dias_vac_disponibles = $antiguedad['dias'] - $dias_tomados;
-				$agente['dias_vac_tomadas'] = utf8_decode($dias_vac_disponibles.' dÃ­as');
+				$agente['dias_vac_tomadas'] = utf8_decode($dias_vac_disponibles.' días');
 
 			}             
 			//-----------------------------------------------------------------------------------------------------------------
@@ -649,9 +649,9 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 
 				$filtro_marca['badgenumber'] = $agente['legajo']; 
 				$filtro_marca['fecha']       = $dia;                                    
-				
+
 				$marcas = $this->dep('access')->get_marcas($filtro_marca);
-				
+
 				if(count($marcas)>0){
 					
 					$contador_marcas++;
@@ -701,7 +701,7 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 			$fecha_hasta = "$d/$m/$y";
 			$cuadro->set_titulo("Asistencia desde el ".$fecha_desde.", hasta el ".$fecha_hasta);
 		}
-		
+
 		#$this->pantalla->set_titulo = 'Detalle asistencia';
 	}
 

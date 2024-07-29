@@ -172,7 +172,7 @@ $mail->SMTPAuth   = true;
 //Definimos la cuenta que vamos a usar. DirecciÃ³n completa de la misma
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseÃ±a de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
 //Definimos el remitente (direcciÃ³n y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta lÃ­nea es por si querÃ©is enviar copia a alguien (direcciÃ³n y, opcionalmente, nombre)

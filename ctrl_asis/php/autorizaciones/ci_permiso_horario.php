@@ -118,21 +118,22 @@ class ci_permiso_horario extends ctrl_asis_ci
 						$hoy=date_create(date("Y-m-d",strtotime($fecha_fin)));
 					//$dia = $february->diff($january);
 						$dia = date_diff($fecha_inicio1 , $hoy);
-						$dias = $dia->format('%a') +1 ;
+						$dias = 0.5;
 					//ei_arbol($dias);
 						$fecha_ini=$datos[$i]['fecha'];
 					//    ei_arbol($fecha_ini);
 						$estado_civil = $direccion[0]['estado_civil'];
 						$id_decreto = 5;
-						$id_articulo = 104;
-						$id_motivo = 56;
+						$id_articulo = 41;
+						$id_motivo = 58;
+						$obs = 'Nº Permiso:'.$id .'-' .$obs; 
 						$sexo=$this->dep('mapuche')->get_tipo_sexo($legajo, null);
 						
 						$sql = "INSERT INTO reloj.parte(
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, '$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
-							'$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto,  $id_motivo,      $id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,      $id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
 						toba::db('ctrl_asis')->ejecutar($sql);
 						
 
@@ -200,7 +201,7 @@ $mail->SMTPAuth   = true;
 //Definimos la cuenta que vamos a usar. Dirección completa de la misma
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
 //Introducimos nuestra contraseña de gmail
-$mail->Password   = "gvcghltncpblkjbl";
+$mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
 //Definimos el remitente (dirección y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
 //Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)

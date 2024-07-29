@@ -41,9 +41,10 @@ class ci_vacaciones_disponibles extends ctrl_asis_ci
 			//obtenemos dias tomados---------------------------------------
 			if(!empty($agente['fec_ingreso'])){
 				
-				for ($i=$anio_inicio; $i <= date("Y") ; $i++){
+				//for ($i=$anio_inicio; $i <= date("Y") ; $i++){
 					$dias_tomados = 0;
-					$anio = $i;
+					$anio = date('Y')-1;
+					//$anio = $i;
 					//Se busca antiguedad por año
 					$antiguedad = toba::tabla('vacaciones_antiguedad')->get_array_antiguedad($agente['fec_ingreso'],$agrupamiento, $anio);
 					$filtro['legajo']              = $legajo;
@@ -77,7 +78,7 @@ class ci_vacaciones_disponibles extends ctrl_asis_ci
 						$respuesta["agrupamiento"] = $datos_legajo[0]["descagrup"];
 						array_push($resumen, $respuesta);
 					}
-				}
+				//}
 				
 				$this->s__datos = $resumen;
 				$cuadro->set_datos($this->s__datos);

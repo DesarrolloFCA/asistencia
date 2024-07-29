@@ -1,6 +1,6 @@
 <?php
 /**
- * Tipo de pï¿½gina pensado para pantallas de login, presenta un logo y un pie de pï¿½gina bï¿½sico
+ * Tipo de página pensado para pantallas de login, presenta un logo y un pie de página básico
  *
  * @package SalidaGrafica
  */
@@ -33,8 +33,8 @@ class tp_login extends toba_tp_logon
         {
                 //echo "</div>";
                 echo "<div class='login-pie'>";
-                echo "<div>Desarrollado por <strong><a target='_blank' href='#'>CAIFCA // Facultad de Ciencias Agrarias</a> UNCuyo</strong></div>";
-                echo " <div>"date('Y')."</div>";
+                echo "<div>Desarrollado por <strong><a target='_blank' href='http://cit.uncu.edu.ar/'>CIT // Centro inform&aacute;tico y tecnol&oacute;gico</a> UNCuyo</strong></div>";
+                echo " <div>2014-".date('Y')."</div>";
                 echo "</div>";
         }
 }
