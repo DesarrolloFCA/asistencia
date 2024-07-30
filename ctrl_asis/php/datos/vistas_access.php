@@ -3,6 +3,7 @@
 class vistas_access extends toba_datos_relacion
 {
 
+	
 	/*
 	En SQL server, las tablas comienzan con dbo. 
 
@@ -24,8 +25,12 @@ class vistas_access extends toba_datos_relacion
 
 	static function get_vista_access($filtro=array())
 	{
+		
+		//ei_arbol($filtro);
+		
+		/*-
 		$where = array();
-
+		ei_arbol($filtro);
 		if (isset($filtro['fecha'])) {
 			$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
 		}
@@ -46,9 +51,13 @@ class vistas_access extends toba_datos_relacion
 
 		if (isset($filtro['badgenumber'])) {
 			//$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
-			$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
+			$where[] = "legajo = ".quote($filtro['badgenumber']);
 		}        
 
+		
+		$sql = "SELECT "
+		
+		
 		$sql = "SELECT 
 		C.CHECKTYPE, 
 		U.Badgenumber,
@@ -95,24 +104,26 @@ class vistas_access extends toba_datos_relacion
 		//ei_arbol($result);
 		return $array;
 
-	}
+	*/}
 
 	static function get_CHECKINOUT($filtro=array())
 	{
 /*if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
 $inicio = microtime(true);   
 }*/
-
+		ei_arbol($filtro);
 		// access --------------------------------------------------
 		if (!isset($filtro['basedatos']) or $filtro['basedatos']=='access') { 
 
 		$where = array();
 
+		
 		if (isset($filtro['fecha'])) {
-			$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			$where[] = "fecha = '" .$filtro['fecha']."'";
+		//	$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
 		}
 
-		if (isset($filtro['sin_errores'])) {
+		/*if (isset($filtro['sin_errores'])) {
 			$where[] = "C.CHECKTYPE <> '#Error'";
 		}
 		if (isset($filtro['fecha_desde'])) {
@@ -124,11 +135,11 @@ $inicio = microtime(true);
 				list($y,$m,$d)=explode("-",$filtro['fecha_hasta']); //2011-03-31
 				$fecha_hasta = $y."-".$m."-".$d; //." 23:59:59";
 				$where[] = "CONVERT(varchar(10), C.CHECKTIME, 120) <= ".quote($fecha_hasta);
-		}
+		}*/
 
 		if (isset($filtro['badgenumber'])) {
 			//$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
-			$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
+			$where[] = "legajo = ".quote($filtro['badgenumber']);
 		}        
 
 		#if (isset($filtro['id_dispositivo'])) {
@@ -149,7 +160,9 @@ $inicio = microtime(true);
 		WHERE U.USERID = C.USERID 
 		ORDER BY C.USERID,  C.CHECKTIME ASC";
 */
-		$sql = "SELECT 
+		$sql = "SELECT * from reloj.vm_pres_aus_jus
+		order by legajo,fecha desc";
+		/*$sql = "SELECT 
 		C.CHECKTYPE, 
 		U.Badgenumber,
 		U.NAME,
@@ -162,7 +175,7 @@ $inicio = microtime(true);
 			LEFT OUTER JOIN
 			USERINFO as U
 		ON U.USERID = C.USERID 
-		ORDER BY U.Badgenumber, C.CHECKTIME ASC";
+		ORDER BY U.Badgenumber, C.CHECKTIME ASC";*/
 
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
@@ -175,7 +188,7 @@ $inicio = microtime(true);
 
 
 		//-------------------------------------------
-		$conf_access = file_get_contents('../php/datos/conf_access.txt');
+		/*$conf_access = file_get_contents('../php/datos/conf_access.txt');
 		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
 		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
 		$conn = sqlsrv_connect($HOST, $connectionInfo);
@@ -200,11 +213,11 @@ $inicio = microtime(true);
 		sqlsrv_free_stmt($result);
 		sqlsrv_close($conn);
 		
-		}
+		}*/
 
 		//------------SQL HANDER--------------
 
-		if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
+	/*	if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
 		$where2 = array();
 
 		if (isset($filtro['fecha'])) {
@@ -241,7 +254,7 @@ $inicio = microtime(true);
 				FROM Fichada as F 
 				ORDER BY Tarjeta,  FechaHora ASC"; */
 	
-		$sql = "SELECT Evento as CHECKTYPE, id as LOGID,
+		/*$sql = "SELECT Evento as CHECKTYPE, id as LOGID,
 				CONVERT(Int, Tarjeta) as  Badgenumber,
 				CONVERT(varchar(10), FechaHora, 120) as fecha,
 				CONVERT(varchar(19), FechaHora, 120) as CHECKTIME,
@@ -257,7 +270,7 @@ $inicio = microtime(true);
 echo $sql;  
 } */
 		//-------------------------------------------
-		$conf_hander = file_get_contents('../php/datos/conf_hander.txt');
+		/*$conf_hander = file_get_contents('../php/datos/conf_hander.txt');
 		list($UID,$PWD,$DB,$HOST)=explode(';',$conf_hander); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
 		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB); //$connectionInfo = array( "UID"=>"citreloj", "PWD"=>"reloj2015", "Database"=>"Hander");
 		$conn = sqlsrv_connect($HOST, $connectionInfo); //$conn = sqlsrv_connect( '172.22.32.27\SQLESPRESS,2523', $connectionInfo);
@@ -283,7 +296,7 @@ echo $sql;
 						
 		}
 		//-------------------------------------------
-		}
+		}*/
 /*
 if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
 $final = microtime(true);
@@ -299,7 +312,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 	}
 
 	function get_marcas($filtro=array()){
-		
+		ei_arbol($filtro);
 		$filtro['sin_errores'] = true;
 		$array = $this->get_CHECKINOUT($filtro);
 		$datos = array();
@@ -315,7 +328,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 	}
 }*/
 
-
+		ei_arbol($array);
 		if(count($array)>0){ 
 			
 			$cont = 0;
@@ -1003,7 +1016,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 		
 		$agente = $agentes[$key];
 		//------------------------
-
+		//ei_arbol($agentes);
 		
 		$agentes[$key]['laborables']++;
 						

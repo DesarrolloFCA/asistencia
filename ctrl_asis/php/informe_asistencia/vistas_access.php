@@ -636,8 +636,8 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 		$total = 0;
 		//ei_arbol(round((memory_get_usage()/(1024*1024)),2));
 		$agentes =$personas;
-		//ei_arbol($filtro);
-		//ei_arbol($personas);	
+		ei_arbol($filtro);
+		ei_arbol($personas);	
 		$fecha_desde = $filtro['fecha_desde'];
 		$fecha_hasta = $filtro['fecha_hasta'];
 		//if ($fecha_desde <> $fecha_hasta){

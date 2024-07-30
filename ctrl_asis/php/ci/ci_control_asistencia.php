@@ -112,7 +112,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			$_SESSION['basedatos']   = $this->s__datos_filtro['basedatos'];  
 			
 
-			if($_SESSION['dependencia']  == '64'){ // damsu
+			/*if($_SESSION['dependencia']  == '64'){ // damsu
 
 			//---------------------------------------------------------------------------------------------------
 			
@@ -124,7 +124,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 
 			//---------------------------------------------------------------------------------------------------
 
-			}else{
+			}else{*/
 			//---------------------------------------------------------------------------------------------------
 			
 			
@@ -139,7 +139,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			
 			
 			//---------------------------------------------------------------------------------------------------
-			}
+			//}
 			
 			$filtro['fecha_desde'] = $this->s__datos_filtro['fecha_desde'];
 			$filtro['fecha_hasta'] = $this->s__datos_filtro['fecha_hasta'];
@@ -147,6 +147,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			if (isset($this->s__datos_filtro['basedatos'])) {
 			$filtro['basedatos'] = $this->s__datos_filtro['basedatos'];
 			}
+			ei_arbol($agente);
 			$this->s__datos = $this->dep('access')->get_lista_resumen($agentes,$filtro);
 		
 			//ei_arbol($agentes);
