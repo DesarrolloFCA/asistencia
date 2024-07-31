@@ -95,16 +95,11 @@ class ci_incio extends comision_ci
 	}
 	function conf__cuadrograf(comision_ei_cuadro $cuadro){
 		$j = count($this->s__datos);
-		//ei_arbol ($this->s__datos);
 		for ($i = 0; $i < $j; $i++) {
-			if ($this->s__datos[$i]['estado'] <> 'Ausente Justificado'){
 			list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
 			$minu = intval($horas * 60) + (intval($minutos));
 			$datos_1[] = round($minu / 60, 2);
-			}
-			
 		}
-		
 		$prom_hora = round(array_sum ($datos_1)/count($datos_1),2);
 		
 		list($hora, $minuto, $segundos) = explode(":", $this->s__datos[0]['horas_requeridad']);
