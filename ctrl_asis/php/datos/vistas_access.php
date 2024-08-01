@@ -3,7 +3,6 @@
 class vistas_access extends toba_datos_relacion
 {
 
-	
 	/*
 	En SQL server, las tablas comienzan con dbo. 
 
@@ -25,19 +24,16 @@ class vistas_access extends toba_datos_relacion
 
 	static function get_vista_access($filtro=array())
 	{
-		
-		//ei_arbol($filtro);
-		
-		/*-
 		$where = array();
-		ei_arbol($filtro);
+		
 		if (isset($filtro['fecha'])) {
-			$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			//$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			$where[] = "fecha = '" .$filtro['fecha']."'"; 
 		}
 
-		if (isset($filtro['sin_errores'])) {
+		/*if (isset($filtro['sin_errores'])) {
 			$where[] = "C.CHECKTYPE <> '#Error'";
-		}
+		}*/
 		if (isset($filtro['fecha_desde'])) {
 				list($y,$m,$d)=explode("-",$filtro['fecha_desde']); //2011-03-31
 				$fecha_desde = $y."-".$m."-".$d;
@@ -51,14 +47,11 @@ class vistas_access extends toba_datos_relacion
 
 		if (isset($filtro['badgenumber'])) {
 			//$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
+			
 			$where[] = "legajo = ".quote($filtro['badgenumber']);
 		}        
-
-		
-		$sql = "SELECT "
-		
-		
-		$sql = "SELECT 
+		$sql = "SELECT *, 'access' as basedatos from reloj.vm_pres_aus_jus";
+		/*$sql = "SELECT 
 		C.CHECKTYPE, 
 		U.Badgenumber,
 		U.NAME,
@@ -71,61 +64,60 @@ class vistas_access extends toba_datos_relacion
 			LEFT OUTER JOIN
 			USERINFO as U
 		ON U.USERID = C.USERID 
-		ORDER BY C.USERID,  C.CHECKTIME ASC";
+		ORDER BY C.USERID,  C.CHECKTIME ASC";*/
 
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		} 
 
 		//-------------------------------------------
-		$conf_access = file_get_contents('../php/datos/conf_access.txt');
+	/*	$conf_access = file_get_contents('../php/datos/conf_access.txt');
 		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
 		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-		$conn = sqlsrv_connect($HOST, $connectionInfo);
+		$conn = sqlsrv_connect($HOST, $connectionInfo);*/
 
-		if( $conn === false ){
+		/*if( $conn === false ){
 		echo "78: No es posible conectarse al servidor.</br>";
 		die( print_r( sqlsrv_errors(), true));
-		}
+		}*/
 
-		$result = sqlsrv_query($conn,$sql);
-		
-		if( $result === false ){
+		$result = toba::db('ctrl_asis')->consultar($sql);
+		$array=$result;
+		/*if( $result === false ){
 		echo "Error al ejecutar consulta.</br>";
 		die( print_r( sqlsrv_errors(), true));
-		}
+		}*/
 
-		while ($row = sqlsrv_fetch_array($result)) {
+		/*while ($row = sqlsrv_fetch_array($result)) {
 			$array[] = $row;
 		}
 
 		sqlsrv_free_stmt($result);
-		sqlsrv_close($conn);
+		sqlsrv_close($conn);*/
 		//ei_arbol($result);
 		return $array;
 
-	*/}
+	}
 
 	static function get_CHECKINOUT($filtro=array())
 	{
 /*if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
 $inicio = microtime(true);   
 }*/
-		ei_arbol($filtro);
+	//	ei_arbol($filtro);
 		// access --------------------------------------------------
 		if (!isset($filtro['basedatos']) or $filtro['basedatos']=='access') { 
 
 		$where = array();
 
-		
 		if (isset($filtro['fecha'])) {
-			$where[] = "fecha = '" .$filtro['fecha']."'";
-		//	$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			//$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			$where[] = "fecha = '" .$filtro['fecha']."'"; 
 		}
 
 		/*if (isset($filtro['sin_errores'])) {
 			$where[] = "C.CHECKTYPE <> '#Error'";
-		}
+		}*/
 		if (isset($filtro['fecha_desde'])) {
 				list($y,$m,$d)=explode("-",$filtro['fecha_desde']); //2011-03-31
 				$fecha_desde = $y."-".$m."-".$d;
@@ -135,7 +127,7 @@ $inicio = microtime(true);
 				list($y,$m,$d)=explode("-",$filtro['fecha_hasta']); //2011-03-31
 				$fecha_hasta = $y."-".$m."-".$d; //." 23:59:59";
 				$where[] = "CONVERT(varchar(10), C.CHECKTIME, 120) <= ".quote($fecha_hasta);
-		}*/
+		}
 
 		if (isset($filtro['badgenumber'])) {
 			//$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
@@ -160,8 +152,6 @@ $inicio = microtime(true);
 		WHERE U.USERID = C.USERID 
 		ORDER BY C.USERID,  C.CHECKTIME ASC";
 */
-		$sql = "SELECT * from reloj.vm_pres_aus_jus
-		order by legajo,fecha desc";
 		/*$sql = "SELECT 
 		C.CHECKTYPE, 
 		U.Badgenumber,
@@ -176,6 +166,7 @@ $inicio = microtime(true);
 			USERINFO as U
 		ON U.USERID = C.USERID 
 		ORDER BY U.Badgenumber, C.CHECKTIME ASC";*/
+		$sql = "SELECT *, 'access' as basedatos from reloj.vm_pres_aus_jus";
 
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
@@ -191,15 +182,15 @@ $inicio = microtime(true);
 		/*$conf_access = file_get_contents('../php/datos/conf_access.txt');
 		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
 		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-		$conn = sqlsrv_connect($HOST, $connectionInfo);
+		$conn = sqlsrv_connect($HOST, $connectionInfo);*/
 
-		if( $conn === false ){
+		/*if( $conn === false ){
 		//echo "No es posible conectarse al servidor.</br>";
 		echo "179: No es posible conectarse al servidor.</br>";
 		die( print_r( sqlsrv_errors(), true));
-		}
+		}*/
 
-		$result = sqlsrv_query($conn,$sql);
+		/*$result = sqlsrv_query($conn,$sql);
 		
 		if( $result === false ){
 		echo "Error al ejecutar consulta.</br>";
@@ -211,13 +202,14 @@ $inicio = microtime(true);
 		}
 
 		sqlsrv_free_stmt($result);
-		sqlsrv_close($conn);
-		
-		}*/
+		sqlsrv_close($conn);*/
+		$result = toba::db('ctrl_asis')->consultar($sql);
+		$array=$result;
+		}
 
 		//------------SQL HANDER--------------
 
-	/*	if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
+		/*if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
 		$where2 = array();
 
 		if (isset($filtro['fecha'])) {
@@ -294,9 +286,9 @@ echo $sql;
 			sqlsrv_free_stmt($result);
 			sqlsrv_close($conn); 
 						
-		}
-		//-------------------------------------------
 		}*/
+		//-------------------------------------------
+	//	}
 /*
 if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
 $final = microtime(true);
@@ -306,13 +298,14 @@ $final = microtime(true);
 echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br>';
 }
 */
+//ei_arbol($result);
 
 		return $array;
 
 	}
 
 	function get_marcas($filtro=array()){
-		ei_arbol($filtro);
+		
 		$filtro['sin_errores'] = true;
 		$array = $this->get_CHECKINOUT($filtro);
 		$datos = array();
@@ -328,19 +321,19 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 	}
 }*/
 
-		ei_arbol($array);
+
 		if(count($array)>0){ 
 			
 			$cont = 0;
 			
 			
 			//if($filtro['badgenumber']=='28983'){
-
+			
 				//logica sin entrada y salida ------------------------------------------------------
 				$resto_entrada = 0; //0 impar, 1 par  
 				foreach($array as $key=>$row){
-
-					if ($key%2==$resto_entrada){ //Entrada
+				// ei_arbol($row);
+				//	if ($key%2==$resto_entrada){ //Entrada
 
 							//set entrada
 							$datos[$cont]= array(
@@ -348,47 +341,20 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 									#'legajo'    => $row['Badgenumber'],
 								'badgenumber' => $row['Badgenumber'],
 								'fecha'       => $row['fecha'],
-								'entrada'     => substr($row['CHECKTIME'],11,8),
-									#'salida'    =>,
+								'entrada'     => $row['hora_entrada'],
+								'salida'    => $row['hora_salida'],
 								'basedatos_i' => $row['basedatos'],
 								'reloj_i'     => $row['device_id']
 								);
 
-					}else{ //Salida
+				//	}else{ //Salida
 
-						$cont_anterior = $cont - 1;
-						$hora_anterior = str_replace(':', '', $datos[$cont]['entrada']);
-						$hora_actual   = str_replace(':', '', substr($row['CHECKTIME'],11,8)  );
-						$diferencia    = $hora_actual - $hora_anterior;
-
-						/*if($row['LOGID'] == '2823890' or $row['LOGID'] == '2823891'){
-							$mostrar = "hora_anterior: $hora_anterior, hora_actual: $hora_actual, diferencia: $diferencia";
-							ei_arbol($mostrar,"calculo diferencia");
-						}*/
-
-						
-						if($diferencia > 200){  //08:04:51 - 08:04:50   es menor a 120 segundos, se omite 
-
-							$datos[$cont]['basedatos_o'] = $row['basedatos'];
-							$datos[$cont]['reloj_o'] = $row['device_id'];
-							$datos[$cont]['fecha']   = $row['fecha'];
-							$datos[$cont]['salida']  = substr($row['CHECKTIME'],11,8);
-							$cont++;
-						}else{
-
-							//cambia resto entrada, para que tome la que sigue como salida
-							if($resto_entrada == 0){
-
-								$resto_entrada = 1; //0 impar, 1 par 
-
-							}else{
-								$resto_entrada = 0; //0 impar, 1 par 
-							}
-						}    
+					
+						    
 					}  
 
 
-				}
+				
 				//---------------------------------------------------------------------------------
 			
 			/*}else{
@@ -459,6 +425,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 
 
 		}
+		//ei_arbol($datos);
 		//-----------------------
 		if(isset($filtro['calcular_horas']) and count($datos) > 0){
 			foreach($datos as $key=>$dato){
@@ -717,7 +684,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 					unset($array_marcas);
 					$array_marcas = array();
 					$contador_marcas = 0;
-
+					
 					$jornada = toba::tabla('conf_jornada')->get_jornada_agente($agente['legajo']);
 
 					$filtro_marca['calcular_horas']     = true;
@@ -848,7 +815,8 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 
 				//Recorremos array de marcas para agregar casos especiales -------------------------------- 
 				$horas_totales = 0;
-				$prom_acum     = 0;                
+				$prom_acum     = 0;      
+				
 				if(count($array_marcas)>0){
 
 					foreach ($array_marcas as $m => $marca) {
@@ -894,7 +862,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 
 						}
 					}
-					
+					//ei_arbol($horas_totales);
 					/*$array_res = array('horas_totales'  => $horas_totales, 'prom_acum' => $prom_acum);
 					if($agente['legajo'] == '32011'){
 						ei_arbol($array_marcas,"Agente ".$agente['legajo']);     
@@ -1016,7 +984,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 		
 		$agente = $agentes[$key];
 		//------------------------
-		//ei_arbol($agentes);
+		//ei_arbol($dia_ref, $dia_leyenda, $key, $agentes, $array_marcas, $contador_marcas, $dia, $filtro_marca);
 		
 		$agentes[$key]['laborables']++;
 						

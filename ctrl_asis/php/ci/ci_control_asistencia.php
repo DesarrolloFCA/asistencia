@@ -147,14 +147,14 @@ class ci_control_asistencia extends ctrl_asis_ci
 			if (isset($this->s__datos_filtro['basedatos'])) {
 			$filtro['basedatos'] = $this->s__datos_filtro['basedatos'];
 			}
-			ei_arbol($agente);
+		//	ei_arbol($agente);
 			$this->s__datos = $this->dep('access')->get_lista_resumen($agentes,$filtro);
 		
 			//ei_arbol($agentes);
 			unset($agentes);
 
 			$f = $this->s__datos;
-
+			//ei_arbol($f);
 			$total_registros = count($f);
 			
 			
@@ -420,9 +420,9 @@ class ci_control_asistencia extends ctrl_asis_ci
 			unset($todo);
 			//ei_arbol($todos);
 			list($y,$m,$d) = explode('-', $this->s__datos_filtro['fecha_desde']);
-			$fecha_desde = "$d/$m/$y";
+			$fecha_desde = "$y-$m-$d";
 			list($y,$m,$d) = explode('-', $this->s__datos_filtro['fecha_hasta']);
-			$fecha_hasta = "$d/$m/$y"; 			
+			$fecha_hasta = "$y-$m-$d"; 			
 			for ($l = 0; $l < $registros; $l++){
 				$leg = $todos [$l]['legajo'];
 				$mail = $this->dep('datos')->tabla('agentes_mail')->get_legajo_mail($leg);
@@ -440,8 +440,8 @@ class ci_control_asistencia extends ctrl_asis_ci
 		      		// Permiso horario
 		      		$sql ="SELECT fecha FROM reloj.permisos_horarios
 					WHERE (auto_aut = true or aut_sup = true) 
-					AND fecha between '$fecha_desde' AND '$fecha_hasta'
-					AND legajo = $leg ";
+					AND fecha between '". $fecha_desde ."' AND '".$fecha_hasta .
+					"' AND legajo = $leg ";
 					$permiso = toba::db('ctrl_asis')->consultar($sql);
 
 					$todos[$l]['permiso_horario']=count($permiso) / 2;
@@ -812,7 +812,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 
 	function conf__cuadro_rectorado(ctrl_asis_ei_cuadro $cuadro)
 	{
-		ei_arbol(s__datos);
+		//ei_arbol(s__datos);
 	if (isset($this->s__datos)) {
 			
 			
