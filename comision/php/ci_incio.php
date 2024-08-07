@@ -105,12 +105,19 @@ class ci_incio extends comision_ci
 			
 		}
 		
-		$prom_hora = round(array_sum ($datos_1)/count($datos_1),2);
-		
+		$prom_hora = round(array_sum ($datos_1)/(count($datos_1)-1),2);
+				
 		list($hora, $minuto, $segundos) = explode(":", $this->s__datos[0]['horas_requeridad']);
 		$minut = intval($hora * 60) + (intval($minuto));
 		$horas_requ = round($minut / 60, 2);
 		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
+		$max = $horas_requ + 2;
+		$majorTicks = [];
+			for ($i = 0; $i <= $max; $i++) {
+				$majorTicks[] = (string)$i;
+			}
+			$majorTicksJson = json_encode($majorTicks);
+
 		$script = "<html>
   <head>
    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
@@ -122,16 +129,20 @@ class ci_incio extends comision_ci
 
         var data = google.visualization.arrayToDataTable([
           ['Label', 'Value'],
-          ['Prom Horas', 10],
+          ['Prom. Horas', 0],
           ]);
 
-        var options = {
+		var options = {
           width: 400, height: 220,
           greenFrom: $horas_requ, greenTo: $horas_requ + 2 ,
           yellowFrom:$horas_requ - 1, yellowTo: $horas_requ,
-		  max : $horas_requ + 2,
+		  max : $max,
 		//  redFrom:80, redTo: 0
-          minorTicks: 10
+          minorTicks: 6,
+		  majorTicks: $majorTicksJson,
+		  animation:{
+        duration: 4000,
+        easing: 'out',}
         };
 
         var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
