@@ -59,7 +59,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 		//$limit = $cuadro->get_tamanio_pagina();
 		//$offset = $limit * ($cuadro->get_pagina_actual() - 1);
 
-		
+		$leg = array();
 
 		if (isset($this->s__datos_filtro)) {
 			
@@ -129,15 +129,16 @@ class ci_control_asistencia extends ctrl_asis_ci
 			
 			
 
-			$agentes_total =  $this->dep('mapuche')->get_agentes_control_asistencia($this->s__datos_filtro);
-			$total_registros = count($agentes_total);
+			//$agentes_total =  $this->dep('mapuche')->get_agentes_control_asistencia($this->s__datos_filtro);
+			//$total_registros = count($agentes_total);
+			//ei_arbol($agentes_total);
 			
 			
-			unset($agentes_total);
+			//unset($agentes_total);
 
 			$agentes =  $this->dep('mapuche')->get_agentes_control_asistencia($this->s__datos_filtro, 'LIMIT '.$limit, 'OFFSET '.$offset);
 			
-			
+			//ei_arbol($agentes);
 			//---------------------------------------------------------------------------------------------------
 			//}
 			
@@ -147,35 +148,61 @@ class ci_control_asistencia extends ctrl_asis_ci
 			if (isset($this->s__datos_filtro['basedatos'])) {
 			$filtro['basedatos'] = $this->s__datos_filtro['basedatos'];
 			}
-		//	ei_arbol($agente);
-			$this->s__datos = $this->dep('access')->get_lista_resumen($agentes,$filtro);
+			switch (isset($this->s__datos_filtro['agrup'])){
+				case 'ppa': $agru= 'NODO'	;
+				break;
+				case 'doc' : $agru = 'DOCE';
+				break;	
+			default :
+				$agru = 'Todos';
+				break;
+			}
+			
+			//ei_arbol($agru);
+			if(count($agentes)>0){
+			for ($i=0;$i<count($agentes);$i++){
+				$leg[] = $agentes[$i]['legajo'];
+				
+			}
+			$this->s__datos = $this->dep('access')->get_lista_gral($leg,$filtro);
+
+			}
 		
 			//ei_arbol($agentes);
 			unset($agentes);
 
-			$f = $this->s__datos;
-			//ei_arbol($f);
-			$total_registros = count($f);
 			
-			
-		
+			$fecha_desde = $this->s__datos_filtro['fecha_desde'];
+			$fecha_hasta = $this->s__datos_filtro['fecha_hasta'];
+			$inicio = new DateTime($fecha_desde);
+			$fin = new DateTime($fecha_hasta);
+			$sql = "SELECT count(*) feriado from reloj.vw_feriados
+				where generate_series BETWEEN " . "'$fecha_desde'"." AND "."'$fecha_hasta'"."
+				AND agru IN ( "."'$agru'".",'Todos')";
+				$feriado = toba::db('ctrl_asis')->consultar($sql);
 
-			if ($this->s__datos_filtro ['marcas']== 1) {
-				$this->s__datos = array_filter($this->s__datos, function ($f) {
-				return $f['presentes'] > 0 ;});	
-			} else if ($this->s__datos_filtro ['marcas']== 0){
-				$this->s__datos = array_filter($this->s__datos, function ($f) {
-				return $f['presentes'] == 0 ;});	
-			} 
+			$feriados = $feriado[0]['feriado'];
+			$laborables = 0;
 			
-			unset($f);
+				// Iterar sobre el rango de fechas
+				while ($inicio <= $fin) {
+					// Comprobar si el día actual es entre lunes y viernes
+					if ($inicio->format('N') < 6) {
+						$laborables++;
+					}
+					// Avanzar al siguiente día
+					$inicio->modify('+1 day');
+					
+				}
+				
+			$todo = $this->s__datos;
+			$total_registros = count($todo);
 			
-			
-			$e = $this->s__datos;
-			
+			$dias_laborales = $laborables - $feriados;
 		
 			
-			if (isset($this->s__datos_filtro['catedra'])){
+			
+			/*if (isset($this->s__datos_filtro['catedra'])){
 			$catedras = $this->dep('datos')->tabla('catedras')->get_catedra($this->s__datos_filtro['catedra']);
 			
 				if ($catedras[0]['id_departamento'] == 6 Or $catedras[0]['id_departamento'] == 10) {
@@ -189,14 +216,14 @@ class ci_control_asistencia extends ctrl_asis_ci
 				toba::notificacion()->agregar('No existen agentes en la catedra u oficina seleccionada', "info");
 				//$agentes_0 = false;
 				
-			}*/
 			}
+			}*/
 			
-			$tot = $e['total'];
+			
 			//ei_arbol($e);
 			//if ($agentes_0){
 			
-			for($m = 0; $m<$tot;$m++){
+			/*for($m = 0; $m<$tot;$m++){
 				 if ($e[$m]['agrupamiento'] == 'CORF') {
 			 	$e[$m]['agrupamiento'] = 'DOCE';
 			 	$this->s__datos[$m]['agrupamiento'] ='DOCE';
@@ -229,69 +256,22 @@ class ci_control_asistencia extends ctrl_asis_ci
 			$todo =	array_values($this->s__datos);		
 			//	ei_arbol($todo);
 			$registros = count($todo); 	
-			//$hasta = $this->s__datos['total'] +1;
-			for ($i = 0;$i<$registros;$i++){
+			//$hasta = $this->s__datos['total'] +1;*/
+
+			for ($i = 0;$i<$total_registros;$i++){
+					
+				$todo[$i]['feriados'] = $feriados;
+				$todo[$i]['laborables'] = $dias_laborales; 
+				$todo[$i]['ausentes'] = $todo[$i]['laborables']-$todo[$i]['presentes'];
+				$todo[$i]['justificados'] = $todo[$i]['partes'] + $todo[$i]['partes_sanidad'];
+				//$todo[$i]['injustificados'] = $todo[$i]['ausentes'] - $todo[$i]['justificados'];
+				$dias_trab = $todo[$i]['laborables'] - $todo[$i]['justificados'];
+				
 				$horas_esp = $this->dep('datos')->tabla('conf_jornada')->get_horas_diarias($todo[$i]['legajo']);
 				//ei_arbol($horas_esp);
 				if(isset($horas_esp[0]['horas'])){
 					$horas_diarias = '0'.$horas_esp[0]['horas'].':00';
-				
-				} else {
-				/*switch ($todo[$i]['cant_horas']){
-					case 10 :  
-					$horas_diarias= '01:24';
-								break;	
-					case 20 : 
-					$horas_diarias= '02:48';
-								break;	
-					case 30 :
-					$horas_diarias = '04:12';
-							break;			
-					case 40:
-					$horas_diarias = '05:36';
-						break;
-					case 35:
-					$horas_diarias = '06:00';
-					break;	
-
-				} */
-				switch ($todo[$i]['cant_horas']){
-					case 10 :  
-					$horas_diarias= '01:24';
-					//$requerido = '28:00';
-					$todo[$i]['dedicacion'] = 'SIMPLE';
-								break;	
-					case 20 : 
-					$horas_diarias= '02:48';
-					//$requerido = '56:00';			
-					
-					$todo[$i]['dedicacion'] = 'SEMIEXCLUSIVA';
-								break;	
-					case 30 :
-					$horas_diarias = '04:12';
-					//$requerido = '84:00';
-							break;			
-					case 40:
-					//$requerido = '112:00';
-					$horas_diarias = '05:36';
-					$todo[$i]['dedicacion'] = 'EXCLUSIVA';
-						break;
-					case 35:
-					$horas_diarias = '06:00';
-					//$requerido = '120:24';
-					break;	
-
-				} 
-				}
-				
-				$tmp= 0;
-						$dias_laborales = $todo[$i]['laborables'];
-						$dias_trab = $todo[$i]['laborables'] - $todo[$i]['justificados'];
-					//	ei_arbol($todo);
-						//ei_arbol($dias_trab);
-						// guardo horas diarias
-
-						$horas_min = explode(":",$horas_diarias);
+					$horas_min = explode(":",$horas_diarias);
 						$todo[$i]['h_min'] = $horas_min[0] +($horas_min[1]/60);
 
 						//Horas totales ideales trabajadas
@@ -301,6 +281,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 						// Calculos de minutos
 						//$minutos = $dias_trab * $horas_min[1];
 						$minutos = $dias_laborales * $horas_min[1];
+						$tmp= 0;
 						while ($minutos >= 60){
 							$minutos = $minutos - 60;
 							$tmp ++;
@@ -316,8 +297,20 @@ class ci_control_asistencia extends ctrl_asis_ci
 						//ei_arbol($requerido);
 						
 						$todo[$i]['horas_requeridas_prom']= $requerido;
+				} 
+			
+
+				
+				
+					
+					
+						//ei_arbol($dias_trab);
+						// guardo horas diarias
+
+						
+						
 			}
-			//ei_arbol($todo);
+			//	ei_arbol($todo);
 			
 			/*for ($h=0; $h <= $registros; $h++)
 			{
@@ -414,7 +407,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 				}
 			}*/
 					
-			//	ei_arbol($todo);
+			//ei_arbol($todo);
 			$todos =	array_values($todo);		
 			$registros = count($todos)  ; 
 			unset($todo);

@@ -199,48 +199,8 @@ class vistas_mapuche extends toba_datos_relacion
         $where = array();
 		$mensaje ="";
 		$filtro['cod_depcia'] = '04'; // Seteo dependencia
-		/*if ($filtro['tipo_busqueda']== 1 and !isset($filtro['agente'])) {
-			$mensaje = toba::mensajes()->get('apellido');
-		}
-		if ($filtro['tipo_busqueda']== 2 and !isset($filtro['legajo'])) {
-			$mensaje = toba::mensajes()->get('legajo');
-		}		
-		if ($filtro['tipo_busqueda']== 3 and !isset($filtro['dni'])) {
-			$mensaje = toba::mensajes()->get('dni');
-		}
-        /*if (isset($filtro['desde'])) {
-            $where[] = "RowNum >= '".$filtro['desde']."'";
-            $where[] = "RowNum < '".$filtro['hasta']."'";
-        } */ 
 		
-	   /* switch ($filtro['tipo_busqueda']){
-			case 2: // legajo
-				if (isset($filtro['legajo'])) {
-                $partir = explode(",",$filtro['legajo']);
-				//$anadir = "","";
-				$elementos = count($partir);
-				$lista ="";
-				for($i=0;$i<$elementos;$i++){
-					if ($i == 0){
-						$lista = "legajo in ('".$partir[$i]."'";
-					}else{	
-					$lista =$lista . ",'".$partir[$i]."'"; 
-					}
-				}	
-				
-				$where[] = $lista . ")"; //"legajo in ('".$lista."')" $filtro['legajo']
-				} 
-		break;
-			case 3: //DNI 
-			if (isset($filtro['dni'])) {
-                $where[] = "dni = '".$filtro['dni']."'";
-			}
-			break;
-			case 1: // Apellido y nombre*/
-			//if (isset($filtro['agente'])) {
-			//$where [] = "legajo = '".$filtro['agente']."'";
-            //ei_arbol($filtro);
-            
+        
 			if (isset($filtro['catedra'])) {
 				$id_catedra = $filtro['catedra'];
             
@@ -275,14 +235,15 @@ class vistas_mapuche extends toba_datos_relacion
 			}	
 			//break;
 		//}	
-		
+        
 		if ($where[0] == ')') {
-			$where = '';
+			unset($where[0]);
 		}	
 		
         if (isset($filtro['desc_nombre'])) {
                 $where[] = "desc_nombre ILIKE ".quote("%{$filtro['desc_nombre']}%");
         }
+        
         if (isset($filtro['cod_depcia'])) {
                 
             if (isset($filtro['adscripcion']) and $filtro['adscripcion'] == 1) {
@@ -295,6 +256,7 @@ class vistas_mapuche extends toba_datos_relacion
                         AND fecha_inicio <= '".date("Y-m-d")."' 
                         AND fecha_fin is null";
                 $legajos1 =  toba::db('ctrl_asis')->consultar($sql); 
+               
                 if (count($legajos1)>0) {
                     foreach($legajos1 as $k=> $legajo){
                         if($k==0){
@@ -303,10 +265,13 @@ class vistas_mapuche extends toba_datos_relacion
                             $legajos_incluir.= ",".$legajo['legajo'];
                         }        
                     }
+                    
                     $where[] = "(cod_depcia = '".$filtro['cod_depcia']."' OR legajo IN ($legajos_incluir) )";
+                    
                     $tiene_adscripcion = true;
+                    
                 }
-
+                
                 //---excluir adscripciones a otras dependencias
                 $sql = "SELECT legajo, cod_depcia_origen, fecha_inicio, cod_depcia_destino 
                         FROM reloj.adscripcion 
@@ -330,14 +295,14 @@ class vistas_mapuche extends toba_datos_relacion
                 if ($tiene_adscripcion == false) {
                     $where[] = "cod_depcia = '".$filtro['cod_depcia']."'";
                 }
-
+             
             }else{
 
                 $where[] = "cod_depcia = '".$filtro['cod_depcia']."'";
             }
         }
-       
-
+        
+        
         if (isset($filtro['con_marcas']) and $filtro['con_marcas']==1) {
 		
 
@@ -345,7 +310,8 @@ class vistas_mapuche extends toba_datos_relacion
       
             if (!isset($filtro['basedatos']) or $filtro['basedatos']=='access') { 
                 //--- access ----------------------------------------------------------------
-                $sql = "SELECT DISTINCT U.Badgenumber as legajo
+                $sql = "SELECT *, 'access' as basedatos from reloj.vm_detalle_pres";
+                /*$sql = "SELECT DISTINCT U.Badgenumber as legajo
                 FROM dbo.CHECKINOUT as C, dbo.USERINFO as U
                 WHERE U.USERID = C.USERID 
                  AND CONVERT(varchar(10), C.CHECKTIME, 120) >= '".$filtro['fecha_desde']."'
@@ -361,15 +327,14 @@ class vistas_mapuche extends toba_datos_relacion
                 if( $conn === false ){
                 echo "No es posible conectarse al servidor.</br>";
                 die( print_r( sqlsrv_errors(), true));
-                }
+                }*/
 
-                $result = sqlsrv_query($conn,$sql);
+               // $result = sqlsrv_query($conn,$sql);
                 
-                if( $result === false ){
-                echo "Error al ejecutar consulta.</br>";
-                die( print_r( sqlsrv_errors(), true));
-                }
-
+                $result = toba::db('ctrl_asis')->consultar($sql);
+		
+              //  ei_arbol($result);
+	
                 while ($row = sqlsrv_fetch_array($result)) {
                     if($primero){
                         $primero = false; 
@@ -379,11 +344,11 @@ class vistas_mapuche extends toba_datos_relacion
                     }
                 }
 
-                sqlsrv_free_stmt($result);
-                sqlsrv_close($conn);
+                //sqlsrv_free_stmt($result);
+                //sqlsrv_close($conn);
             }
 
-            if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
+            /*if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
                 //--- hander ----------------------------------------------------------------
                 $sql = "SELECT DISTINCT Convert(Int, Tarjeta) as legajo
                 FROM Fichada
@@ -422,7 +387,7 @@ class vistas_mapuche extends toba_datos_relacion
 
                 sqlsrv_free_stmt($result);
                 sqlsrv_close($conn);
-            }
+            }*/
 
             //-------------------------------------------
             if(!empty($string_legajo)){
@@ -432,30 +397,29 @@ class vistas_mapuche extends toba_datos_relacion
             }         
         }
 
-
-        if (isset($filtro['agrupamiento'])) {
+      //  ei_arbol($filtro);
+        if (isset($filtro['agrup'])) {
             
-            if ($filtro ['agrupamiento'] == 'doc') {
+            if ($filtro ['agrup'] == 'doc') {
 
                 //$where[] = "agrupamiento = '".$filtro['agrupamiento']."'";
-                $where[] = "agrupamiento <> 'NODO'";
+                $where[] = "escalafon <> 'NODO'";
             } else {
 
-           $where[] = "agrupamiento = 'NODO'";
+           $where[] = "escalafon = 'NODO'";
            }
 
         }
-
-        $nombre_tabla = self::get_nombre_tabla_legajos_por_estado_cargo($filtro['cargos_todos']);
+        
+       // $nombre_tabla = self::get_nombre_tabla_legajos_por_estado_cargo($filtro['cargos_todos']);
        
         $sql = "SELECT  t_l.legajo, t_l.apellido, t_l.nombre, 
-		t_l.fec_nacim, dni, t_l.fec_ingreso, t_l.estado_civil, t_l.caracter, t_l.categoria,
+		t_l.fec_nacim, dni, t_l.fecha_ingreso, t_l.estado_civil, t_l.caracter, t_l.categoria,
 		t_l.agrupamiento, t_l.escalafon ,-- t_l.cod_depcia, 
 		t_l.cuil, t_l.email, 
-               t_h.cant_horas, (t_h.cant_horas / 5) as horas_requeridas_prom 
-              FROM $nombre_tabla as t_l, uncu.cant_hora as t_h 
-              WHERE t_h.categoria = t_l.categoria 
-              ORDER BY t_l.legajo
+               t_l.cant_horas, (t_l.cant_horas / 5) as horas_requeridas_prom 
+              FROM reloj.agentes t_l
+               ORDER BY t_l.legajo
 			  --, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fec_ingreso, t_l.estado_civil, t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, t_l.cod_depcia, t_l.cuil, t_l.email 
             --  $limit $offset
 			   ";
@@ -465,8 +429,8 @@ class vistas_mapuche extends toba_datos_relacion
         } 
 		//$temp = toba::db('mapuche')->consultar($sql); 
 	  
-	
-       return  toba::db('mapuche')->consultar($sql); 
+     // ei_arbol($sql)  ;
+       return  toba::db('ctrl_asis')->consultar($sql); 
 		
     }
 
