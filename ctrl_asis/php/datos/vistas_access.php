@@ -3,7 +3,6 @@
 class vistas_access extends toba_datos_relacion
 {
 
-	
 	/*
 	En SQL server, las tablas comienzan con dbo. 
 
@@ -25,19 +24,14 @@ class vistas_access extends toba_datos_relacion
 
 	static function get_vista_access($filtro=array())
 	{
-		
-		//ei_arbol($filtro);
-		
-		/*-
 		$where = array();
-		ei_arbol($filtro);
+		
 		if (isset($filtro['fecha'])) {
-			$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			//$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			$where[] = "fecha = '" .$filtro['fecha']."'"; 
 		}
 
-		if (isset($filtro['sin_errores'])) {
-			$where[] = "C.CHECKTYPE <> '#Error'";
-		}
+	
 		if (isset($filtro['fecha_desde'])) {
 				list($y,$m,$d)=explode("-",$filtro['fecha_desde']); //2011-03-31
 				$fecha_desde = $y."-".$m."-".$d;
@@ -51,81 +45,37 @@ class vistas_access extends toba_datos_relacion
 
 		if (isset($filtro['badgenumber'])) {
 			//$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
+			
 			$where[] = "legajo = ".quote($filtro['badgenumber']);
 		}        
-
-		
-		$sql = "SELECT "
-		
-		
-		$sql = "SELECT 
-		C.CHECKTYPE, 
-		U.Badgenumber,
-		U.NAME,
-		CONVERT(varchar(10), C.CHECKTIME, 120) AS fecha, 
-		CONVERT(varchar(19), C.CHECKTIME, 120) AS CHECKTIME,
-		C.SENSORID as device_id,
-		'access' as basedatos,
-		C.USERID 
-		FROM CHECKINOUT as C 
-			LEFT OUTER JOIN
-			USERINFO as U
-		ON U.USERID = C.USERID 
-		ORDER BY C.USERID,  C.CHECKTIME ASC";
-
+		$sql = "SELECT *, 'access' as basedatos from reloj.vm_pres_aus_jus";
+	
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		} 
 
 		//-------------------------------------------
-		$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-		$conn = sqlsrv_connect($HOST, $connectionInfo);
-
-		if( $conn === false ){
-		echo "78: No es posible conectarse al servidor.</br>";
-		die( print_r( sqlsrv_errors(), true));
-		}
-
-		$result = sqlsrv_query($conn,$sql);
+	
+		$result = toba::db('ctrl_asis')->consultar($sql);
+		$array=$result;
 		
-		if( $result === false ){
-		echo "Error al ejecutar consulta.</br>";
-		die( print_r( sqlsrv_errors(), true));
-		}
-
-		while ($row = sqlsrv_fetch_array($result)) {
-			$array[] = $row;
-		}
-
-		sqlsrv_free_stmt($result);
-		sqlsrv_close($conn);
-		//ei_arbol($result);
 		return $array;
 
-	*/}
+	}
 
 	static function get_CHECKINOUT($filtro=array())
 	{
-/*if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
-$inicio = microtime(true);   
-}*/
-		ei_arbol($filtro);
 		// access --------------------------------------------------
 		if (!isset($filtro['basedatos']) or $filtro['basedatos']=='access') { 
 
 		$where = array();
 
-		
 		if (isset($filtro['fecha'])) {
-			$where[] = "fecha = '" .$filtro['fecha']."'";
-		//	$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			//$where[] = " CONVERT(varchar(10), C.CHECKTIME, 120) = '".$filtro['fecha']."'";
+			$where[] = "fecha = '" .$filtro['fecha']."'"; 
 		}
 
-		/*if (isset($filtro['sin_errores'])) {
-			$where[] = "C.CHECKTYPE <> '#Error'";
-		}
+		
 		if (isset($filtro['fecha_desde'])) {
 				list($y,$m,$d)=explode("-",$filtro['fecha_desde']); //2011-03-31
 				$fecha_desde = $y."-".$m."-".$d;
@@ -135,184 +85,32 @@ $inicio = microtime(true);
 				list($y,$m,$d)=explode("-",$filtro['fecha_hasta']); //2011-03-31
 				$fecha_hasta = $y."-".$m."-".$d; //." 23:59:59";
 				$where[] = "CONVERT(varchar(10), C.CHECKTIME, 120) <= ".quote($fecha_hasta);
-		}*/
+		}
 
 		if (isset($filtro['badgenumber'])) {
 			//$where[] = "U.Badgenumber = ".quote($filtro['badgenumber']);
 			$where[] = "legajo = ".quote($filtro['badgenumber']);
 		}        
 
-		#if (isset($filtro['id_dispositivo'])) {
-		#    $where[] = "M.ID = ".quote($filtro['id_dispositivo']);
-		#}
-/*
-		$sql = "SELECT C.USERID, 
-		CONVERT(varchar(19), C.CHECKTIME, 120) AS CHECKTIME, 
-		CONVERT(varchar(10), C.CHECKTIME, 120) AS fecha, 
-		C.CHECKTYPE, C.VERIFYCODE, C.SENSORID, C.LOGID, C.MachineId, C.UserExtFmt, C.WorkCode, C.Memoinfo, C.sn,
-		U.Badgenumber,U.name,U.privilege,L.device_id,
-		M.ID as id_dispositivo,M.MachineAlias,M.area_id,A.areaid,A.areaname 
-		FROM CHECKINOUT as C 
-			LEFT OUTER JOIN acc_monitor_log as L ON (L.ID = C.LOGID) 
-			LEFT OUTER JOIN Machines as M ON (M.ID = L.device_id )
-			LEFT OUTER JOIN personnel_area as A ON (A.id = M.area_id ), 
-			USERINFO as U
-		WHERE U.USERID = C.USERID 
-		ORDER BY C.USERID,  C.CHECKTIME ASC";
-*/
-		$sql = "SELECT * from reloj.vm_pres_aus_jus
-		order by legajo,fecha desc";
-		/*$sql = "SELECT 
-		C.CHECKTYPE, 
-		U.Badgenumber,
-		U.NAME,
-		CONVERT(varchar(10), C.CHECKTIME, 120) AS fecha, 
-		CONVERT(varchar(19), C.CHECKTIME, 120) AS CHECKTIME, 
-		C.SENSORID as device_id,
-		'access' as basedatos,
-		C.USERID 
-		FROM CHECKINOUT as C 
-			LEFT OUTER JOIN
-			USERINFO as U
-		ON U.USERID = C.USERID 
-		ORDER BY U.Badgenumber, C.CHECKTIME ASC";*/
+		
+		$sql = "SELECT *, 'access' as basedatos from reloj.vm_pres_aus_jus";
 
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		} 
-/*if($filtro['badgenumber'] == '32277' and $filtro['fecha'] == '2017-03-06'){
-
-	file_put_contents('c:/temp/sqlaccess.txt', $sql);
-}
-*/
-
-
-		//-------------------------------------------
-		/*$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-		$conn = sqlsrv_connect($HOST, $connectionInfo);
-
-		if( $conn === false ){
-		//echo "No es posible conectarse al servidor.</br>";
-		echo "179: No es posible conectarse al servidor.</br>";
-		die( print_r( sqlsrv_errors(), true));
+		$result = toba::db('ctrl_asis')->consultar($sql);
+		$array=$result;
 		}
-
-		$result = sqlsrv_query($conn,$sql);
-		
-		if( $result === false ){
-		echo "Error al ejecutar consulta.</br>";
-		die( print_r( sqlsrv_errors(), true));
-		}
-
-		while ($row = sqlsrv_fetch_array($result)) {
-			$array[] = $row;
-		}
-
-		sqlsrv_free_stmt($result);
-		sqlsrv_close($conn);
-		
-		}*/
 
 		//------------SQL HANDER--------------
 
-	/*	if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
-		$where2 = array();
-
-		if (isset($filtro['fecha'])) {
-			$where2[] = " CONVERT(varchar(10), FechaHora, 120) = '".$filtro['fecha']."'";
-		}
-
-		if (isset($filtro['fecha_desde'])) {
-				list($y,$m,$d)=explode("-",$filtro['fecha_desde']); //2011-03-31
-				$fecha_desde = $y."-".$m."-".$d;
-				$where2[] = "CONVERT(varchar(10), FechaHora, 120) >= ".quote($fecha_desde);
-		}
-		if (isset($filtro['fecha_hasta'])) {
-				list($y,$m,$d)=explode("-",$filtro['fecha_hasta']); //2011-03-31
-				$fecha_hasta = $y."-".$m."-".$d; //." 23:59:59";
-				$where2[] = "CONVERT(varchar(10), FechaHora, 120) <= ".quote($fecha_hasta);
-		}
-
-		if (isset($filtro['badgenumber'])) {
-			$where2[] = "Convert(Int, Tarjeta) = ".quote($filtro['badgenumber']);
-		}        
-
-		#if (isset($filtro['id_dispositivo'])) {
-		#    $where2[] = "M.ID = ".quote($filtro['id_dispositivo']);
-		#}
-
-		/*$sql = "SELECT 
-				Evento as CHECKTYPE,
-				id as LOGID,
-				CONVERT(Int, Tarjeta) as  Badgenumber,
-				CONVERT(varchar(10), FechaHora, 120) as fecha,
-				CONVERT(varchar(19), FechaHora, 120) as CHECKTIME,
-				'hander' as  basedatos,
-				Reloj as device_id 
-				FROM Fichada as F 
-				ORDER BY Tarjeta,  FechaHora ASC"; */
-	
-		/*$sql = "SELECT Evento as CHECKTYPE, id as LOGID,
-				CONVERT(Int, Tarjeta) as  Badgenumber,
-				CONVERT(varchar(10), FechaHora, 120) as fecha,
-				CONVERT(varchar(19), FechaHora, 120) as CHECKTIME,
-				'hander' as  basedatos,
-				Reloj as device_id 
-				FROM Fichada as F "; 
-
-
-		if (count($where2)>0) {
-			$sql = sql_concatenar_where($sql, $where2);
-		}
-/*if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
-echo $sql;  
-} */
-		//-------------------------------------------
-		/*$conf_hander = file_get_contents('../php/datos/conf_hander.txt');
-		list($UID,$PWD,$DB,$HOST)=explode(';',$conf_hander); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB); //$connectionInfo = array( "UID"=>"citreloj", "PWD"=>"reloj2015", "Database"=>"Hander");
-		$conn = sqlsrv_connect($HOST, $connectionInfo); //$conn = sqlsrv_connect( '172.22.32.27\SQLESPRESS,2523', $connectionInfo);
-
-		if( $conn === false ){
-		echo "260: No es posible conectarse al servidor.</br>";
-		die( print_r( sqlsrv_errors(), true));
-		}
-
-		$result = sqlsrv_query($conn,$sql);
 		
-		if( $result === false ){
-		echo "Error al ejecutar consulta.</br>";
-		die( print_r( sqlsrv_errors(), true));
-		}else{
-
-			while ($row = sqlsrv_fetch_array($result)) {
-				$array[] = $row;
-			}
-
-			sqlsrv_free_stmt($result);
-			sqlsrv_close($conn); 
-						
-		}
-		//-------------------------------------------
-		}*/
-/*
-if($filtro['fecha'] == '2015-09-01' and ($filtro['badgenumber'] == '8049' or $filtro['badgenumber'] == '28813' ) ){
-$final = microtime(true);
-//echo "Final: ".memory_get_usage()." bytes <br>";
-//echo "Peak: ".memory_get_peak_usage()." bytes <br>";
-	$total = $final - $inicio;
-echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br>';
-}
-*/
-
 		return $array;
 
 	}
 
 	function get_marcas($filtro=array()){
-		ei_arbol($filtro);
+		
 		$filtro['sin_errores'] = true;
 		$array = $this->get_CHECKINOUT($filtro);
 		$datos = array();
@@ -328,19 +126,19 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 	}
 }*/
 
-		ei_arbol($array);
+
 		if(count($array)>0){ 
 			
 			$cont = 0;
 			
 			
 			//if($filtro['badgenumber']=='28983'){
-
+			
 				//logica sin entrada y salida ------------------------------------------------------
 				$resto_entrada = 0; //0 impar, 1 par  
 				foreach($array as $key=>$row){
-
-					if ($key%2==$resto_entrada){ //Entrada
+				// ei_arbol($row);
+				//	if ($key%2==$resto_entrada){ //Entrada
 
 							//set entrada
 							$datos[$cont]= array(
@@ -348,47 +146,20 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 									#'legajo'    => $row['Badgenumber'],
 								'badgenumber' => $row['Badgenumber'],
 								'fecha'       => $row['fecha'],
-								'entrada'     => substr($row['CHECKTIME'],11,8),
-									#'salida'    =>,
+								'entrada'     => $row['hora_entrada'],
+								'salida'    => $row['hora_salida'],
 								'basedatos_i' => $row['basedatos'],
 								'reloj_i'     => $row['device_id']
 								);
 
-					}else{ //Salida
+				//	}else{ //Salida
 
-						$cont_anterior = $cont - 1;
-						$hora_anterior = str_replace(':', '', $datos[$cont]['entrada']);
-						$hora_actual   = str_replace(':', '', substr($row['CHECKTIME'],11,8)  );
-						$diferencia    = $hora_actual - $hora_anterior;
-
-						/*if($row['LOGID'] == '2823890' or $row['LOGID'] == '2823891'){
-							$mostrar = "hora_anterior: $hora_anterior, hora_actual: $hora_actual, diferencia: $diferencia";
-							ei_arbol($mostrar,"calculo diferencia");
-						}*/
-
-						
-						if($diferencia > 200){  //08:04:51 - 08:04:50   es menor a 120 segundos, se omite 
-
-							$datos[$cont]['basedatos_o'] = $row['basedatos'];
-							$datos[$cont]['reloj_o'] = $row['device_id'];
-							$datos[$cont]['fecha']   = $row['fecha'];
-							$datos[$cont]['salida']  = substr($row['CHECKTIME'],11,8);
-							$cont++;
-						}else{
-
-							//cambia resto entrada, para que tome la que sigue como salida
-							if($resto_entrada == 0){
-
-								$resto_entrada = 1; //0 impar, 1 par 
-
-							}else{
-								$resto_entrada = 0; //0 impar, 1 par 
-							}
-						}    
+					
+						    
 					}  
 
 
-				}
+				
 				//---------------------------------------------------------------------------------
 			
 			/*}else{
@@ -459,6 +230,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 
 
 		}
+		//ei_arbol($datos);
 		//-----------------------
 		if(isset($filtro['calcular_horas']) and count($datos) > 0){
 			foreach($datos as $key=>$dato){
@@ -469,49 +241,136 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 	}
 
 
-	static function get_dispositivos()
-	{
-
-		$sql = "SELECT M.ID as id_dispositivo,
-		M.MachineAlias,
-		M.area_id,
-		A.areaid, A.areaid as cod_depcia, 
-		A.areaname
-		FROM Machines as M, personnel_area as A
-		WHERE A.id = M.area_id "; 
-
-		//-------------------------------------------
-		$conf_access = file_get_contents('../php/datos/conf_access.txt');
-		list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-		$connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-		$conn = sqlsrv_connect($HOST, $connectionInfo);
-
-		if( $conn === false ){
-		echo "391: No es posible conectarse al servidor.</br>";
-		die( print_r( sqlsrv_errors(), true));
-		}
-
-		$result = sqlsrv_query($conn,$sql);
+	static function get_lista_gral($legajo,$filtro){
 		
-		if( $result === false ){
-		echo "Error al ejecutar consulta.</br>";
-		die( print_r( sqlsrv_errors(), true));
+		
+		$fecha_ini = $filtro['fecha_desde'];
+		$fecha_fin = $filtro ['fecha_hasta'];
+		for($i=0;$i<count($legajo);$i++){
+			$leg = $legajo[$i];
+			if ($i == 0){
+				$list= 'legajo in ( '. $leg ;
+
+			} else{
+				$list = $list . ', ' .$leg;
+
+			}
+			
 		}
+		$list = $list. ')';
+		$where[]= $list;
+		$where1[] =$list;
+		
+		$where[]= "fecha BETWEEN "."'$fecha_ini'"." AND "." '$fecha_fin'";
+		$where1[] = "fecha_inicio_licencia <= "." '$fecha_fin'";
+		// Suma horas y promedio de cada agente
+		$sql = "SELECT legajo,
+		sum(horas_requeridad) horas_requeridas_prom,  sum(horas_trabajadas) horas_totales , avg(horas_trabajadas) horas_promedio
+		FROM reloj.vm_detalle_pres
+		group by legajo,categoria,nombre_catedra";
+		$sql= sql_concatenar_where($sql, $where);
+		
+		 
+		// Cuenta ausente justificados, presentes y ausentes
+		$horas=  toba::db('ctrl_asis')->consultar($sql); 
+		$sql = "SELECT  cuil, legajo, ayn nombre_completo, agrupamiento , categoria, nombre_catedra, escalafon,caracter,
+    	COUNT(CASE WHEN estado = 'Ausente' THEN 1 END) AS injustificados,
+    	COUNT(CASE WHEN estado = 'Presente' THEN 1 END) AS presentes,
+    	COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes
+		FROM reloj.vm_detalle_pres
+		GROUP BY legajo, ayn, agrupamiento, categoria, nombre_catedra,cuil,escalafon,caracter";
+		$sql= sql_concatenar_where($sql, $where);
+		$condicion = toba::db('ctrl_asis')->consultar($sql); 
+		
+		for ($i=0;$i<count($condicion);$i++){
+			for ($j=0;$j<count($horas);$j++){
+				
+				if ($condicion[$i]['legajo']== $horas[$j]['legajo']){
+					
+					$condicion[$i]['horas_requeridas_prom']= $horas[$j]['horas_requeridas_prom'];
+					$condicion[$i]['horas_totales']= $horas[$j]['horas_totales'];
+					$condicion[$i]['horas_promedio']= $horas[$j]['horas_promedio'];
+								
 
-
-		while ($row = sqlsrv_fetch_array($result)) {
-			$array[] = $row;
+				}
+			}
+			if(!isset($condicion[$i]['horas_totales'])){
+				$condicion[$i]['horas_totales']= '00:00:00';
+				$condicion[$i]['horas_promedio']= '00:00:00';
+			}
 		}
+		unset($item); 
+		
+		$sql1 = "SELECT distinct
+			legajo, 
+			fecha_inicio_licencia,
+			dias
+			
+		FROM
+			sanidad.parte as t_p    
+			
+		where estado = 'C'";
+		$sql1= sql_concatenar_where($sql1, $where1);
+		$sanidad = toba::db('mapuche')->consultar($sql1);
+		
+			$fechaInicioFiltro = new DateTime($fecha_ini);
+			$fechaFinFiltro = new DateTime($fecha_fin);
+			foreach ($sanidad as $item) {
+				// Convertir fecha de inicio a objeto DateTime
+				$fechaInicio = new DateTime($item['fecha_inicio_licencia']);
+				
+				// Crear fechas de vigencia, un día a la vez
+				for ($i = 0; $i < $item['dias']; $i++) {
+					$fechaVigencia = clone $fechaInicio;
+					$fechaVigencia->modify("+{$i} days");
+					$fechaVigenciaStr = $fechaVigencia->format('Y-m-d');
+					
+					// Filtrar según las fechas proporcionadas
+					if ($fechaVigencia >= $fechaInicioFiltro && $fechaVigencia <= $fechaFinFiltro) {
+						$resultado[] = [
+							'legajo' => $item['legajo'],
+							'fecha_vigencia' => $fechaVigenciaStr
+						];
+					}
+				}
+			}
+			
+			//ei_arbol($resultado);
+			for ($i=0;$i<count($condicion);$i++){
+				$parte_sanidad = 0;
+				for ($j=0;$j<count($resultado);$j++){
+					if($condicion[$i]['legajo']==$resultado[$j]['legajo']){
+						$parte_sanidad ++;
+					}
+					
+				}
+				$condicion[$i]['partes_sanidad'] = $parte_sanidad;
+				$condicion[$i]['injustificados'] = $condicion[$i]['injustificados'] - $parte_sanidad;
+				if($condicion[$i]['injustificados'] < 0){
+					$condicion[$i]['injustificados'] =   $parte_sanidad - $condicion[$i]['injustificados'];
+					$condicion[$i]['injustificados'] = 0;
+				}
+				$condicion[$i]['justificados']= $condicion[$i]['justificados'] + $condicion[$i]['parte_sanidad'];
+			}
+			$sql= "SELECT legajo, cod_depcia_destino FROM reloj.adscripcion
+			where cod_depcia_destino <> '04' and (fecha_fin >= "." '$fecha_fin'"." or fecha_fin is null)";
+			$adsc= toba::db('ctrl_asis')->consultar($sql);
+			for ($i=0;$i<count($condicion);$i++){
+				$condicion[$i]['cod_depcia_destino']= 'No';
+				for($j=0;$j<count($ads);$j++){
+					if ($condicion[$i]['legajo']== $ads[$j]['legajo']){
+						$condicion[$i]['cod_depcia_destino']= $adsc[$j]['cod_depcia_destino'];
 
-		sqlsrv_free_stmt($result);
-		sqlsrv_close($conn);
-		//-------------------------------------------
+					}
+				}
+			}
+			
+			return $condicion;
 
-		return $array;
-
+		
 
 	}
-
+	
 	/*static function get_dispositivo($id_dispositivo)
 	{
 
@@ -717,7 +576,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 					unset($array_marcas);
 					$array_marcas = array();
 					$contador_marcas = 0;
-
+					
 					$jornada = toba::tabla('conf_jornada')->get_jornada_agente($agente['legajo']);
 
 					$filtro_marca['calcular_horas']     = true;
@@ -848,7 +707,8 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 
 				//Recorremos array de marcas para agregar casos especiales -------------------------------- 
 				$horas_totales = 0;
-				$prom_acum     = 0;                
+				$prom_acum     = 0;      
+				
 				if(count($array_marcas)>0){
 
 					foreach ($array_marcas as $m => $marca) {
@@ -894,7 +754,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 
 						}
 					}
-					
+					//ei_arbol($horas_totales);
 					/*$array_res = array('horas_totales'  => $horas_totales, 'prom_acum' => $prom_acum);
 					if($agente['legajo'] == '32011'){
 						ei_arbol($array_marcas,"Agente ".$agente['legajo']);     
@@ -1016,7 +876,7 @@ echo 'Tiempo en ejecutar '.$agente['legajo'].' el script: '.$total.' segundos<br
 		
 		$agente = $agentes[$key];
 		//------------------------
-		//ei_arbol($agentes);
+		//ei_arbol($dia_ref, $dia_leyenda, $key, $agentes, $array_marcas, $contador_marcas, $dia, $filtro_marca);
 		
 		$agentes[$key]['laborables']++;
 						
