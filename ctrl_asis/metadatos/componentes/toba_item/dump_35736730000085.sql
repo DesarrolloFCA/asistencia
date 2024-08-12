@@ -14,11 +14,11 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --padre_id
 	'ctrl_asis', --padre_proyecto
 	'35736730000081', --padre
-	NULL, --carpeta
-	NULL, --nivel_acceso
+	'0', --carpeta
+	'0', --nivel_acceso
 	'web', --solicitud_tipo
-	'ctrl_asis', --pagina_tipo_proyecto
-	'tp_referencia', --pagina_tipo
+	'toba', --pagina_tipo_proyecto
+	'normal', --pagina_tipo
 	NULL, --actividad_buffer_proyecto
 	NULL, --actividad_buffer
 	NULL, --actividad_patron_proyecto
@@ -29,7 +29,7 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --actividad_accion
 	'1', --menu
 	'0', --orden
-	NULL, --solicitud_registrar
+	'0', --solicitud_registrar
 	NULL, --solicitud_obs_tipo_proyecto
 	NULL, --solicitud_obs_tipo
 	NULL, --solicitud_observacion
@@ -38,16 +38,16 @@ INSERT INTO apex_item (item_id, proyecto, item, padre_id, padre_proyecto, padre,
 	NULL, --zona_proyecto
 	NULL, --zona
 	NULL, --zona_orden
-	NULL, --zona_listar
-	NULL, --imagen_recurso_origen
+	'0', --zona_listar
+	'apex', --imagen_recurso_origen
 	NULL, --imagen
 	NULL, --parametro_a
 	NULL, --parametro_b
 	NULL, --parametro_c
-	NULL, --publico
+	'0', --publico
 	NULL, --redirecciona
 	NULL, --usuario
-	NULL, --exportable
+	'0', --exportable
 	'2023-07-27 14:32:10', --creacion
 	'0'  --retrasar_headers
 );

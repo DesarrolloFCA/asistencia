@@ -200,64 +200,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			
 			$dias_laborales = $laborables - $feriados;
 		
-			
-			
-			/*if (isset($this->s__datos_filtro['catedra'])){
-			$catedras = $this->dep('datos')->tabla('catedras')->get_catedra($this->s__datos_filtro['catedra']);
-			
-				if ($catedras[0]['id_departamento'] == 6 Or $catedras[0]['id_departamento'] == 10) {
-				$this->s__datos_filtro ['agrup'] = 'paa';
-				}else 
-				{	
-				$this->s__datos_filtro ['agrup'] = 'doc';
-				}
-				//$agentes_0 = true;
-			/*}else {
-				toba::notificacion()->agregar('No existen agentes en la catedra u oficina seleccionada', "info");
-				//$agentes_0 = false;
-				
-			}
-			}*/
-			
-			
-			//ei_arbol($e);
-			//if ($agentes_0){
-			
-			/*for($m = 0; $m<$tot;$m++){
-				 if ($e[$m]['agrupamiento'] == 'CORF') {
-			 	$e[$m]['agrupamiento'] = 'DOCE';
-			 	$this->s__datos[$m]['agrupamiento'] ='DOCE';
-
-			
-				 }
-			}
-			
-			if(isset($this ->s__datos_filtro['agrup'])){
-				$tot = $e['total'];
-				//for($m = 0; $m<$tot;$m++){
-				if (($this ->s__datos_filtro['agrup']) == 'doc'){
-				
-				$this->s__datos = array_filter($this->s__datos, function ($e) {
-				return $e['agrupamiento'] == 'DOCE';});
-				//$this->s__datos['total'] =count($this->s__datos);
-			
-				}else { 
-				
-				$this->s__datos = array_filter($this->s__datos, function ($e) {
-				return $e['agrupamiento'] <> 'DOCE';});    
-				//$this->s__datos['total'] =count($this->s__datos);      
-			
-			}
-				//}
-			}
-		
-			//$this->s__datos = $e; //para agregar catedras y parcelas
-			unset($e);
-			$todo =	array_values($this->s__datos);		
-			//	ei_arbol($todo);
-			$registros = count($todo); 	
-			//$hasta = $this->s__datos['total'] +1;*/
-
+						
 			for ($i = 0;$i<$total_registros;$i++){
 					
 				$todo[$i]['feriados'] = $feriados;
@@ -299,115 +242,10 @@ class ci_control_asistencia extends ctrl_asis_ci
 						$todo[$i]['horas_requeridas_prom']= $requerido;
 				} 
 			
-
-				
-				
-					
-					
-						//ei_arbol($dias_trab);
 						// guardo horas diarias
-
-						
-						
+			
 			}
-			//	ei_arbol($todo);
 			
-			/*for ($h=0; $h <= $registros; $h++)
-			{
-				
-				if ($h<>0) {
-					$k = $h-1;
-					$legajo_actual = ($todo[$h]['legajo']);
-
-					if ($legajo_actual ==''){
-						//unset($todo[$h]);	
-					}else {
-					$legajo_ant = ($todo[$k]['legajo']);
-					//$requerido = $todo [$h]['cant_horas'];
-					//$todo [$h]['horas_requeridas_prom'] =$requerido;
-					//ei_arbol($todo);
-			
-						if ($legajo_ant ==$legajo_actual){ 
-						$tmp = 0;
-						//$requerido = ($todo [$k]['cant_horas'] + $todo [$h]['cant_horas']);
-						$horas_1 =explode(":",$todo [$k]['horas_requeridas_prom']);
-						$horas_2 = explode(":",$todo [$h]['horas_requeridas_prom']);
-						$hora=$horas_1[0]+$horas_2[0];
-						$min = $horas_1[1]+$horas_2[1];
-						while ($min >= 60){
-							$min = $min - 60;
-							$tmp ++;
-						}
-						$hora=$hora+$tmp;
-						if($minutos < 10) {
-							$minutos = '0'.$minutos;
-						}
-						$requerido=$hora .':'.$min;
-						//$requerido = ($todo [$k]['horas_requeridas_prom']) + ($todo [$h]['horas_requeridas_prom']);
-						
-						$todo [$k]['horas_requeridas_prom'] =$requerido;
-
-
-						//unset($todo[$h]);
-					}
-					//ei_arbol($todo);
-					// equivalencia dias
-
-					//$requerido = $todo [$k]['horas_requeridas_prom'] /5 ;
-					/*ei_arbol ($requerido);
-						switch($requerido) {
-							case 15 :
-								$horas_diarias = '10:48';
-								break;
-							case 11:
-								$horas_diarias= '08:00';
-								break;
-							case 10 :
-								$horas_diarias = '05:36';
-								break;
-							case 9 :
-								$horas_diarias= '06:48';
-								break;
-							case 8 :	
-								$horas_diarias= '04:48';
-								break;
-							case 7 : 
-								$horas_diarias= '06:00';
-								break;
-							case 6 : 
-								$horas_diarias= '03:18';
-								break;
-							case 4 : 
-								$horas_diarias= '02:00';
-								break;	
-							case 2 : 
-								$horas_diarias= '00:48';
-								break;	
-							}
-						$tmp= 0;
-						$dias_trab = $todo[$k]['laborables'] -  $todo[$k]['feriados'] - $todo[$k]['justificados'];
-						$horas_min = explode(':',$$horas_diarias);
-						//Horas totales ideales trabajadas
-						$horas= $dias_trab * $horas_min[0];
-						// Calulos de minutos
-						$minutos = $dias_trab * $horas_min[1];
-						while ($minutos >= 60){
-							$minutos = $minutos - 60;
-							$tmp ++;
-						}
-
-						$horas = $horas + $tmp;
-						if($minutos < 10) {
-							$minutos = '0'.$minutos;
-						}
-						$requerido = $horas .':'.$minutos;
-						ei_arbol ($requerido);
-					}
-				
-				}
-			}*/
-					
-			//ei_arbol($todo);
 			$todos =	array_values($todo);		
 			$registros = count($todos)  ; 
 			unset($todo);
