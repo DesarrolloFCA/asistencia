@@ -264,16 +264,17 @@ class vistas_access extends toba_datos_relacion
 		$where[]= "fecha BETWEEN "."'$fecha_ini'"." AND "." '$fecha_fin'";
 		$where1[] = "fecha_inicio_licencia <= "." '$fecha_fin'";
 		// Suma horas y promedio de cada agente
-		$sql = "SELECT legajo,
+		$sql = "SELECT distinct legajo, count(*) cuenta,
 		sum(horas_requeridad) horas_requeridas_prom,  sum(horas_trabajadas) horas_totales , avg(horas_trabajadas) horas_promedio
 		FROM reloj.vm_detalle_pres
 		group by legajo,categoria,nombre_catedra";
 		$sql= sql_concatenar_where($sql, $where);
-		
-		 
 		// Cuenta ausente justificados, presentes y ausentes
 		$horas=  toba::db('ctrl_asis')->consultar($sql); 
-		$sql = "SELECT  cuil, legajo, ayn nombre_completo, agrupamiento , categoria, nombre_catedra, escalafon,caracter,
+		
+
+		
+		$sql = "SELECT  distinct cuil, legajo, ayn nombre_completo, agrupamiento , categoria, nombre_catedra, escalafon,caracter,
     	COUNT(CASE WHEN estado = 'Ausente' THEN 1 END) AS injustificados,
     	COUNT(CASE WHEN estado = 'Presente' THEN 1 END) AS presentes,
     	COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes
@@ -371,6 +372,93 @@ class vistas_access extends toba_datos_relacion
 
 	}
 	
+	static function get_lista_gral_mod ($horas,$filtro){
+		
+		
+		$fecha_ini = $filtro['fecha_desde'];
+		$fecha_fin = $filtro ['fecha_hasta'];
+		$list = 'legajo in (';
+		for($i=0;$i<count($horas);$i++){
+			$leg = $horas[$i]['legajo'];
+			if ($i==0){
+				$list =$list . $leg;
+			}else {
+			$list = $list . ', ' .$leg;
+			}
+		}	
+		
+		
+		$list = $list. ')';
+		
+		
+		
+		$sql ="SELECT count(*) cantidad,legajo FROM reloj.permisos_horarios
+					WHERE (auto_aut = true or aut_sup = true) 
+					AND fecha between '". $fecha_ini ."' AND '".$fecha_fin .
+					"' AND $list 
+					group by legajo
+					Union
+					Select count(*) cantidad, legajo fecha from reloj.parte
+					where id_motivo = 58
+					and fecha_inicio_licencia between '". $fecha_ini ."' AND '".$fecha_fin .
+					"' AND $list
+					group by legajo"
+					 ;
+					$permiso = toba::db('ctrl_asis')->consultar($sql);
+
+	
+
+		for($i=0;$i<count($horas);$i++){
+			for($j=0; $j< count($permiso);$j++){
+				if ($horas[$i]['legajo'] == $permiso[$j]['legajo']){
+					$horas_ori= $horas[$i]['horas_totales'];
+					list($hora,$min,$seg)= explode(':',$horas_ori);
+					$horas_totales = $hora + ($permiso[$j]['cantidad']* 3); 
+					$horas[$i]['horas_totales'] = sprintf("%02d:%02d:%02d",$horas_totales,$min,$seg);
+					
+					$promedio_totales = (($horas_totales*60)+$min) / $horas[$i]['presentes'];
+					$horas_promedio = intdiv($promedio_totales,60);
+					$minutos_promedio = $promedio_totales % 60; ;
+					$segundos_promedio = 0;
+					$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_promedio,$minutos_promedio,$segundos_promedio);
+					$horas[$i]['partes'] =$horas[$i]['partes'] -  $permiso[$j]['cantidad'];
+
+				}
+			}
+		}
+
+		$sql = "SELECT legajo, fecha, horas_requeridad, hora_entrada
+		 from reloj.vm_detalle_pres
+		 where fecha between '". $fecha_ini ."' AND '".$fecha_fin .
+			"' AND hora_entrada = hora_salida
+			AND hora_entrada  is not null
+			AND $list";
+		
+		$marca = toba::db('ctrl_asis')->consultar($sql);	
+		for($i=0;$i<count($horas);$i++){
+			for($j=0; $j< count($marca);$j++){
+				if ($horas[$i]['legajo'] == $marca[$j]['legajo']){
+					$horas_ori= $horas[$i]['horas_totales'];
+					list($hora,$min,$seg)= explode(':',$horas_ori);
+					$hora_requerida = $marca[$j]['hora_requeridad'];
+					list($hr,$mn,$se) = explode(':',$hora_requerida);
+					$min_trab = (($hora+$hr)*60) + ($min +$mn);
+					$horas_trab = intdiv($min_trab,60);
+					$minutos_trab = $min_trab%60;
+					$horas_totales =sprintf("%02d:%02d:%02d",$horas_trab,$minutos_trab,$seg);
+					$horas[$i]['horas_totales'] =$horas_totales;
+					$promedio_totales = $min_trab /$horas[$i]['presentes'];
+					$horas_promedio = intdiv($promedio_totales,60);
+					$minutos_promedio = $promedio_totales % 60; ;
+					$segundos_promedio = 0;
+					$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_promedio,$minutos_promedio,$segundos_promedio);
+				}
+			}
+		}
+			
+			return $horas;
+
+	}
 	/*static function get_dispositivo($id_dispositivo)
 	{
 
