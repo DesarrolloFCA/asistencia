@@ -140,6 +140,10 @@ class ci_comisiones_de_servicio extends ctrl_asis_ci
 							$id_motivo = 56;
 						}
 						$sexo=$this->dep('mapuche')->get_tipo_sexo($legajo, null);
+						$sql= "UPDATE reloj.comision
+						SET observaciones = '$obs', pasada = true ,autoriza_sup = true , autoriza_aut = true
+						WHERE id_comision = $id";
+						toba::db('ctrl_asis')->ejecutar($sql);	
 						
 						$sql = "INSERT INTO reloj.parte(
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,

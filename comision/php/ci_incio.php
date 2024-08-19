@@ -50,10 +50,12 @@ class ci_incio extends comision_ci
 		";
 		
 			$sanidad = toba::db('mapuche')->consultar($sql1);
+		
 			$j= count($sanidad);
 			if ($j>0){
 				for ($i=0;$i<$j;$i++){
-					if ($sani[$i]['dias'] > 1) {
+					
+					if ($sanidad[$i]['dias'] > 1) {
 					$k=$sanidad[$i]['dias'];
 						for ($h=1;$h<$k;$h++){
 						$fecha = new DateTime($sanidad[$i]['fecha_inicio_licencia']);
@@ -67,6 +69,7 @@ class ci_incio extends comision_ci
 				}
 		
 			}
+			//ei_arbol($sani);
 		$j = count($presentismo);
 		$sql = "SELECT   CONCAT(FLOOR(EXTRACT(EPOCH FROM (b.h2 - b.h1)) / 3600),':',LPAD(EXTRACT(MINUTE FROM (b.h2 - b.h1))::TEXT, 2, '0') )
 		 AS horas_corregidas from reloj.agentes a
@@ -84,6 +87,7 @@ class ci_incio extends comision_ci
 		for ($i=0;$i<$j;$i++)	{
 			if(in_array($presentismo[$i]['fecha'],$sani )){
 				$presentismo[$i]['estado'] = 'Ausente Justificado';
+				$presentismo [$i]['descripcion'] = 'Parte Sanidad';
 
 			}
 			
