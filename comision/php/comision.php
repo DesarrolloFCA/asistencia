@@ -41,22 +41,21 @@ class comision extends toba_ci
 			$catedra = $datos['catedra'];
 			$sql = "SELECT nombre_catedra FROM reloj.catedras 
 				Where id_catedra =$catedra";
-			$a = toba::db('comision')->consultar($sql);
+				$a = toba::db('comision')->consultar($sql);
 			$datos['catedra'] = $a[0]['nombre_catedra'];
-			
 			$horario = $datos['horario'];
 			$obs = $datos['observaciones'] . ' ';
 			$motivo = $datos['motivo'];
 			$fuera = $datos['fuera'];
 			//$datos['fecha_fin'] = $fecha_fin;
-			$sql="SELECT legajo, fecha,fecha_fin from reloj.comision
+			$sql = "SELECT legajo, fecha,fecha_fin from reloj.comision
 			where legajo = $legajo
 			and fecha between '$fecha' and '$fecha_fin'
-			and catedra <> $catedra
+			and catedra = $catedra
 			and	(pasada is null or pasada = true)";
 			$comision_pedida = toba::db('comision')->consultar($sql);
 
-
+			//ei_arbol($sql);
 			if ($fuera == 1) {
 
 				$f = 'true';
@@ -65,49 +64,47 @@ class comision extends toba_ci
 			}
 
 			$horario_fin = $datos['horario_fin'];
-			if (count($comision_pedida)>0){
-			//ei_arbol ($datos);
-			if (!empty($datos['legajo'])) {
-				//$correo_agente = $this->dep('mapuche')->get_legajos_email($datos['legajo']);
-				$correo_agente = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['legajo']);
-				$datos['agente'] = $correo_agente[0]['descripcion'];
-				//    ei_arbol ($correo_agente);
-			}
-			if (!empty($datos['superior'])) {
-				//	$correo_sup = $this->dep('mapuche')->get_legajos_email($datos['superior']);
-				$correo_sup = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['superior']);
-				$datos['superior'] = $correo_sup[0]['descripcion'];
-			}
-			if (!empty($datos['legajo_autoridad'])) {
-				//		$correo_aut = $this->dep('mapuche')->get_legajos_email($datos['autoridad']);
-				$correo_aut = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['autoridad']);
-				$datos['autoridad'] = $correo_aut[0]['descripcion'];
-			}
-			$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
-			$datos['descripcion'] = $agente[0]['descripcion'];
-			$this->s__datos = $datos;
-			//ei_arbol($datos);
-			//ei_arbol($correo_sup);
-			if (!empty($datos['legajo'])) {
-				$this->enviar_correos($datos['agente']);
-				$this->enviar_correos_sup($datos['superior']);
-			}
-			//ei_arbol($correo_sup);
-			/*if (!empty ($datos['legajo_sup'])){
+			if (count($comision_pedida) == 0) {
+				//ei_arbol ($datos);
+				if (!empty($datos['legajo'])) {
+					//$correo_agente = $this->dep('mapuche')->get_legajos_email($datos['legajo']);
+					$correo_agente = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['legajo']);
+					$datos['agente'] = $correo_agente[0]['descripcion'];
+					//    ei_arbol ($correo_agente);
+				}
+				if (!empty($datos['superior'])) {
+					//	$correo_sup = $this->dep('mapuche')->get_legajos_email($datos['superior']);
+					$correo_sup = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['superior']);
+					$datos['superior'] = $correo_sup[0]['descripcion'];
+				}
+				if (!empty($datos['legajo_autoridad'])) {
+					//		$correo_aut = $this->dep('mapuche')->get_legajos_email($datos['autoridad']);
+					$correo_aut = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['autoridad']);
+					$datos['autoridad'] = $correo_aut[0]['descripcion'];
+				}
+				$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
+				$datos['descripcion'] = $agente[0]['descripcion'];
+				$this->s__datos = $datos;
+				//ei_arbol($datos);
+				//ei_arbol($correo_sup);
+				if (!empty($datos['legajo'])) {
+					$this->enviar_correos($datos['agente']);
+					$this->enviar_correos_sup($datos['superior']);
+				}
+				//ei_arbol($correo_sup);
+				/*if (!empty ($datos['legajo_sup'])){
 				
 			}
 			/*if (!empty ($datos['legajo_aut'])){
 			$this->enviar_correos_sup($correo_aut[0]['email']);
 			}*/
 
-			$sql = "INSERT INTO reloj.comision
+				$sql = "INSERT INTO reloj.comision
 				(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut,  fecha_fin, horario_fin, fuera) VALUES
 					($legajo, $catedra, '$lugar', '$motivo','$fecha', '$horario', '$obs', $superior, $autoridad,'$fecha_fin','$horario_fin',$f);";
 
-			toba::db('comision')->ejecutar($sql);
-			}
-			else 
-			{
+				toba::db('comision')->ejecutar($sql);
+			} else {
 				toba::notificacion()->agregar('Ud. ya ha solicitado una comision para la fechas consignadas', 'error');
 			}
 			if ($datos['fuera'] == 1) {
@@ -135,10 +132,10 @@ class comision extends toba_ci
 						en ' . $datos['lugar'] . ' a partir de la hora ' . $datos['horario'] . ' hasta la hora ' . $datos['horario_fin'] . ' con el siguiente motivo de: ' . $datos['motivo'] . '  observaciones: ' . $datos['observaciones'] . '
 											
 			</table>';
-		
+
 		//Enviamos el correo
 
-		$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde);
+		$mail = new TobaMail($hacia, $asunto, $cuerpo, $desde,'');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
@@ -170,17 +167,17 @@ class comision extends toba_ci
 											
 			</table>'; //date("d/m/y",$fecha)
 
-			//Enviamos el correo
-			$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, '');
+		//Enviamos el correo
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, '');
 
-			// Agregar un archivo adjunto
-			//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
-	
-			try {
-				$mail->ejecutar();
-				echo "Correo enviado exitosamente.<br>";
-			} catch (Exception $e) {
-				echo "Error al enviar el correo: " . $e->getMessage();
-			}
+		// Agregar un archivo adjunto
+		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
+
+		try {
+			$mail->ejecutar();
+			echo "Correo enviado exitosamente.<br>";
+		} catch (Exception $e) {
+			echo "Error al enviar el correo: " . $e->getMessage();
+		}
 	}
 }
