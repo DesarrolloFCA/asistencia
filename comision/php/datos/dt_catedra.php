@@ -143,7 +143,7 @@ class dt_catedra extends comision_datos_tabla
 
 		  if ($es_jefe [0]['jefe'] == 1) {
 		 	
-		 	if (($id_catedra >= 49 and $id_catedra <= 52) or ($id_catedra == 99) or ($id_catedra== 28 )or ($id_catedra== 83 )or($id_catedra==86)){
+		 	if (($id_catedra >= 49 and $id_catedra <= 52) or ($id_catedra== 28 )or ($id_catedra== 83 )or($id_catedra==86)){
 		 		$aut = self::get_autoridades($legajo,0);
 		 		$jefe [0]['legajo'] = $aut[0]['legajo'];
 		 		$jefe[0]['legajo_jefe']= $aut[0]['legajo_aut'];
@@ -207,15 +207,22 @@ class dt_catedra extends comision_datos_tabla
        						$jefe = toba::db('comision')->consultar ($sql);
        						//ei_arbol($jefe);
        					} else {
+							if(($auto[0]['id_departamento'] == 8) and $auto[0]['id_departamento'] == 3 and $auto[0]['id_departamento'] == 5 ){
+								$leg = 26118;
+								$sql = "SELECT   legajo , apellido||', '||nombre as legajo_jefe
+								FROM reloj.agentes 
+								WHERE legajo = $leg";
+								   $jefe = toba::db('comision')->consultar ($sql);			
+							} else {  					
+								   $aut = self::get_autoridades($legajo,0);
+								 $jefe [0]['legajo'] = $aut[0]['legajo'];
+								 $jefe[0]['legajo_jefe']= $aut[0]['legajo_aut'];
+					 //ei_arbol($jefe);
+					 /*$jefe [0]['legajo'] = 0;
+					 $jefe[0]['legajo_jefe']= ' ';*/
+					   }
+					   }
        					
-       					$aut = self::get_autoridades($legajo,0);
-		 				
-		 				$jefe [0]['legajo'] = $aut[0]['legajo'];
-		 				$jefe[0]['legajo_jefe']= $aut[0]['legajo_aut'];
-		 				//ei_arbol($jefe);
-		 				/*$jefe [0]['legajo'] = 0;
-		 				$jefe[0]['legajo_jefe']= ' ';*/
-       					}
        					
        						 
        					

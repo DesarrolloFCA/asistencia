@@ -272,6 +272,11 @@ class ci_control_asistencia extends ctrl_asis_ci
 		      		$sql ="SELECT fecha FROM reloj.permisos_horarios
 					WHERE (auto_aut = true or aut_sup = true) 
 					AND fecha between '". $fecha_desde ."' AND '".$fecha_hasta .
+					"' AND legajo = $leg 
+					Union
+					Select fecha_inicio_licencia fecha from reloj.parte
+					where id_motivo = 58
+					and fecha_inicio_licencia between '". $fecha_desde ."' AND '".$fecha_hasta .
 					"' AND legajo = $leg ";
 					$permiso = toba::db('ctrl_asis')->consultar($sql);
 
@@ -312,7 +317,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 					
 			}
 			//ei_arbol(round((memory_get_usage()/(1024*1024)),2));
-			//ei_arbol($todos);
+			
 			$lim = count($todos);
 			/*for ($l=0;$l<$lim;$l++){
 
@@ -355,13 +360,14 @@ class ci_control_asistencia extends ctrl_asis_ci
 			}*/
 		
 
-
+			
 
 
 
 			$this ->s__datos = $todos;
-		//	ei_arbol($todos);
-			unset($todos);
+		//	
+			$todos=$this->dep('access')->get_lista_gral_mod ($todos,$filtro);
+			
 			$this->s__datos['total'] =count($this->s__datos); 
 			
 			
@@ -413,6 +419,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			
 			
 		}
+		$this ->s__datos = $todos;
 		unset($cuadro);
 		} // End de $agentes_0
 		}
