@@ -19,8 +19,7 @@ class ci_comisiones extends comision_ci
 				WHERE (pasada is null or pasada = false)
 				and catedra :: int in ((Select id_catedra from reloj.catedras_agentes a
 										where legajo = $legajo and jefe = true)) 
-				or id_departamento = ((Select id_departamento from reloj.departamento_director
-				where legajo_dir = $legajo))						
+				or legajo_sup  = $legajo							
 				and legajo <> $legajo
 		Order by catedra, fecha, legajo ";
 			$datos = toba::db('comision')->consultar($sql);
