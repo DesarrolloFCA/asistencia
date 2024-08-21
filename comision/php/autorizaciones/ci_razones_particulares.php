@@ -121,6 +121,8 @@ class ci_razones_particulares extends comision_ci
 			and inasistencias.id_catedra in ((Select id_catedra from reloj.catedras_agentes
 										where legajo = $legajo
 										and jefe = true))
+			or id_departamento = ((Select id_departamento from reloj.departamento_director
+				where legajo_dir = $legajo))							
 					and legajo <> $legajo
 			Order by inasistencias.id_catedra, fecha_inicio,  legajo";
 			$datos = toba::db('comision')->consultar($sql);

@@ -130,6 +130,9 @@ class ci_permisos_horarios extends comision_ci
 					and permisos_horarios.id_catedra in ((Select id_catedra from reloj.catedras_agentes
 										where legajo = $legajo
 										and jefe = true))
+											
+					or id_departamento = ((Select id_departamento from reloj.departamento_director	
+					where legajo_dir = $legajo))				
 					and legajo <> $legajo
 					order by permisos_horarios.id_catedra, fecha  ,legajo ";
 			$listado = toba::db('comision')->consultar($sql);
