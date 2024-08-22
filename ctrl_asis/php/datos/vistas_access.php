@@ -418,7 +418,7 @@ class vistas_access extends toba_datos_relacion
 					
 					$promedio_totales = (($horas_totales*60)+$min) / $horas[$i]['presentes'];
 					$horas_promedio = intdiv($promedio_totales,60);
-					$minutos_promedio = $promedio_totales % 60; ;
+					$minutos_promedio = $promedio_totales % 60; 
 					$segundos_promedio = 0;
 					$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_promedio,$minutos_promedio,$segundos_promedio);
 					$horas[$i]['partes'] =$horas[$i]['partes'] -  $permiso[$j]['cantidad'];
