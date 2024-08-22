@@ -153,7 +153,7 @@ class comision extends toba_ci
 
 		$datos = $this->s__datos;
 
-		$asunto = 'Formulario Comision de Servicio - Agente';
+		$asunto = 'Formulario Comisión de Servicio - Agente';
 		$fecha = date('d/m/Y', strtotime($datos['fecha']));
 		$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
 
@@ -168,7 +168,7 @@ class comision extends toba_ci
 			</table>'; //date("d/m/y",$fecha)
 
 		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, '');
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, 'asistencia@fca.uncu.edu.ar');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
