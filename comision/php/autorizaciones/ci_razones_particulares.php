@@ -115,10 +115,10 @@ class ci_razones_particulares extends comision_ci
 		if (usuario_logueado::get_jefe($legajo)) {
 			$sql = "SELECT * FROM reloj.inasistencias
 			WHERE  estado = 'A'
-			AND inasistencias.id_motivo not in (57,35)
+			AND id_motivo not in (57,35)
 			and leg_sup  = $legajo							
 			and legajo <> $legajo
-			Order by inasistencias.id_catedra, fecha_inicio,  legajo";
+			Order by id_catedra, fecha_inicio,  legajo";
 			$datos = toba::db('comision')->consultar($sql);
 			$this->s__datos = $datos;
 			$ruta = 'certificados/';
