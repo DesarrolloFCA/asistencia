@@ -114,14 +114,9 @@ class ci_razones_particulares extends comision_ci
 		$legajo = $legajo[0]['legajo'];
 		if (usuario_logueado::get_jefe($legajo)) {
 			$sql = "SELECT * FROM reloj.inasistencias
-				join reloj.motivo  ON motivo.id_motivo = inasistencias.id_motivo
-				join reloj.catedras ON catedras.id_catedra = inasistencias.id_catedra
 			WHERE  estado = 'A'
 			AND inasistencias.id_motivo not in (57,35)
-			and inasistencias.id_catedra in ((Select id_catedra from reloj.catedras_agentes
-										where legajo = $legajo
-										and jefe = true))
-			or leg_sup  = $legajo							
+			and leg_sup  = $legajo							
 			and legajo <> $legajo
 			Order by inasistencias.id_catedra, fecha_inicio,  legajo";
 			$datos = toba::db('comision')->consultar($sql);

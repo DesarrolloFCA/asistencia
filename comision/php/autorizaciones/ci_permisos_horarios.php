@@ -127,11 +127,7 @@ class ci_permisos_horarios extends comision_ci
 			$sql = "SELECT  *  FROM reloj.permisos_horarios
 						join reloj.catedras ON catedras.id_catedra = permisos_horarios.id_catedra
 					WHERE procesado is null
-					and permisos_horarios.id_catedra in ((Select id_catedra from reloj.catedras_agentes
-										where legajo = $legajo
-										and jefe = true))
-											
-					or leg_sup  = $legajo					
+					and  leg_sup  = $legajo					
 					and legajo <> $legajo
 					order by permisos_horarios.id_catedra, fecha  ,legajo ";
 			$listado = toba::db('comision')->consultar($sql);
