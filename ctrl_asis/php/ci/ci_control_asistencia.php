@@ -178,7 +178,8 @@ class ci_control_asistencia extends ctrl_asis_ci
 			$fin = new DateTime($fecha_hasta);
 			$sql = "SELECT count(*) feriado from reloj.vw_feriados
 				where generate_series BETWEEN " . "'$fecha_desde'"." AND "."'$fecha_hasta'"."
-				AND agru IN ( "."'$agru'".",'Todos')";
+				AND agru IN ( "."'$agru'".",'Todos')
+				and numero not in (0,6)";
 				$feriado = toba::db('ctrl_asis')->consultar($sql);
 
 			$feriados = $feriado[0]['feriado'];
@@ -187,8 +188,10 @@ class ci_control_asistencia extends ctrl_asis_ci
 				// Iterar sobre el rango de fechas
 				while ($inicio <= $fin) {
 					// Comprobar si el día actual es entre lunes y viernes
+					
 					if ($inicio->format('N') < 6) {
 						$laborables++;
+						
 					}
 					// Avanzar al siguiente día
 					$inicio->modify('+1 day');
@@ -197,9 +200,8 @@ class ci_control_asistencia extends ctrl_asis_ci
 				
 			$todo = $this->s__datos;
 			$total_registros = count($todo);
-			
-			$dias_laborales = $laborables - $feriados;
-		
+						$dias_laborales = $laborables - $feriados;
+				
 						
 			for ($i = 0;$i<$total_registros;$i++){
 					
@@ -249,7 +251,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			$todos =	array_values($todo);		
 			$registros = count($todos)  ; 
 			unset($todo);
-			//ei_arbol($todos);
+			
 			list($y,$m,$d) = explode('-', $this->s__datos_filtro['fecha_desde']);
 			$fecha_desde = "$y-$m-$d";
 			list($y,$m,$d) = explode('-', $this->s__datos_filtro['fecha_hasta']);
@@ -370,7 +372,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			
 			$this->s__datos['total'] =count($this->s__datos); 
 			
-			
+		
 			/*if($this->s__datos_filtro['marcas']== 1) {
 				$cuadro->set_datos($this->s__datos); 
 				$e = $this->s__datos;

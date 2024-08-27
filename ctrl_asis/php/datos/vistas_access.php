@@ -267,7 +267,8 @@ class vistas_access extends toba_datos_relacion
 		$sql = "SELECT distinct legajo, count(*) cuenta,
 		sum(horas_requeridad) horas_requeridas_prom,  sum(horas_trabajadas) horas_totales , avg(horas_trabajadas) horas_promedio
 		FROM reloj.vm_detalle_pres
-		group by legajo,categoria,nombre_catedra";
+		group by legajo,categoria,nombre_catedra
+		order by legajo";
 		$sql= sql_concatenar_where($sql, $where);
 		// Cuenta ausente justificados, presentes y ausentes
 		$horas=  toba::db('ctrl_asis')->consultar($sql); 
@@ -405,8 +406,8 @@ class vistas_access extends toba_datos_relacion
 					group by legajo"
 					 ;
 					$permiso = toba::db('ctrl_asis')->consultar($sql);
-
-	
+		//ei_arbol($horas);
+		
 
 		for($i=0;$i<count($horas);$i++){
 			for($j=0; $j< count($permiso);$j++){
@@ -415,12 +416,12 @@ class vistas_access extends toba_datos_relacion
 					list($hora,$min,$seg)= explode(':',$horas_ori);
 					$horas_totales = $hora + ($permiso[$j]['cantidad']* 3); 
 					$horas[$i]['horas_totales'] = sprintf("%02d:%02d:%02d",$horas_totales,$min,$seg);
-					
+					$horas[$i]['partes'] = $horas[$i]['partes'] + 0.5;
 					$promedio_totales = (($horas_totales*60)+$min) / $horas[$i]['presentes'];
-					$horas_promedio = intdiv($promedio_totales,60);
-					$minutos_promedio = $promedio_totales % 60; 
-					$segundos_promedio = 0;
-					$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_promedio,$minutos_promedio,$segundos_promedio);
+				//	$horas_promedio = intdiv($promedio_totales,60);
+				//	$minutos_promedio = $promedio_totales % 60; 
+				//	$segundos_promedio = 0;
+				//	$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_promedio,$minutos_promedio,$segundos_promedio);
 					$horas[$i]['partes'] =$horas[$i]['partes'] -  $permiso[$j]['cantidad'];
 
 				}
@@ -458,20 +459,25 @@ class vistas_access extends toba_datos_relacion
 		// Suma y promedio de horas de ausentes justificados con parte
 			for ($i=0;$i<count($horas); $i++){
 				
-					$justificados = $horas[$i]['parte'];
-				
-				$dias_jus = $justificados + $horas[$i]['presentes'];
-				$justificados = 8 * $justificados;
-				list($hora,$min,$seg)= explode(':',$horas[$i]['horas_totales']);
-				$hora_real = $hora + $justificados;
-				$horas[$i]['horas_totales'] =sprintf("%02d:%02d:%02d",$hora_real,$min,$seg);
-				$minutos_real = ($hora_real * 60) + $min;
-				$prom = $minutos_real / $dias_jus;
-				$horas_trab = intdiv($prom,60);
-				$minutos_trab = $prom%60;
-				$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_trab,$minutos_trab,$seg);
+					$justificados = $horas[$i]['partes'] ;
+								
+					if ($justificados > 0) {
+						list($hora,$min,$seg)= explode(':',$horas[$i]['horas_totales']);
+						$hora_requerida = $horas[$i]['horas_requeridas_prom'];
+						list($hr,$mn,$se) = explode(':',$hora_requerida);
+						$min_req = ($hr * 60 +$mn) / $horas[$i]['laborables'];
+						$minutos_real = (($min_req) * $justificados)  ;
+						$minutos_real = ($hora*60)+$min + $minutos_real;
+						$hora_real = intdiv($minutos_real,60);
+						$min=$minutos_real%60;
+						$horas[$i]['horas_totales'] =sprintf("%02d:%02d:%02d",$hora_real,$min,$se);
+						$prom = $minutos_real /( $horas[$i]['presentes']+ $justificados) ;
+						$horas_trab = intdiv($prom,60);
+						$minutos_trab = $prom%60;
+						$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_trab,$minutos_trab,$se);
+					}
+			}
 
-			}	
 		return $horas;
 
 
