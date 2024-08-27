@@ -160,7 +160,7 @@ class ci_razones_particulares extends comision_ci
 			//$motivo = 'Razones Particulares con gose de haberes';
 			$cuerpo = '<table>
 						El/la agente  <b>' . $datos['agente_ayn'] . '</b> perteneciente a la catedra/oficina/ direccion <b>' . $datos['catedra'] . '</b>.<br/>
-						La solicitud de Justificacion acompañada con certificado ha sido otorgada desde' . $fecha . ' hasta ' . $hasta . '
+						La solicitud de Justificacion de '. $datos['descripcion'] .'ha sido otorgada desde' . $fecha . ' hasta ' . $hasta . '
 							Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '
 											
 				</table>';
@@ -171,7 +171,7 @@ class ci_razones_particulares extends comision_ci
 			$asunto = 'Solicitud Inasistencia Justificada rechazada ';
 			$cuerpo = '<table>
 						El/la agente  <b>' . $datos['agente_ayn'] . '</b> perteneciente a la catedra/oficina/ direccion <b>' . $datos['catedra'] . '</b>.<br/>
-						La solicitud de Justificacion acompañada con certificado a partir del dia ' . $fecha . ' hasta ' . $hasta . 'ha sido <b>rechazada</b>.
+						La solicitud de Justificacion de'. $datos['descripcion'] . 'a partir del dia ' . $fecha . ' hasta ' . $hasta . ' ha sido <b>rechazada</b>.
 							Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '
 											
 				</table>';
