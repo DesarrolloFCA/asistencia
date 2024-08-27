@@ -390,7 +390,7 @@ class vistas_access extends toba_datos_relacion
 		
 		$list = $list. ')';
 		
-		
+		//Suma y promedio Permisos Horario
 		
 		$sql ="SELECT count(*) cantidad,legajo FROM reloj.permisos_horarios
 					WHERE (auto_aut = true or aut_sup = true) 
@@ -426,7 +426,7 @@ class vistas_access extends toba_datos_relacion
 				}
 			}
 		}
-
+		//Sumas y promedios de horas que contengan no hayan marcado una sola vez en el dia
 		$sql = "SELECT legajo, fecha, horas_requeridad, hora_entrada
 		 from reloj.vm_detalle_pres
 		 where fecha between '". $fecha_ini ."' AND '".$fecha_fin .
@@ -455,8 +455,25 @@ class vistas_access extends toba_datos_relacion
 				}
 			}
 		}
-			
-			return $horas;
+		// Suma y promedio de horas de ausentes justificados con parte
+			for ($i=0;$i<count($horas); $i++){
+				
+					$justificados = $horas[$i]['parte'];
+				
+				$dias_jus = $justificados + $horas[$i]['presentes'];
+				$justificados = 8 * $justificados;
+				list($hora,$min,$seg)= explode(':',$horas[$i]['horas_totales']);
+				$hora_real = $hora + $justificados;
+				$horas[$i]['horas_totales'] =sprintf("%02d:%02d:%02d",$hora_real,$min,$seg);
+				$minutos_real = ($hora_real * 60) + $min;
+				$prom = $minutos_real / $dias_jus;
+				$horas_trab = intdiv($prom,60);
+				$minutos_trab = $prom%60;
+				$horas[$i]['horas_promedio'] = sprintf("%02d:%02d:%02d",$horas_trab,$minutos_trab,$seg);
+
+			}	
+		return $horas;
+
 
 	}
 	/*static function get_dispositivo($id_dispositivo)
