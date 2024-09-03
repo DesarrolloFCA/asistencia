@@ -276,7 +276,11 @@ class dt_catedra extends comision_datos_tabla
 		$sql = "SELECT id_catedra, nombre_catedra FROM catedras ORDER BY nombre_catedra";
 		return toba::db('comision')->consultar($sql);
 	}
-
+	function get_descripciones_corto()
+	{
+		$sql = "SELECT id_catedra, substr(nombre_catedra,1,28) nombre_catedra FROM catedras ORDER BY nombre_catedra";
+		return toba::db('comision')->consultar($sql);
+	}
 
 
 

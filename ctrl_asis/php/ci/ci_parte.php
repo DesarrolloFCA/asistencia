@@ -95,15 +95,19 @@ class ci_parte extends toba_ci
 		if (isset($this->s__datos_filtro)) {
 			$datos = $this->dep('datos')->tabla('parte')->get_listado($this->s__datos_filtro);
 			$max = count($datos);
-			for($i=0;$i<$max;$i++){
+			for($i=0;$i<$max-1;$i++){
 			$dias_calculo = $datos[$i]['dias'] - 1;
 			$dias = '+'.$dias_calculo.' day';
 			$datos[$i]['fecha_fin_licencia']     = date ( 'Y-m-d' , strtotime ( $dias , strtotime ( $datos[$i]['fecha_inicio_licencia'] ) )  ); //sumamos N dias a la fecha de inicio licencia
 			//list($y,$m,$d)=explode("-",$datos['fecha_fin_licencia']); //2011-03-31
 			//$datos[$i]['fecha_fin_licencia'] = $d."/".$m."/".$y;
 			$datos[$i]['nombre_completo'] = $datos[$i]['apellido'].", ".$datos[$i]['nombre'];
+			$id_parte = $datos[$i]['id_parte'];
+			
+			$comision = $this->dep('datos')->tabla('parte')->get_motivo($id_parte);
+			$datos [$i]['comision'] = $comision;
 			}
-			//ei_arbol($this->s__datos_filtro);
+			
 			$this->s__datos = $datos;
 			$cuadro->set_datos($this->s__datos);
 			//ei_arbol($this->s__datos);
@@ -163,6 +167,7 @@ class ci_parte extends toba_ci
 
 		function evt__cuadro__ver($datos)
 		{
+			
 			$this->dep('datos')->cargar($datos);
 			$this->s__id_parte = $datos['id_parte'];
 			$_SESSION['id_parte'] = $datos['id_parte'];            
@@ -232,6 +237,14 @@ class ci_parte extends toba_ci
 				$datos['anio']  = $parte_anio['anio'];
 			}else{
 				$datos['anio']  = "-";
+			}
+			if (isset($datos['id_comision'])){
+				$id_comision=$datos['id_comision'];
+				$sql = "SELECT motivo, observaciones FROM reloj.comision
+				Where id_comision = $id_comision ";
+				$comision = toba::db('ctrl_asis')->consultar_fila($sql);
+				$datos['comision'] = $comision['motivo'];
+				$datos['observaciones'] = $comision['observaciones'];
 			}
 
 			$form->set_datos($datos);
@@ -326,7 +339,7 @@ class ci_parte extends toba_ci
 				
 				$datos['dias_restantes'] = $dias_restantes;
 				if( $dias_restantes < 0 ){
-					toba::notificacion()->agregar('El agente '.$datos['legajo'].' - '.$datos['apellido'].', '.$datos['nombre'] .' tiene' .$agente['dias_t'].' dias pendientes de la licencia anual de año '.$datos['anio'] . '.Pro favor elegija una cantidad de dias menor o igual que la especificada', 'error');
+					toba::notificacion()->agregar('El agente '.$datos['legajo'].' - '.$datos['apellido'].', '.$datos['nombre'] .' tiene' .$agente['dias_t'].' dias pendientes de la licencia anual de aï¿½o '.$datos['anio'] . '.Pro favor elegija una cantidad de dias menor o igual que la especificada', 'error');
 				$bandera= 0;
 				} else if($dias_restantes == 0) {
 					$sql = "DELETE from reloj.vacaciones_restantes
@@ -342,7 +355,7 @@ class ci_parte extends toba_ci
 						toba::db('ctrl_asis')->ejecutar($sql);	
 				}		
 			} else {
-				 toba::notificacion()->agregar('El agente'.$datos['legajo'].' - '.$datos['apellido'].', '.$datos['nombre'] .' no posee dias pendientes de la licencia anual de año '.$datos['anio'] . '.', 'error');  
+				 toba::notificacion()->agregar('El agente'.$datos['legajo'].' - '.$datos['apellido'].', '.$datos['nombre'] .' no posee dias pendientes de la licencia anual de aï¿½o '.$datos['anio'] . '.', 'error');  
 				$bandera= 0;
 			}
 			
@@ -486,7 +499,7 @@ class ci_parte extends toba_ci
 			// si tiene certificado provisorio, avisamos ---------------------------------------
 			$cert = toba::tabla('examen')->get_certificado($datos['legajo']); 
 			if(substr($cert, 0, 10) == 'PROVISORIO'){
-				toba::notificacion()->agregar('Atención: Legajo con certificado '.$cert, 'info');
+				toba::notificacion()->agregar('Atenciï¿½n: Legajo con certificado '.$cert, 'info');
 			}
 
 			$form->set_datos($datos);
@@ -536,7 +549,14 @@ class ci_parte extends toba_ci
 	{ 
 		if ($this->dep('datos')->esta_cargada()) { //modificacion
 			$datos = $this->dep('datos')->tabla('parte')->get();
-
+			if (isset($datos['id_comision'])){
+				$id_comision=$datos['id_comision'];
+				$sql = "SELECT motivo, observaciones FROM reloj.comision
+				Where id_comision = $id_comision ";
+				$comision = toba::db('ctrl_asis')->consultar_fila($sql);
+				$datos['comision'] = $comision['motivo'];
+				$datos['observaciones'] = $comision['observaciones'];
+			}
 			if($datos['t_manana'] == 1) { $datos['t_manana_vista'] = 'Si'; }else{ $datos['t_manana_vista'] = 'No';  }
 			if($datos['t_tarde']  == 1) { $datos['t_tarde_vista']  = 'Si'; }else{ $datos['t_tarde_vista']  = 'No';  }
 			if($datos['t_noche']  == 1) { $datos['t_noche_vista']  = 'Si'; }else{ $datos['t_noche_vista']  = 'No';  }
@@ -784,38 +804,38 @@ if ($datos['dias_restantes'] <= 0){
 $mail = new phpmailer();
 $mail->IsSMTP();
 
-//Esto es para activar el modo depuración. En entorno de pruebas lo mejor es 2, en producción siempre 0
-// 0 = off (producción)
+//Esto es para activar el modo depuraciï¿½n. En entorno de pruebas lo mejor es 2, en producciï¿½n siempre 0
+// 0 = off (producciï¿½n)
 // 1 = client messages
 // 2 = client and server messages
 $mail->SMTPDebug  = 0;
 //Ahora definimos gmail como servidor que aloja nuestro SMTP
 $mail->Host       = 'smtp.gmail.com';
-//El puerto será el 587 ya que usamos encriptación TLS
+//El puerto serï¿½ el 587 ya que usamos encriptaciï¿½n TLS
 $mail->Port       = 587;
 //Definmos la seguridad como TLS
 $mail->SMTPSecure = 'tls';
-//Tenemos que usar gmail autenticados, así que esto a TRUE
+//Tenemos que usar gmail autenticados, asï¿½ que esto a TRUE
 $mail->SMTPAuth   = true;
-//Definimos la cuenta que vamos a usar. Dirección completa de la misma
+//Definimos la cuenta que vamos a usar. Direcciï¿½n completa de la misma
 
 $mail->Username   = "formularios_asistencia@fca.uncu.edu.ar";
-//Introducimos nuestra contraseña de gmail
+//Introducimos nuestra contraseï¿½a de gmail
 $mail->Password   = "#1754OpD_;-?)(Fc4MtSKm*0-*#1=/Fz";
-//Definimos el remitente (dirección y, opcionalmente, nombre)
+//Definimos el remitente (direcciï¿½n y, opcionalmente, nombre)
 $mail->SetFrom('formularios_asistencia@fca.uncu.edu.ar', 'Formulario Personal');
-//Esta línea es por si queréis enviar copia a alguien (dirección y, opcionalmente, nombre)
+//Esta lï¿½nea es por si querï¿½is enviar copia a alguien (direcciï¿½n y, opcionalmente, nombre)
 
-//$mail->AddReplyTo('caifca@fca.uncu.edu.ar','El de la réplica');
-//Y, ahora sí, definimos el destinatario (dirección y, opcionalmente, nombre)
+//$mail->AddReplyTo('caifca@fca.uncu.edu.ar','El de la rï¿½plica');
+//Y, ahora sï¿½, definimos el destinatario (direcciï¿½n y, opcionalmente, nombre)
 //$mail -> AddAddress('ebermejillo@fca.uncu.edu.ar', 'Tester');
 $mail->AddAddress($correo, 'El Destinatario'); //Descomentar linea cuando pase a produccion
 //Definimos el tema del email
 
 
-//Para enviar un correo formateado en HTML lo cargamos con la siguiente función. Si no, puedes meterle directamente una cadena de texto.
+//Para enviar un correo formateado en HTML lo cargamos con la siguiente funciï¿½n. Si no, puedes meterle directamente una cadena de texto.
 //$mail->MsgHTML(file_get_contents('correomaquetado.html'), dirname(ruta_al_archivo));
-//Y por si nos bloquean el contenido HTML (algunos correos lo hacen por seguridad) una versión alternativa en texto plano (también será válida para lectores de pantalla)
+//Y por si nos bloquean el contenido HTML (algunos correos lo hacen por seguridad) una versiï¿½n alternativa en texto plano (tambiï¿½n serï¿½ vï¿½lida para lectores de pantalla)
 $mail->IsHTML(true); //el mail contiene html
 
 
@@ -835,7 +855,7 @@ $mail->IsHTML(true); //el mail contiene html
 		//$motivo = 'Vacaciones'.$datos['anio'];
 		$body = '<table>
 						El/la agente  <b>'.$datos['apellido'].', '. $datos['nombre'].'</b>, legajo:  <b>'.$datos['legajo'].'</b>.<br/>
-						Solicita laLicencia Anual por Vacaciones correspondiente al año '.$datos['anio'].' a partir del d&iacute;a '.$fecha.' hasta '.$hasta. '. <br/>
+						Solicita laLicencia Anual por Vacaciones correspondiente al aï¿½o '.$datos['anio'].' a partir del d&iacute;a '.$fecha.' hasta '.$hasta. '. <br/>
 						
 											
 			</table>'; 
@@ -847,7 +867,7 @@ $mail->IsHTML(true); //el mail contiene html
 				El/la agente <b>'.$datos['agente_ayn'].'</b> perteneciente a <b>'.$datos['catedra'].'</b> <br/>
 				Solicita adelanto de licencia anual correspondiente al' .$datos['anio']. ' a partir del d&iacute;a'.$fecha. ' hasta '.$hasta. '<br/>
 				Teniendo en cuenta las siguientes Observaciones: ' .$datos['observaciones']. 'Estos d&iacute;as de adelanto que ud ha solicitado,
-				serán restados del total de vacaciones correspondientes al año en curso
+				serï¿½n restados del total de vacaciones correspondientes al aï¿½o en curso
 			<table/>';*/
 
 
@@ -885,7 +905,7 @@ $mail->IsHTML(true); //el mail contiene html
 				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Donaci&oacute;n de Sangre';
 				break;
 			case 22:
-				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Realización de Actividad Deportiva o Art&iacute;stica';
+				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Realizaciï¿½n de Actividad Deportiva o Art&iacute;stica';
 				break;
 			case 49:
 				$mail->Subject = 'Formulario de Justificacion de Inasistencia por Citaci&oacute;n Judicial';
