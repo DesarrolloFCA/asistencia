@@ -54,6 +54,7 @@ class ci_permisos_horarios extends comision_ci
 				$datos_correo['horario_fin'] = $hora_fin;
 				$datos_correo['lugar'] = $lugar;
 				$datos_correo['motivo'] = $motivo;
+				
 
 				$this->s__datos_correo = $datos_correo;
 				$sql = "SELECT email from reloj.agentes_mail

@@ -80,6 +80,11 @@ class ci_comisiones extends comision_ci
 				$datos_correo['horario_fin'] = $hora_fin;
 				$datos_correo['lugar'] = $lugar;
 				$datos_correo['motivo'] = $motivo;
+				$sql = "SELECT nombre_catedra from reloj.catedras
+						WHERE id_catedra = $id_catedra";
+				$nom_cat = toba::db('comision')->consultar_fila($sql);
+				$datos_correo['catedra'] = $nom_cat['nombre_catedra'];
+				$datos_correo['observaciones'] = $obs ;
 
 				$this->s__datos_correo = $datos_correo;
 				$sql = "SELECT email from reloj.agentes_mail
@@ -136,7 +141,7 @@ class ci_comisiones extends comision_ci
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, '$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
-							'$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto,  $id_motivo,	  $id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,	  $id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
 					toba::db('comision')->ejecutar($sql);
 
 
