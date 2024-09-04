@@ -65,11 +65,7 @@ class ci_comisiones_de_servicio extends ctrl_asis_ci
 		
 		for($i=0;$i<$cant;$i++){
 			if ($datos[$i]['apex_ei_analisis_fila'] == 'M' ){
-			/*$sql = "UPDATE reloj.comision
-					Set autoriza_sup = $a_sup, autoriza_aut = $a_aut, observaciones = '$obs'
-					where id_comision = $id";
-			toba::db('ctrl_asis')->ejecutar ($sql);    */
-			
+						
 				$id= $datos[$i]['id_comision'];
 				$legajo = $datos[$i]['legajo'];
 		
@@ -153,7 +149,7 @@ class ci_comisiones_de_servicio extends ctrl_asis_ci
 						}
 						$sexo=$this->dep('mapuche')->get_tipo_sexo($legajo, null);
 						$sql= "UPDATE reloj.comision
-						SET observaciones = '$obs', pasada = true ,autoriza_sup = true , autoriza_aut = true
+						SET observaciones = '$obs', pasada = true ,autoriza_sup = $superior_aut , autoriza_aut = $autoridad_aut
 						WHERE id_comision = $id";
 						toba::db('ctrl_asis')->ejecutar($sql);	
 						
