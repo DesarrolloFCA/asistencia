@@ -111,16 +111,15 @@ class ci_comisiones extends comision_ci
 					$usuario_cierre=toba::usuario()->get_id();
 					$fecha_alta    = date("Y-m-d H:i:s");
 					$fechaentera1 = strtotime($fecha_inicio);
-					//$january = new DateTime($datos[$i]['fecha_fin']);
-					//$february = new DateTime($datos[$i]['fecha_fin']);
+					
 					$fecha_inicio1 = date_create(date("Y-m-d", $fechaentera1));
 					$hoy = date_create(date("Y-m-d", strtotime($fecha_fin)));
-					//$dia = $february->diff($january);
+					
 					$dia = date_diff($fecha_inicio1, $hoy);
 					$dias = $dia->format('%a') + 1;
-					//ei_arbol($dias);
+					
 					$fecha_ini = $datos[$i]['fecha'];
-					//	ei_arbol($fecha_ini);
+					
 					$estado_civil = $direccion[0]['estado_civil'];
 					if ($agrupamiento == 'DOCE') {
 						$id_motivo = 56;
@@ -133,7 +132,7 @@ class ci_comisiones extends comision_ci
 					}
 					$sexo = $this->dep('mapuche')->get_tipo_sexo($legajo, null);
 					$sql= "UPDATE reloj.comision
-						SET observaciones = '$obs', pasada = true ,autoriza_sup = true , autoriza_aut = true
+						SET observaciones = '$obs', pasada = true ,autoriza_sup = $superior_aut, autoriza_aut = false
 						WHERE id_comision = $id";
 						toba::db('ctrl_asis')->ejecutar($sql);	
 
