@@ -168,7 +168,7 @@ class comision extends toba_ci
 			</table>'; //date("d/m/y",$fecha)
 
 		//Enviamos el correo
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, ['asistencia@fca.uncu.edu.ar']);
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, 'asistencia@fca.uncu.edu.ar');
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
