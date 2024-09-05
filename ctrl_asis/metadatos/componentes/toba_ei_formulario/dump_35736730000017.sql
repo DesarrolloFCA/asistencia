@@ -169,7 +169,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'35736730000017', --objeto_ei_formulario
 	'ctrl_asis', --objeto_ei_formulario_proyecto
 	'legajo', --identificador
-	'ef_combo_editable', --elemento_formulario
+	'ef_combo', --elemento_formulario
 	'legajo', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -187,7 +187,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'0', --solo_lectura
 	'0', --solo_lectura_modificacion
-	'get_legajos_busca', --carga_metodo
+	'get_legajos_depencencia', --carga_metodo
 	'vistas_mapuche', --carga_clase
 	'datos/vistas_mapuche.php', --carga_include
 	NULL, --carga_dt
