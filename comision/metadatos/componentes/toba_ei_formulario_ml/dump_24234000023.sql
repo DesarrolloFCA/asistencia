@@ -114,7 +114,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	'0', --filas_borrar_en_linea
 	NULL, --filas_undo
 	'0', --filas_ordenar
-	'1', --filas_ordenar_en_linea
+	'0', --filas_ordenar_en_linea
 	'', --columna_orden
 	'0', --filas_numerar
 	NULL, --ev_seleccion
@@ -138,10 +138,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'autoriza_sup', --identificador
 	'ef_checkbox', --elemento_formulario
 	'autoriza_sup', --columnas
-	'1', --obligatorio
-	'1', --oculto_relaja_obligatorio
+	'0', --obligatorio
+	'0', --oculto_relaja_obligatorio
 	'14', --orden
-	'Autoriza', --etiqueta
+	'Autoriza sup', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
@@ -217,7 +217,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'fecha_fin', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_fecha', --elemento_formulario
 	'fecha_fin', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -298,7 +298,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'horario_fin', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_hora', --elemento_formulario
 	'horario_fin', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -465,7 +465,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'15', --orden
-	'Cerrar', --etiqueta
+	'Pasada', --etiqueta
 	NULL, --etiqueta_estilo
 	NULL, --descripcion
 	NULL, --colapsado
@@ -543,7 +543,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'id_comision', --identificador
 	'ef_fijo', --elemento_formulario
 	'id_comision', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'1', --oculto_relaja_obligatorio
 	'1', --orden
 	'Id comision', --etiqueta
@@ -622,9 +622,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'legajo', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_numero', --elemento_formulario
 	'legajo', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Legajo', --etiqueta
@@ -702,9 +702,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000186', --objeto_ei_formulario_fila
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
-	'nombre_catedra', --identificador
-	'ef_fijo', --elemento_formulario
-	'nombre_catedra', --columnas
+	'catedra', --identificador
+	'ef_combo', --elemento_formulario
+	'catedra', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'4', --orden
@@ -721,10 +721,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --estado_defecto
 	'1', --solo_lectura
 	'0', --solo_lectura_modificacion
-	NULL, --carga_metodo
+	'get_descripciones', --carga_metodo
 	NULL, --carga_clase
 	NULL, --carga_include
-	NULL, --carga_dt
+	'35736730000205', --carga_dt
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'comision', --carga_fuente
@@ -763,7 +763,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --check_desc_si
 	NULL, --check_desc_no
 	NULL, --check_ml_toggle
-	'0', --fijo_sin_estado
+	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
 	NULL, --editor_botonera
@@ -784,7 +784,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'lugar', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable', --elemento_formulario
 	'lugar', --columnas
 	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -865,9 +865,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'motivo', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable', --elemento_formulario
 	'motivo', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'9', --orden
 	'Motivo', --etiqueta
@@ -946,9 +946,9 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'fecha', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_fecha', --elemento_formulario
 	'fecha', --columnas
-	'0', --obligatorio
+	'1', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Fecha', --etiqueta
@@ -1027,7 +1027,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'horario', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_hora', --elemento_formulario
 	'horario', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -1108,7 +1108,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'observaciones', --identificador
-	'ef_editable', --elemento_formulario
+	'ef_editable_textarea', --elemento_formulario
 	'observaciones', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -1189,10 +1189,10 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'legajo_aut', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable_numero', --elemento_formulario
 	'legajo_aut', --columnas
 	'0', --obligatorio
-	'1', --oculto_relaja_obligatorio
+	'0', --oculto_relaja_obligatorio
 	'13', --orden
 	'Legajo aut', --etiqueta
 	NULL, --etiqueta_estilo
@@ -1249,7 +1249,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --check_desc_si
 	NULL, --check_desc_no
 	NULL, --check_ml_toggle
-	'0', --fijo_sin_estado
+	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
 	NULL, --editor_botonera
@@ -1270,7 +1270,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'24234000023', --objeto_ei_formulario
 	'comision', --objeto_ei_formulario_proyecto
 	'ayn', --identificador
-	'ef_fijo', --elemento_formulario
+	'ef_editable', --elemento_formulario
 	'ayn', --columnas
 	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
@@ -1330,7 +1330,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --check_desc_si
 	NULL, --check_desc_no
 	NULL, --check_ml_toggle
-	'0', --fijo_sin_estado
+	NULL, --fijo_sin_estado
 	NULL, --editor_ancho
 	NULL, --editor_alto
 	NULL, --editor_botonera
