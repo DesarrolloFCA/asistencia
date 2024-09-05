@@ -136,7 +136,7 @@ class dt_parte extends toba_datos_tabla
 		FROM
 			parte as t_p	LEFT OUTER JOIN decreto as t_d ON (t_p.id_decreto = t_d.id_decreto)
 			LEFT OUTER JOIN motivo as t_m ON (t_p.id_motivo = t_m.id_motivo)
-		ORDER BY nombre";
+		ORDER BY nombre, fecha_inicio_licencia desc";
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		}
@@ -576,6 +576,14 @@ class dt_parte extends toba_datos_tabla
 			$sql = sql_concatenar_where($sql, $where);
 		}
 		return toba::db('ctrl_asis')->consultar($sql);
+	}
+	function get_motivo($id_parte){
+		
+		$sql = "Select motivo from reloj.comision
+		where  id_comision = (Select id_comision from reloj.parte 
+		where id_parte = $id_parte)";
+		
+		return toba::db('ctrl_asis')->consultar_fila($sql);
 	}
 
 }

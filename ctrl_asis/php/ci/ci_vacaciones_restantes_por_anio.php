@@ -48,6 +48,7 @@ class ci_vacaciones_restantes_por_anio extends ctrl_asis_ci
 
 	function evt__formulario__modificacion($datos)
 	{
+		
 		$this->dep('datos')->tabla('vacaciones_restantes')->set($datos);
 	}
 

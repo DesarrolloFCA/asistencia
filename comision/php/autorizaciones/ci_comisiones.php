@@ -13,7 +13,12 @@ class ci_comisiones extends comision_ci
 		$legajo = usuario_logueado::get_legajo(toba::usuario()->get_id());
 		$legajo = $legajo[0]['legajo'];
 		if (usuario_logueado::get_jefe($legajo)) {
-			$sql = "SELECT id_comision, legajo, comision.catedra, catedras.nombre_catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, autoriza_sup, autoriza_aut, fecha_fin, horario_fin, fuera, pasada
+			$sql = "SELECT id_comision, legajo, comision.catedra, catedras.nombre_catedra, lugar, motivo, 
+			TO_CHAR(fecha, 'DD-MM-YYYY') as fecha, 
+                TO_CHAR(horario::time, 'HH24:MI') as horario,
+			    observaciones, legajo_sup, legajo_aut, autoriza_sup, autoriza_aut, 
+				TO_CHAR(fecha_fin, 'DD-MM-YYYY') as fecha_fin, 
+                TO_CHAR(horario_fin::time, 'HH24:MI') as horario_fin,  fuera, pasada
 				FROM reloj.comision
 				join reloj.catedras catedras on id_catedra = catedra
 				WHERE (pasada is null or pasada = false)
@@ -57,8 +62,7 @@ class ci_comisiones extends comision_ci
 					$estado = 'A';
 				}
 				//ei_arbol ($estado, $i);
-				$a_sup = $datos[$i]['autoriza_sup'];
-				$a_aut = $datos[$i]['autoriza_aut'];
+				$id_comision = $datos[$i]['id_comision'];
 				$obs = $datos[$i]['observaciones'];
 				$ayn = $this->dep('mapuche')->get_legajos_autoridad($datos[$i]['legajo']);
 				$apellido = $ayn[0]['apellido'];
@@ -80,6 +84,11 @@ class ci_comisiones extends comision_ci
 				$datos_correo['horario_fin'] = $hora_fin;
 				$datos_correo['lugar'] = $lugar;
 				$datos_correo['motivo'] = $motivo;
+				$sql = "SELECT nombre_catedra from reloj.catedras
+						WHERE id_catedra = $id_catedra";
+				$nom_cat = toba::db('comision')->consultar_fila($sql);
+				$datos_correo['catedra'] = $nom_cat['nombre_catedra'];
+				$datos_correo['observaciones'] = $obs ;
 
 				$this->s__datos_correo = $datos_correo;
 				$sql = "SELECT email from reloj.agentes_mail
@@ -103,19 +112,19 @@ class ci_comisiones extends comision_ci
 					$localidad = $direccion[0]['localidad'];
 					$agrupamiento = $direccion[0]['escalafon'];
 					$fecha_nacimiento = $direccion[0]['fecha_nacimiento'];
-					$usuario_alta = toba::usuario()->get_id();
+					$usuario_alta = $legajo;
+					$usuario_cierre=toba::usuario()->get_id();
 					$fecha_alta    = date("Y-m-d H:i:s");
 					$fechaentera1 = strtotime($fecha_inicio);
-					//$january = new DateTime($datos[$i]['fecha_fin']);
-					//$february = new DateTime($datos[$i]['fecha_fin']);
+					
 					$fecha_inicio1 = date_create(date("Y-m-d", $fechaentera1));
 					$hoy = date_create(date("Y-m-d", strtotime($fecha_fin)));
-					//$dia = $february->diff($january);
+					
 					$dia = date_diff($fecha_inicio1, $hoy);
 					$dias = $dia->format('%a') + 1;
-					//ei_arbol($dias);
+					
 					$fecha_ini = $datos[$i]['fecha'];
-					//	ei_arbol($fecha_ini);
+					
 					$estado_civil = $direccion[0]['estado_civil'];
 					if ($agrupamiento == 'DOCE') {
 						$id_motivo = 56;
@@ -128,15 +137,15 @@ class ci_comisiones extends comision_ci
 					}
 					$sexo = $this->dep('mapuche')->get_tipo_sexo($legajo, null);
 					$sql= "UPDATE reloj.comision
-						SET observaciones = '$obs', pasada = true ,autoriza_sup = true , autoriza_aut = true
+						SET observaciones = '$obs', pasada = true ,autoriza_sup = $superior_aut, autoriza_aut = false
 						WHERE id_comision = $id";
 						toba::db('ctrl_asis')->ejecutar($sql);	
 
 					$sql = "INSERT INTO reloj.parte(
-							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
+							legajo, edad, id_comision ,fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
-							VALUES ($legajo, $edad, '$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
-							'$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto,  $id_motivo,	  $id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+							VALUES ($legajo, $edad, $id_comision,'$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
+							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,	  $id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
 					toba::db('comision')->ejecutar($sql);
 
 
