@@ -134,7 +134,7 @@ INSERT INTO apex_objeto_ut_formulario (objeto_ut_formulario_proyecto, objeto_ut_
 	NULL, --clase_proyecto
 	NULL, --clase
 	NULL, --auto_reset
-	NULL, --ancho
+	'900px', --ancho
 	'150px', --ancho_etiqueta
 	'0', --expandir_descripcion
 	NULL, --campo_bl
@@ -171,7 +171,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'legajo', --identificador
 	'ef_fijo', --elemento_formulario
 	'legajo', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'1', --orden
 	'Legajo', --etiqueta
@@ -333,7 +333,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'lugar', --identificador
 	'ef_editable', --elemento_formulario
 	'lugar', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Lugar', --etiqueta
@@ -414,7 +414,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'motivo', --identificador
 	'ef_editable', --elemento_formulario
 	'motivo', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Motivo', --etiqueta

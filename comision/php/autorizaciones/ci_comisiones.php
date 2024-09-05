@@ -13,7 +13,12 @@ class ci_comisiones extends comision_ci
 		$legajo = usuario_logueado::get_legajo(toba::usuario()->get_id());
 		$legajo = $legajo[0]['legajo'];
 		if (usuario_logueado::get_jefe($legajo)) {
-			$sql = "SELECT id_comision, legajo, comision.catedra, catedras.nombre_catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, autoriza_sup, autoriza_aut, fecha_fin, horario_fin, fuera, pasada
+			$sql = "SELECT id_comision, legajo, comision.catedra, catedras.nombre_catedra, lugar, motivo, 
+			TO_CHAR(fecha, 'DD-MM-YYYY') as fecha, 
+                TO_CHAR(horario::time, 'HH24:MI') as horario,
+			    observaciones, legajo_sup, legajo_aut, autoriza_sup, autoriza_aut, 
+				TO_CHAR(fecha_fin, 'DD-MM-YYYY') as fecha_fin, 
+                TO_CHAR(horario_fin::time, 'HH24:MI') as horario_fin,  fuera, pasada
 				FROM reloj.comision
 				join reloj.catedras catedras on id_catedra = catedra
 				WHERE (pasada is null or pasada = false)
