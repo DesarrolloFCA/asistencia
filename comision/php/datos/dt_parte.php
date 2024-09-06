@@ -98,6 +98,22 @@ class dt_parte extends toba_datos_tabla
 		return toba::db('comision')->consultar($sql);
 	}
 
+	function get_duplicado_inasistencia($legajo,$fecha,$id_motivo){
+		$sql= "Select id_inasistencia from reloj.inasistencias
+				where legajo = $legajo and fecha_inicio = '$fecha' and id_motivo = $id_motivo";
+		$existe= count(toba::db('comision')->consultar($sql));
+		$sql= "Select id_parte from reloj.parte
+				where legajo = $legajo and fecha_inicio_licencia = '$fecha' and id_motivo = $id_motivo";
+		$hay= count(toba::db('comision')->consultar($sql));
+		if (isset($hay)  or isset($existe) ){
+			return true;
+		} else {
+			return false;
+		} 
+
+
+	}
+
 
 	
 

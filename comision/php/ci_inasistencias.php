@@ -59,6 +59,7 @@ class ci_inasistencias extends ctrl_asis_ci
 				if ($datos[$i]['estado'] == 'C') {
 
 					if ($datos[$i]['aprobado'] == 1) {
+						
 						$filtro['legajo'] = $legajo;
 						$edad = $this->dep('mapuche')->get_edad($legajo, null);
 						$direccion = $this->dep('mapuche')->get_datos_agente($filtro);
@@ -66,40 +67,36 @@ class ci_inasistencias extends ctrl_asis_ci
 						$localidad = $direccion[0]['localidad'];
 						$agrupamiento = $direccion[0]['escalafon'];
 						$fecha_nacimiento = $direccion[0]['fecha_nacimiento'];
-
 						$fecha_alta = $formula[$i]['fecha_alta'];
 						$usuario_alta = $formula[$i]['usuario_alta'];
 						$estado = $datos[$i]['estado'];
 						$fechaentera1 = strtotime($fecha_inicio);
-						//$january = new DateTime($datos[$i]['fecha_fin']);
-						//$february = new DateTime($datos[$i]['fecha_fin']);
 						$fecha_inicio = date_create(date("Y-m-d", $fechaentera1));
 						$hoy = date_create(date("Y-m-d", $fecha_fin));
-						//$dia = $february->diff($january);
 						$dia = date_diff($fecha_inicio, $hoy);
 						$dias = $dia->format('%a');
-						//ei_arbol($dias);
 						$fecha_ini = $datos[$i]['fecha_inicio'];
-
-
 						$estado_civil = $direccion[0]['estado_civil'];
 						$id_decreto = $formula[$i]['id_decreto'];
 						$id_motivo = $datos[$i]['id_motivo'];
 						$id_articulo = $formula[$i]['id_articulo'];
 						$sexo = $this->dep('mapuche')->get_tipo_sexo($legajo, null);
+						$existe = $this->dep('datos')->tabla('parte')->get_duplicado_inasistencia($legajo,$fecha_ini,$id_motivo);
+						if ($existe) {
+							toba::notificacion()->agregar('Este pedido fue anteriormente ingresado', "info");
+							break;
+						}else {
 						$sql = "INSERT INTO reloj.parte(
 						 legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 	  					apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 						VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
-							'$fecha_nacimiento',				'$apellido', '$nombre',	'$estado_civil', '$observaciones', $id_decreto, $id_motivo,$id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+							'$fecha_nacimiento',				'$apellido', '$nombre',	'$estado_civil', '$observaciones', $id_decreto, $id_motivo,$id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
 						toba::db('ctrl_asis')->ejecutar($sql);
-
-
-
 						$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);
 						$sql = "DELETE from reloj.inasistencias
 					  WHERE id_inasistencia =$id_inasistencia";
 						toba::db('ctrl_asis')->ejecutar($sql);
+					}
 					} else if ($datos[$i]['aprobado'] == 0) {
 
 						$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);

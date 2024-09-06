@@ -26,6 +26,7 @@ class comision extends toba_ci
 
 	function evt__formulario__alta($datos)
 	{
+		
 		if ($datos['fecha'] <= $datos['fecha_fin']) {
 			// Preparar datos
 			$fecha = $datos['fecha'];
@@ -39,22 +40,51 @@ class comision extends toba_ci
 			$horario_fin = $datos['horario_fin'];
 			$obs = $datos['observaciones'] . ' ';
 			$motivo = $datos['motivo'];
-			$fuera = $datos['fuera'];
-	
+			if ($datos['fuera'] == 1){
+				$fuera = true;
+			} else {
+				$fuera = false;
+			}
+			switch ($superior){
+				case 1 : $superior = 20428;
+				break;
+				case 3 : $superior = 26629;
+				break;
+				case 4 : $superior = 26118;
+				break;
+				case 9 : $superior=29960;
+				break;
+				case 5 : $superior = 28840;
+				break;
+				case 6: $superior = 29956;
+				break;
+				case 7: $superior = 25153;
+				break;
+				case 8: $superior = 27443;
+				break;
+				default : $superior;
+			}
+			 	
+			
+
+			
 			// Obtener nombre de la cátedra
 			$sql = "SELECT nombre_catedra FROM reloj.catedras WHERE id_catedra = $catedra";
 			$a = toba::db('comision')->consultar($sql);
 			$datos['catedra'] = $a[0]['nombre_catedra'];
-	
+			$comision_pedida=0;
 			// Verificar si ya existe una comisión pedida
 			$sql = "SELECT legajo, fecha, fecha_fin FROM reloj.comision
 					WHERE legajo = $legajo
 					AND fecha BETWEEN '$fecha' AND '$fecha_fin'
 					AND catedra = $catedra
 					AND (pasada IS NULL OR pasada = true)";
-			$comision_pedida = toba::db('comision')->consultar($sql);
+			$comision_pedida = count(toba::db('comision')->consultar($sql));
+			$sql = "Select id_parte from reloj.parte
+				where legajo = $legajo and fecha_inicio_licencia = '$fecha' and id_motivo = 56";
+			$comision_pedida = $comision_pedida +count(toba::db('comision')->consultar($sql));
 	
-			if (count($comision_pedida) == 0) {
+			if ($comision_pedida == 0) {
 				// Obtener correos electrónicos
 				$correo_agente = !empty($datos['legajo']) ? $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['legajo'])[0]['descripcion'] : null;
 				$correo_sup = !empty($datos['superior']) ? $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['superior'])[0]['descripcion'] : null;
@@ -64,32 +94,34 @@ class comision extends toba_ci
 				$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
 				$datos['descripcion'] = $agente[0]['descripcion'];
 				$this->s__datos = $datos;
-	
+				
+				
+						
 				// Insertar nueva comisión
-				$sql = "INSERT INTO reloj.comision
-						(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, fecha_fin, horario_fin, fuera) VALUES
-						($legajo, $catedra, '$lugar', '$motivo', '$fecha', '$horario', '$obs', $superior, $autoridad, '$fecha_fin', '$horario_fin', $fuera)";
-				$resultado = toba::db('comision')->ejecutar($sql);
+					$sql = "INSERT INTO reloj.comision
+					(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, fecha_fin, horario_fin, fuera) VALUES
+					($legajo, $catedra, '$lugar', '$motivo', '$fecha', '$horario', '$obs', $superior, $autoridad, '$fecha_fin', '$horario_fin', $fuera)";
+					$resultado = toba::db('comision')->ejecutar($sql);
 	
-				if ($resultado) {
+					if ($resultado) {
 					// Enviar correos electrónicos
-					if ($correo_agente) {
-						$this->enviar_correos($correo_agente);
+						if ($correo_agente) {
+							$this->enviar_correos($correo_agente);
+						}
+						if ($correo_sup) {
+							$this->enviar_correos_sup($correo_sup);
+						}
+							toba::notificacion()->agregar('Su solicitud ha sido ingresada.', 'info');
+						if ($fuera == 1) {
+							toba::notificacion()->agregar('Si viaja fuera de la provincia de Mendoza diríjase a la oficina de Personal para tramitar su seguro', 'info');
+					} else {
+						toba::notificacion()->agregar('Error al insertar la comisión en la base de datos', 'error');
 					}
-					if ($correo_sup) {
-						$this->enviar_correos_sup($correo_sup);
-					}
-					toba::notificacion()->agregar('Su solicitud ha sido ingresada.', 'info');
-					if ($fuera == 1) {
-						toba::notificacion()->agregar('Si viaja fuera de la provincia de Mendoza diríjase a la oficina de Personal para tramitar su seguro', 'info');
-					}
-				} else {
-					toba::notificacion()->agregar('Error al insertar la comisión en la base de datos', 'error');
 				}
 			} else {
 				toba::notificacion()->agregar('Ud. ya ha solicitado una comisión para las fechas consignadas', 'error');
 			}
-		} else {
+		 } else {
 			toba::notificacion()->agregar('Coloque una fecha hasta mayor o igual que la fecha desde', 'error');
 		}
 	

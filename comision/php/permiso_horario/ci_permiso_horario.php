@@ -16,6 +16,7 @@ class ci_permiso_horario extends comision_ci
 		$escalafon = $this->dep('mapuche')->get_legajo_escalafon($legajo);
 		$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
 		$datos['descripcion'] = $agente[0]['descripcion'];
+		$fecha_ini= $datos ['fecha'];
 
 		$j = count($escalafon);
 		for ($i = 0; $i <= $j; $i++) {
@@ -43,39 +44,48 @@ class ci_permiso_horario extends comision_ci
 			$cantidad = $a[0]['cantidad'];
 
 			if ($cantidad < 5) {
+				$sql= "SELECT * from reloj.permisos_horarios
+				where legajo = $legajo
+				and fecha = '$fecha_ini'";
+				$pedido = count(toba::db('comision')->consultar($sql));
+				if ($pedido> 0){
+					toba::notificacion()->agregar('Ud. ya ha solicitado un permiso horario para las fechas consignadas', 'error');
+					break;
+				} else {
 
-				$this->dep('datos')->tabla('permiso_horarios')->nueva_fila($datos);
-				$this->dep('datos')->sincronizar();
-				$this->dep('datos')->resetear();
-				$catedra = $datos['id_catedra'];
-				$sql = "SELECT nombre_catedra FROM reloj.catedras 
-				Where id_catedra =$catedra";
-				$a = toba::db('comision')->consultar($sql);
-				$datos['n_catedra'] = $a[0]['nombre_catedra'];
-				if (!empty($datos['legajo'])) {
-					//$correo_agente = $this->dep('mapuche')->get_legajos_email($datos['legajo']);
-					$correo_agente = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['legajo']);
-					$datos['agente'] = $correo_agente[0]['descripcion'];
-				}
-				if (!empty($datos['leg_sup'])) {
+					$this->dep('datos')->tabla('permiso_horarios')->nueva_fila($datos);
+					$this->dep('datos')->sincronizar();
+					$this->dep('datos')->resetear();
+					$catedra = $datos['id_catedra'];
+					$sql = "SELECT nombre_catedra FROM reloj.catedras 
+					Where id_catedra =$catedra";
+					$a = toba::db('comision')->consultar($sql);
+					$datos['n_catedra'] = $a[0]['nombre_catedra'];
+					if (!empty($datos['legajo'])) {
+						//$correo_agente = $this->dep('mapuche')->get_legajos_email($datos['legajo']);
+						$correo_agente = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['legajo']);
+						$datos['agente'] = $correo_agente[0]['descripcion'];
+					}
+					if (!empty($datos['leg_sup'])) {
 					//$correo_sup = $this->dep('mapuche')->get_legajos_email($datos['leg_sup']);
 					$correo_sup = $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['leg_sup']);
 					$datos['superior'] = $correo_sup[0]['descripcion'];
-				}
+					}
 				//ei_arbol ($datos);
-				$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
-				$datos['descripcion'] = $agente[0]['descripcion'];
-				$this->s__datos = $datos;
-				if (!empty($datos['legajo'])) {
-					$this->enviar_correos($datos['agente']);
-					toba::notificacion()->agregar('Su pedido de Permiso Horario sera tramitado a la brevedad', 'info');
+					$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
+					$datos['descripcion'] = $agente[0]['descripcion'];
+					$this->s__datos = $datos;
+						if (!empty($datos['legajo'])) {
+						$this->enviar_correos($datos['agente']);
+						toba::notificacion()->agregar('Su pedido de Permiso Horario sera tramitado a la brevedad', 'info');
+					}
 				}
 			} else {
 				toba::notificacion()->agregar('Ud. ha excedido la cantidad de permisos excepcionales que se otorgan por a&ntilde;o', 'info');
 			}
-			if (!empty($datos['leg_sup'])) {
+		if (!empty($datos['leg_sup'])) {
 				$this->enviar_correos($datos['superior']);
-			}
+		}
 		} else {
 			toba::notificacion()->agregar('Esta licencia es aplicable solamente a Personal de Apoyo Acad&eacute;mico', 'info');
 		}

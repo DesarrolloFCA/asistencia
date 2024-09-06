@@ -61,7 +61,7 @@ class ci_comisiones extends comision_ci
 				} else {
 					$estado = 'A';
 				}
-				//ei_arbol ($estado, $i);
+				
 				$id_comision = $datos[$i]['id_comision'];
 				$obs = $datos[$i]['observaciones'];
 				$ayn = $this->dep('mapuche')->get_legajos_autoridad($datos[$i]['legajo']);
@@ -74,7 +74,7 @@ class ci_comisiones extends comision_ci
 				$lugar = $datos[$i]['lugar'];
 				$motivo = $datos[$i]['motivo'];
 				$autoriza_sup = $datos[$i]['autoriza_sup'];
-				$autoriza_aut = $datos[$i]['autoriza_aut'];
+				//$autoriza_aut = $datos[$i]['autoriza_aut'];
 				$datos_correo['legajo'] = $legajo;
 				$datos_correo['apellido'] = $apellido;
 				$datos_correo['nombre'] = $nombre;
@@ -84,10 +84,11 @@ class ci_comisiones extends comision_ci
 				$datos_correo['horario_fin'] = $hora_fin;
 				$datos_correo['lugar'] = $lugar;
 				$datos_correo['motivo'] = $motivo;
-				$sql = "SELECT nombre_catedra from reloj.catedras
+
+			/*	$sql = "SELECT nombre_catedra from reloj.catedras
 						WHERE id_catedra = $id_catedra";
-				$nom_cat = toba::db('comision')->consultar_fila($sql);
-				$datos_correo['catedra'] = $nom_cat['nombre_catedra'];
+				$nom_cat = toba::db('comision')->consultar_fila($sql);*/
+				$datos_correo['catedra'] = $datos[$i]['nombre_catedra'];
 				$datos_correo['observaciones'] = $obs ;
 
 				$this->s__datos_correo = $datos_correo;
