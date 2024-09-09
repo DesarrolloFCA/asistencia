@@ -40,11 +40,18 @@ class comision extends toba_ci
 			$horario_fin = $datos['horario_fin'];
 			$obs = $datos['observaciones'] . ' ';
 			$motivo = $datos['motivo'];
-			if ($datos['fuera'] == 1){
+			$fuera = $datos['fuera'];
+			
+
+
+			/*if ($datos['fuera'] == 1){
 				$fuera = true;
 			} else {
 				$fuera = false;
-			}
+				ei_arbol($fuera);
+			}*/
+
+			
 			switch ($superior){
 				case 1 : $superior = 20428;
 				break;
@@ -96,7 +103,7 @@ class comision extends toba_ci
 				$this->s__datos = $datos;
 				
 				
-						
+				
 				// Insertar nueva comisión
 					$sql = "INSERT INTO reloj.comision
 					(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, fecha_fin, horario_fin, fuera) VALUES
@@ -106,13 +113,13 @@ class comision extends toba_ci
 					if ($resultado) {
 					// Enviar correos electrónicos
 						if ($correo_agente) {
-							$this->enviar_correos($correo_agente);
+							//$this->enviar_correos($correo_agente);
 						}
 						if ($correo_sup) {
-							$this->enviar_correos_sup($correo_sup);
+							//$this->enviar_correos_sup($correo_sup);
 						}
 							toba::notificacion()->agregar('Su solicitud ha sido ingresada.', 'info');
-						if ($fuera == 1) {
+						if ($fuera ) {
 							toba::notificacion()->agregar('Si viaja fuera de la provincia de Mendoza diríjase a la oficina de Personal para tramitar su seguro', 'info');
 					} else {
 						toba::notificacion()->agregar('Error al insertar la comisión en la base de datos', 'error');
