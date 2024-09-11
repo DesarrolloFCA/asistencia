@@ -1009,8 +1009,9 @@ class ci_articulo extends comision_ci
 						//	ei_arbol($datos);
 						if ($ya_tomo == 0) {
 							if ($bandera_nodo) {
+								
 								$existe = $this->dep('datos')->tabla('parte')->get_duplicado_inasistencia($legajo,$fecha_inicio,$id_motivo);
-								if ($existe) {
+								if ($existe != 0) {
 									toba::notificacion()->agregar('Este pedido fue anteriormente ingresado', "info");
 									break;
 								}else {

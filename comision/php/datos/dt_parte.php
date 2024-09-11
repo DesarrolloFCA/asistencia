@@ -105,7 +105,7 @@ class dt_parte extends toba_datos_tabla
 		$sql= "Select id_parte from reloj.parte
 				where legajo = $legajo and fecha_inicio_licencia = '$fecha' and id_motivo = $id_motivo";
 		$hay= count(toba::db('comision')->consultar($sql));
-		if (isset($hay)  or isset($existe) ){
+		if ($existe > 0 || $hay > 0) {
 			return true;
 		} else {
 			return false;

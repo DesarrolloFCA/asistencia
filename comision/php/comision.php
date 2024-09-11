@@ -113,10 +113,10 @@ class comision extends toba_ci
 					if ($resultado) {
 					// Enviar correos electrónicos
 						if ($correo_agente) {
-							//$this->enviar_correos($correo_agente);
+							$this->enviar_correos($correo_agente);
 						}
 						if ($correo_sup) {
-							//$this->enviar_correos_sup($correo_sup);
+							$this->enviar_correos_sup($correo_sup);
 						}
 							toba::notificacion()->agregar('Su solicitud ha sido ingresada.', 'info');
 						if ($fuera ) {

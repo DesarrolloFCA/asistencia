@@ -50,7 +50,6 @@ class ci_permiso_horario extends comision_ci
 				$pedido = count(toba::db('comision')->consultar($sql));
 				if ($pedido> 0){
 					toba::notificacion()->agregar('Ud. ya ha solicitado un permiso horario para las fechas consignadas', 'error');
-					break;
 				} else {
 
 					$this->dep('datos')->tabla('permiso_horarios')->nueva_fila($datos);

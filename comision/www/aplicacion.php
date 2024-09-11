@@ -11,7 +11,14 @@ define('apex_pa_proyecto', 'comision');
 
 # Activa el logger en modo 'debug'. Para modo info pasar a '6'
 define('apex_pa_log_archivo', true);
-define('apex_pa_log_archivo_nivel', 7);
+define('apex_pa_log_archivo_nivel', 4);
+
+# Modo de mantenimiento
+define('MODO_MANTENIMIENTO', false);
+
+if (MODO_MANTENIMIENTO) {
+    die("El sitio está en mantenimiento. Por favor, vuelva más tarde.");
+}
 
 //--------------------------------------------------------------------------
 //------ Invocacion del nucleo del toba ------------------------------------

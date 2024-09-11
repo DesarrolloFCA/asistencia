@@ -43,19 +43,14 @@ class ci_comisiones extends comision_ci
 	function evt__formulario__modificacion($datos)
 	{
 		$cant = count($datos);
-		$fecha_cierre = date("Y-m-d H:i:s");
-		//ei_arbol($datos); 
+		$fecha_cierre = date("Y-m-d H:i:s"); 
 
 		for ($i = 0; $i < $cant; $i++) {
 			if ($datos[$i]['apex_ei_analisis_fila'] == 'M') {
-				/*$sql = "UPDATE reloj.comision
-					Set autoriza_sup = $a_sup, autoriza_aut = $a_aut, observaciones = '$obs'
-					where id_comision = $id";
-			toba::db('ctrl_asis')->ejecutar ($sql);    */
 
 				$id = $datos[$i]['id_comision'];
 				$legajo = $datos[$i]['legajo'];
-				//	ei_arbol ($datos[$i]['pasada']);
+				
 				if ($datos[$i]['pasada']  == 1) {
 					$estado = 'C';
 				} else {
@@ -74,7 +69,6 @@ class ci_comisiones extends comision_ci
 				$lugar = $datos[$i]['lugar'];
 				$motivo = $datos[$i]['motivo'];
 				$autoriza_sup = $datos[$i]['autoriza_sup'];
-				//$autoriza_aut = $datos[$i]['autoriza_aut'];
 				$datos_correo['legajo'] = $legajo;
 				$datos_correo['apellido'] = $apellido;
 				$datos_correo['nombre'] = $nombre;
@@ -84,10 +78,7 @@ class ci_comisiones extends comision_ci
 				$datos_correo['horario_fin'] = $hora_fin;
 				$datos_correo['lugar'] = $lugar;
 				$datos_correo['motivo'] = $motivo;
-
-			/*	$sql = "SELECT nombre_catedra from reloj.catedras
-						WHERE id_catedra = $id_catedra";
-				$nom_cat = toba::db('comision')->consultar_fila($sql);*/
+		
 				$datos_correo['catedra'] = $datos[$i]['nombre_catedra'];
 				$datos_correo['observaciones'] = $obs ;
 
@@ -95,18 +86,9 @@ class ci_comisiones extends comision_ci
 				$sql = "SELECT email from reloj.agentes_mail
 				where legajo=$legajo";
 				$correo = toba::db('comision')->consultar($sql);
-				//	ei_arbol($datos[$i]['pasada'] );
+				
+				if ($estado == 'C' && ($autoriza_sup)) {
 
-
-				//	ei_arbol($estado);
-
-				if ($estado == 'C' && ($autoriza_sup == 1)) {
-
-					if ($autoriza_sup == 1) {
-						$superior_aut = true;
-					} else {
-						$superior_aut = false;
-					}
 					$edad = $this->dep('mapuche')->get_edad($legajo, null);
 					$direccion = $this->dep('mapuche')->get_datos_agente($filtro);
 					$domicilio = $direccion[0]['calle'] || ' ' || $direccion[0]['numero'];
@@ -138,7 +120,7 @@ class ci_comisiones extends comision_ci
 					}
 					$sexo = $this->dep('mapuche')->get_tipo_sexo($legajo, null);
 					$sql= "UPDATE reloj.comision
-						SET observaciones = '$obs', pasada = true ,autoriza_sup = $superior_aut, autoriza_aut = false
+						SET observaciones = '$obs', pasada = true ,autoriza_sup = $autoriza_sup, autoriza_aut = false
 						WHERE id_comision = $id";
 						toba::db('ctrl_asis')->ejecutar($sql);	
 
@@ -147,11 +129,17 @@ class ci_comisiones extends comision_ci
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, $id_comision,'$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
 							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,	  $id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
-					toba::db('comision')->ejecutar($sql);
+					$resultado = toba::db('comision')->ejecutar($sql);
+
+					if ($resultado) {
+						$this->enviar_correos($correo[0]['email'], true);
+					} else {
+						toba::notificacion()->agregar('Error al insertar la comisión en la base de datos', 'error');
+					}
 
 
-					$this->enviar_correos($correo[0]['email'], true);
-				} else  if ($estado == 'C' && $autoriza_sup == 0) {
+
+				} else  if ($estado == 'C' && !$autoriza_sup ) {
 
 					$this->enviar_correos($correo[0]['email'], false);
 				}
