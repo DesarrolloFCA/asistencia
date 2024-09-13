@@ -97,28 +97,30 @@ class ci_vacaciones extends ctrl_asis_ci
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
-							'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,$id_articulo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+							'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,$id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
 							} else {
 								$sql = "INSERT INTO reloj.parte(
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo,  tipo_sexo,usuario_cierre,fecha_cierre)
 						VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
-						'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,'$tipo_sexo','$usuario_cierre','$fecha_cierre');";
+						'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,'$sexo','$usuario_cierre','$fecha_cierre');";
 							}
 							toba::db('ctrl_asis')->ejecutar($sql);
 
 
 
-							$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);
+							
 							$sql = "DELETE from reloj.inasistencias
 						WHERE id_inasistencia =$id_inasistencia";
 							toba::db('ctrl_asis')->ejecutar($sql);
+							toba::notificacion()->agregar('Inasistencias Procesada');
+							$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);	
 						} else {
 							toba::notificacion()->agregar('Avise a la autoridad que falta su aprobacion, si no estan aprobadas las vacaciones coloque cerrado y no marque aprobado', "info");
 						}
 					} else if ($datos[$i]['aprobado'] == 0) {
 
-						$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);
+						
 						$sql = "UPDATE reloj.inasistencias
 					SET estado='C', observaciones = '$observaciones' 
 					WHERE id_inasistencia = $id_inasistencia";
@@ -130,6 +132,7 @@ class ci_vacaciones extends ctrl_asis_ci
 							where legajo = $legajo;";
 							toba::db('ctrl_asis')->ejecutar($sql);
 						}
+						$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);	
 					}
 				}
 			}
