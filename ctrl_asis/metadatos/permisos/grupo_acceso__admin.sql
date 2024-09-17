@@ -52,15 +52,12 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	NULL, --item_id
 	'3466'  --item
 );
-<<<<<<< HEAD
-=======
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
 	'ctrl_asis', --proyecto
 	'admin', --usuario_grupo_acc
 	NULL, --item_id
 	'3467'  --item
 );
->>>>>>> cuadro_informe
 --- FIN Grupo de desarrollo 0
 
 --- INICIO Grupo de desarrollo 4

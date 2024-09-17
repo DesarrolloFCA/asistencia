@@ -42,8 +42,6 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
-<<<<<<< HEAD
-=======
 -- apex_objeto_eventos
 ------------------------------------------------------------
 
@@ -117,7 +115,6 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
->>>>>>> cuadro_informe
 -- apex_objeto_ei_filtro
 ------------------------------------------------------------
 INSERT INTO apex_objeto_ei_filtro (objeto_ei_filtro_proyecto, objeto_ei_filtro, ancho) VALUES (
@@ -146,21 +143,6 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
 	'ef_combo', --opciones_ef
-<<<<<<< HEAD
-	NULL, --carga_metodo
-	NULL, --carga_clase
-	NULL, --carga_include
-	NULL, --carga_dt
-	NULL, --carga_consulta_php
-	NULL, --carga_sql
-	NULL, --carga_fuente
-	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
-	'0', --carga_permite_no_seteado
-	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
-=======
 	'get_legajos_depencencia', --carga_metodo
 	'vistas_mapuche', --carga_clase
 	'datos/vistas_mapuche.php', --carga_include
@@ -174,7 +156,6 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'1', --carga_permite_no_seteado
 	NULL, --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
->>>>>>> cuadro_informe
 	NULL, --carga_maestros
 	NULL, --edit_tamano
 	NULL, --edit_maximo
@@ -191,11 +172,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --popup_carga_desc_clase
 	NULL, --popup_carga_desc_include
 	NULL, --popup_puede_borrar_estado
-<<<<<<< HEAD
-	NULL, --punto_montaje
-=======
 	'4000021', --punto_montaje
->>>>>>> cuadro_informe
 	NULL, --check_valor_si
 	NULL, --check_valor_no
 	NULL, --check_desc_si
@@ -214,13 +191,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'2320', --objeto_ei_filtro
 	'ctrl_asis', --objeto_ei_filtro_proyecto
 	'fecha', --tipo
-<<<<<<< HEAD
-	'fecha_inicio', --nombre
-	'fecha_inicio', --expresion
-=======
 	'fecha_ini', --nombre
 	'fecha_ini', --expresion
->>>>>>> cuadro_informe
 	'Fecha Inicio', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio

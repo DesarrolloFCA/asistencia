@@ -50,11 +50,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	NULL, --titulo
 	NULL, --subtitulo
 	NULL, --sql
-<<<<<<< HEAD
-	NULL, --columnas_clave
-=======
 	'legajo,fecha', --columnas_clave
->>>>>>> cuadro_informe
 	NULL, --columna_descripcion
 	'0', --clave_dbr
 	NULL, --archivos_callbacks
@@ -84,11 +80,7 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 	'0', --scroll
 	NULL, --scroll_alto
 	't', --cc_modo
-<<<<<<< HEAD
-	'0', --cc_modo_anidado_colap
-=======
 	'1', --cc_modo_anidado_colap
->>>>>>> cuadro_informe
 	NULL, --cc_modo_anidado_totcol
 	NULL  --cc_modo_anidado_totcua
 );
@@ -113,24 +105,6 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	NULL, --imp_paginar
 	'1'  --modo_inicio_colapsado
 );
-<<<<<<< HEAD
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
-	'ctrl_asis', --objeto_cuadro_proyecto
-	'2319', --objeto_cuadro
-	'34', --objeto_cuadro_cc
-	'estado', --identificador
-	'Estado', --descripcion
-	'2', --orden
-	'con_parte', --columnas_id
-	'con_parte', --columnas_descripcion
-	'1', --pie_contar_filas
-	'0', --pie_mostrar_titular
-	'0', --pie_mostrar_titulos
-	NULL, --imp_paginar
-	'1'  --modo_inicio_colapsado
-);
-=======
->>>>>>> cuadro_informe
 --- FIN Grupo de desarrollo 0
 
 ------------------------------------------------------------
@@ -272,11 +246,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'ei-cuadro-col-tit', --estilo_titulo
 	'4', --estilo
 	NULL, --ancho
-<<<<<<< HEAD
-	'1', --formateo
-=======
 	'8', --formateo
->>>>>>> cuadro_informe
 	NULL, --vinculo_indice
 	NULL, --no_ordenar
 	NULL, --mostrar_xls

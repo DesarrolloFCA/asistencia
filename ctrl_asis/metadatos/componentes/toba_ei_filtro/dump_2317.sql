@@ -48,11 +48,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 --- INICIO Grupo de desarrollo 0
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'ctrl_asis', --proyecto
-<<<<<<< HEAD
-	'1094', --evento_id
-=======
 	'1101', --evento_id
->>>>>>> cuadro_informe
 	'2317', --objeto
 	'filtrar', --identificador
 	'&Filtrar', --etiqueta
@@ -85,11 +81,7 @@ INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, eti
 );
 INSERT INTO apex_objeto_eventos (proyecto, evento_id, objeto, identificador, etiqueta, maneja_datos, sobre_fila, confirmacion, estilo, imagen_recurso_origen, imagen, en_botonera, ayuda, orden, ci_predep, implicito, defecto, display_datos_cargados, grupo, accion, accion_imphtml_debug, accion_vinculo_carpeta, accion_vinculo_item, accion_vinculo_objeto, accion_vinculo_popup, accion_vinculo_popup_param, accion_vinculo_target, accion_vinculo_celda, accion_vinculo_servicio, es_seleccion_multiple, es_autovinculo) VALUES (
 	'ctrl_asis', --proyecto
-<<<<<<< HEAD
-	'1095', --evento_id
-=======
 	'1102', --evento_id
->>>>>>> cuadro_informe
 	'2317', --objeto
 	'cancelar', --identificador
 	'&Limpiar', --etiqueta
@@ -146,85 +138,11 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'Legajo', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
-<<<<<<< HEAD
-	'0', --inicial
-=======
 	'1', --inicial
->>>>>>> cuadro_informe
 	'1', --orden
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
 	'ef_combo', --opciones_ef
-<<<<<<< HEAD
-	NULL, --carga_metodo
-	NULL, --carga_clase
-	NULL, --carga_include
-	NULL, --carga_dt
-	NULL, --carga_consulta_php
-	NULL, --carga_sql
-	NULL, --carga_fuente
-	NULL, --carga_lista
-	NULL, --carga_col_clave
-	NULL, --carga_col_desc
-	'0', --carga_permite_no_seteado
-	NULL, --carga_no_seteado
-	NULL, --carga_no_seteado_ocultar
-	NULL, --carga_maestros
-	NULL, --edit_tamano
-	NULL, --edit_maximo
-	NULL, --edit_mascara
-	NULL, --edit_unidad
-	NULL, --edit_rango
-	NULL, --edit_expreg
-	NULL, --estilo
-	NULL, --popup_item
-	NULL, --popup_proyecto
-	NULL, --popup_editable
-	NULL, --popup_ventana
-	NULL, --popup_carga_desc_metodo
-	NULL, --popup_carga_desc_clase
-	NULL, --popup_carga_desc_include
-	NULL, --popup_puede_borrar_estado
-	NULL, --punto_montaje
-	NULL, --check_valor_si
-	NULL, --check_valor_no
-	NULL, --check_desc_si
-	NULL, --check_desc_no
-	NULL, --selec_cant_minima
-	NULL, --selec_cant_maxima
-	NULL, --selec_utilidades
-	NULL, --selec_tamano
-	NULL, --selec_ancho
-	NULL, --selec_serializar
-	NULL, --selec_cant_columnas
-	NULL  --placeholder
-);
-INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, objeto_ei_filtro_proyecto, tipo, nombre, expresion, etiqueta, descripcion, obligatorio, inicial, orden, estado_defecto, opciones_es_multiple, opciones_ef, carga_metodo, carga_clase, carga_include, carga_dt, carga_consulta_php, carga_sql, carga_fuente, carga_lista, carga_col_clave, carga_col_desc, carga_permite_no_seteado, carga_no_seteado, carga_no_seteado_ocultar, carga_maestros, edit_tamano, edit_maximo, edit_mascara, edit_unidad, edit_rango, edit_expreg, estilo, popup_item, popup_proyecto, popup_editable, popup_ventana, popup_carga_desc_metodo, popup_carga_desc_clase, popup_carga_desc_include, popup_puede_borrar_estado, punto_montaje, check_valor_si, check_valor_no, check_desc_si, check_desc_no, selec_cant_minima, selec_cant_maxima, selec_utilidades, selec_tamano, selec_ancho, selec_serializar, selec_cant_columnas, placeholder) VALUES (
-	'13', --objeto_ei_filtro_col
-	'2317', --objeto_ei_filtro
-	'ctrl_asis', --objeto_ei_filtro_proyecto
-	'opciones', --tipo
-	'id_catedra', --nombre
-	'Catedra', --expresion
-	NULL, --etiqueta
-	NULL, --descripcion
-	'0', --obligatorio
-	'0', --inicial
-	'2', --orden
-	NULL, --estado_defecto
-	'0', --opciones_es_multiple
-	'ef_combo', --opciones_ef
-	'get_descripciones', --carga_metodo
-	NULL, --carga_clase
-	NULL, --carga_include
-	'35736730000202', --carga_dt
-	NULL, --carga_consulta_php
-	NULL, --carga_sql
-	'ctrl_asis', --carga_fuente
-	NULL, --carga_lista
-	'id_catedra', --carga_col_clave
-	'nombre_catedra', --carga_col_desc
-=======
 	'get_legajos_depencencia', --carga_metodo
 	'vistas_mapuche', --carga_clase
 	'datos/vistas_mapuche.php', --carga_include
@@ -235,7 +153,6 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --carga_lista
 	'legajo', --carga_col_clave
 	'descripcion', --carga_col_desc
->>>>>>> cuadro_informe
 	'1', --carga_permite_no_seteado
 	NULL, --carga_no_seteado
 	'0', --carga_no_seteado_ocultar
@@ -280,11 +197,7 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
-<<<<<<< HEAD
-	'3', --orden
-=======
 	'2', --orden
->>>>>>> cuadro_informe
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
 	NULL, --opciones_ef
@@ -335,22 +248,14 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'15', --objeto_ei_filtro_col
 	'2317', --objeto_ei_filtro
 	'ctrl_asis', --objeto_ei_filtro_proyecto
-<<<<<<< HEAD
-	'cadena', --tipo
-=======
 	'fecha', --tipo
->>>>>>> cuadro_informe
 	'fecha_final', --nombre
 	'fecha_final', --expresion
 	'Fecha Fin', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
 	'0', --inicial
-<<<<<<< HEAD
-	'4', --orden
-=======
 	'3', --orden
->>>>>>> cuadro_informe
 	NULL, --estado_defecto
 	'0', --opciones_es_multiple
 	NULL, --opciones_ef
