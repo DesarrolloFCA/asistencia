@@ -1,5 +1,5 @@
 <?php
-class informes_inasistencias extends ctrl_asis_ci
+class infome_permiso extends ctrl_asis_ci
 {
 	protected $s__datos_filtro;
 	//-----------------------------------------------------------------------------------
@@ -8,15 +8,16 @@ class informes_inasistencias extends ctrl_asis_ci
 
 	function conf__cuadro(ctrl_asis_ei_cuadro $cuadro)
 	{
-		$hoy = new DateTime();
 		$filtro = $this->s__datos_filtro;
 		$where=array();
-	// Clonar el objeto para calcular 30 días atrás
+		$hoy = new DateTime();
+
+		// Clonar el objeto para calcular 30 días atrás
 		$fechaAtras = clone $hoy;
 		$fechaAtras->modify('-30 days');
 		$fecha_ini = $fechaAtras->format('Y-m-d'); 
 
-// Clonar el objeto para calcular 15 días hacia adelante
+		// Clonar el objeto para calcular 15 días hacia adelante
 		$fechaAdelante = clone $hoy;
 		$fechaAdelante->modify('+15 days');
 		$fecha_final= $fechaAdelante->format('Y-m-d');
@@ -33,13 +34,13 @@ class informes_inasistencias extends ctrl_asis_ci
 			$legajo =$filtro['legajo']['valor'];
 			$where [] = "legajo = $legajo";
 		}
-		
-		$sql= "SELECT * from reloj.vw_inasistencia_informe";
+		$sql= "SELECT * from reloj.vw_permiso_informe";
 		$sql = sql_concatenar_where($sql, $where);
 		$datos = toba::db('ctrl_asis')->consultar($sql);
 		$cuadro->set_datos($datos);
 	}
 
+	
 	//-----------------------------------------------------------------------------------
 	//---- filtro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -49,16 +50,19 @@ class informes_inasistencias extends ctrl_asis_ci
 		if (isset($this->s__datos_filtro)){
 			$filtro->set_datos($this->s__datos_filtro);
 		}
+		
 	}
 
 	function evt__filtro__filtrar($datos)
 	{
 		$this->s__datos_filtro =$datos;
+
 	}
 
 	function evt__filtro__cancelar()
 	{
 		unset($this->s__datos_filtro);
+
 	}
 
 }

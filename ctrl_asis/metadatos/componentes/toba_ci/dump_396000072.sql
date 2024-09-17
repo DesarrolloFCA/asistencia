@@ -574,28 +574,6 @@ INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, id
 );
 --- FIN Grupo de desarrollo 26960396
 
---- INICIO Grupo de desarrollo 35736730
-INSERT INTO apex_objeto_ci_pantalla (objeto_ci_proyecto, objeto_ci, pantalla, identificador, orden, etiqueta, descripcion, tip, imagen_recurso_origen, imagen, objetos, eventos, subclase, subclase_archivo, template, template_impresion, punto_montaje) VALUES (
-	'ctrl_asis', --objeto_ci_proyecto
-	'396000072', --objeto_ci
-	'35736730000009', --pantalla
-	'pant_seleccion3', --identificador
-	'7', --orden
-	'Listado por dependencia', --etiqueta
-	NULL, --descripcion
-	NULL, --tip
-	'apex', --imagen_recurso_origen
-	NULL, --imagen
-	NULL, --objetos
-	NULL, --eventos
-	NULL, --subclase
-	NULL, --subclase_archivo
-	NULL, --template
-	NULL, --template_impresion
-	'4000021'  --punto_montaje
-);
---- FIN Grupo de desarrollo 35736730
-
 ------------------------------------------------------------
 -- apex_objetos_pantalla
 ------------------------------------------------------------
@@ -647,20 +625,6 @@ INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id)
 	'396000072', --objeto_ci
 	'0', --orden
 	'26960396000014'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'ctrl_asis', --proyecto
-	'35736730000009', --pantalla
-	'396000072', --objeto_ci
-	'0', --orden
-	'35736730000035'  --dep_id
-);
-INSERT INTO apex_objetos_pantalla (proyecto, pantalla, objeto_ci, orden, dep_id) VALUES (
-	'ctrl_asis', --proyecto
-	'35736730000009', --pantalla
-	'396000072', --objeto_ci
-	'1', --orden
-	'35736730000036'  --dep_id
 );
 
 ------------------------------------------------------------
@@ -740,12 +704,6 @@ INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VAL
 );
 INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
 	'26960396000005', --pantalla
-	'396000072', --objeto_ci
-	'26960396000021', --evento_id
-	'ctrl_asis'  --proyecto
-);
-INSERT INTO apex_eventos_pantalla (pantalla, objeto_ci, evento_id, proyecto) VALUES (
-	'35736730000009', --pantalla
 	'396000072', --objeto_ci
 	'26960396000021', --evento_id
 	'ctrl_asis'  --proyecto
