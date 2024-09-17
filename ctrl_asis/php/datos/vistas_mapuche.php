@@ -723,6 +723,17 @@ class vistas_mapuche extends toba_datos_relacion
             return toba::db('ctrl_asis')->consultar($sql); 
 
         }
+        static function get_legajos_depencencia_nodo()
+		{
+           
+            $sql = "SELECT legajo, legajo||' - '||apellido||', '||nombre as descripcion 
+                    FROM reloj.agentes
+                    WHERE escalafon <>'DOCE'                  
+                    ORDER BY apellido, legajo ASC";
+
+            return toba::db('ctrl_asis')->consultar($sql); 
+
+        }
 
         static function get_legajos()
         {

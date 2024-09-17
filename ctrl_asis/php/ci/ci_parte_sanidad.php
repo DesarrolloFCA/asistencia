@@ -24,7 +24,7 @@ class ci_parte_sanidad extends toba_ci
 	function evt__filtro__filtrar($datos)
 	{
 		$datos['cod_depcia']=04;
-		ei_arbol($datos);
+		
 		$this->s__datos_filtro = $datos;
 	}
 
