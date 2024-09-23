@@ -120,7 +120,7 @@ class vistas_access extends toba_datos_relacion
 
 	foreach($array as $row){
 		if($row['fecha'] == '2017-04-04'){
-			ei_arbol($row);
+			
 			//break;
 		}
 	}
@@ -137,7 +137,7 @@ class vistas_access extends toba_datos_relacion
 				//logica sin entrada y salida ------------------------------------------------------
 				$resto_entrada = 0; //0 impar, 1 par  
 				foreach($array as $key=>$row){
-				// ei_arbol($row);
+				
 				//	if ($key%2==$resto_entrada){ //Entrada
 
 							//set entrada
@@ -230,7 +230,7 @@ class vistas_access extends toba_datos_relacion
 
 
 		}
-		//ei_arbol($datos);
+		
 		//-----------------------
 		if(isset($filtro['calcular_horas']) and count($datos) > 0){
 			foreach($datos as $key=>$dato){
@@ -337,7 +337,7 @@ class vistas_access extends toba_datos_relacion
 				}
 			}
 			
-			//ei_arbol($resultado);
+			
 			for ($i=0;$i<count($condicion);$i++){
 				$parte_sanidad = 0;
 				for ($j=0;$j<count($resultado);$j++){
@@ -359,7 +359,7 @@ class vistas_access extends toba_datos_relacion
 			$adsc= toba::db('ctrl_asis')->consultar($sql);
 			for ($i=0;$i<count($condicion);$i++){
 				$condicion[$i]['cod_depcia_destino']= 'No';
-				for($j=0;$j<count($ads);$j++){
+				for($j=0;$j<count($adsc);$j++){
 					if ($condicion[$i]['legajo']== $ads[$j]['legajo']){
 						$condicion[$i]['cod_depcia_destino']= $adsc[$j]['cod_depcia_destino'];
 
@@ -406,7 +406,6 @@ class vistas_access extends toba_datos_relacion
 					group by legajo"
 					 ;
 					$permiso = toba::db('ctrl_asis')->consultar($sql);
-		//ei_arbol($horas);
 		
 
 		for($i=0;$i<count($horas);$i++){
@@ -617,10 +616,9 @@ class vistas_access extends toba_datos_relacion
 	function get_lista_resumen($personas, $filtro=array())
 	{
 		$total = 0;
-		//ei_arbol(round((memory_get_usage()/(1024*1024)),2));
+		
 		$agentes =$personas;
-		//ei_arbol($filtro);
-		//ei_arbol($personas);	
+			
 		$fecha_desde = $filtro['fecha_desde'];
 		$fecha_hasta = $filtro['fecha_hasta'];
 		//if ($fecha_desde <> $fecha_hasta){
@@ -628,13 +626,13 @@ class vistas_access extends toba_datos_relacion
 		//$feriados = toba::tabla('conf_feriados')->suma_feriados($filtro);
 		//$cantidad_feriado = 3;
 		//$cantidad_feriado = count($feriados);
-		//ei_arbol($feriados);
+		
 		/*for($i=0;$i<$cantidad_feriado;$i++){
 			$fechaferiado = strtotime($feriados[$i]['fecha']);
 			$feriados[$i]['fecha']= date("Y-m-d", $fechaferiado);
 
 		}*/
-			//ei_arbol($feriados);
+			
 		
 			if (isset($filtro['basedatos'])) {
 				$filtro_marca['basedatos'] = $filtro['basedatos'];
@@ -644,7 +642,7 @@ class vistas_access extends toba_datos_relacion
 			/*
 			Bucle por agente, para calcular presentismo, y razones de los ausentes
 			*/
-			//ei_arbol(round((memory_get_usage()/(1024*1024)),2));
+			
 				foreach($agentes as $key=>$agente){
 
 				//seteamos valores en cero
@@ -720,24 +718,18 @@ class vistas_access extends toba_datos_relacion
 					$fechaInicio = strtotime($fecha_desde_local);
 					$fechaFin    = strtotime($fecha_hasta_local);
 					$agrupamiento = $agentes[$key]['escalafon'];
-					//ei_arbol($agentes)
-					//ei_arbol(($fechaFin -$fechaInicio)/86400);
+					
 					for($i=$fechaInicio; $i<=$fechaFin; $i+=86400){
 
 					$dia = date("Y-m-d", $i);
-					//$cantidad_feriado =toba::tabla('conf_feriados')->hay_feriado($dia) ;
-					//ei_arbol(toba::tabla('conf_feriados')->hay_feriado($dia));
-					//if(toba::tabla('conf_feriados')->hay_feriado($dia)){ //revisamos el día solo si no es feriado
-					//ei_arbol(round((memory_get_usage()/(1024*1024)),2));
+					
 					$v= toba::tabla('conf_feriados')->hay_feriado($dia,$agrupamiento);
-					//ei_arbol($v,$dia,$agrupamiento);
-					//ei_arbol($v);
+					
 					if ($v <> 0 ) {
 
 						$agentes[$key]['feriados']++;
 					
-				//	ei_arbol($agentes[$key]['feriados']);
-					//ei_arbol($cantidad_feriado);
+				
 
 					
 					//if ($cantidad_feriado < 0 ) {	
@@ -814,7 +806,7 @@ class vistas_access extends toba_datos_relacion
 					}//fin no es feriado
 					//$cantidad_feriado = -1;
 				}//fin recorremos todos los dias entre fecha_desde y fecha_hasta
-			//	ei_arbol($agentes);
+			
 
 				//Recorremos array de marcas para agregar casos especiales -------------------------------- 
 				$horas_totales = 0;
@@ -865,12 +857,7 @@ class vistas_access extends toba_datos_relacion
 
 						}
 					}
-					//ei_arbol($horas_totales);
-					/*$array_res = array('horas_totales'  => $horas_totales, 'prom_acum' => $prom_acum);
-					if($agente['legajo'] == '32011'){
-						ei_arbol($array_marcas,"Agente ".$agente['legajo']);     
-						ei_arbol($array_res," Res: Agente ".$agente['legajo']);  
-					} */                  
+				        
 				}
 
 				//-----------------------------------------------------------------------------------------------
@@ -899,7 +886,7 @@ class vistas_access extends toba_datos_relacion
 						$horas_diarias = '06:00';
 
 				}
-				//ei_arbol($prom_acum);
+				
 				$agentes[$key]['horas_requeridas_prom'] = $this->calculo_horas_req($horas_diarias,$dias);
 				if($agentes[$key]['laborables'] > 0){
 
@@ -930,7 +917,7 @@ class vistas_access extends toba_datos_relacion
 				//--------------------------------------------------------------------------------------------
 
 			}//fin bucle agentes
-		//	ei_arbol(round((memory_get_usage()/(1024*1024)),2));
+		
 		}
 
 		//} else
@@ -946,9 +933,7 @@ class vistas_access extends toba_datos_relacion
 			}
 			return $array;
 		}*/
-				//ei_arbol ($agentes);
 				
-			//	ei_arbol(round((memory_get_usage()/(1024*1024)),2));
 	if ( $filtro['fecha_desde'] ==	$filtro['fecha_hasta']) {
 					
 					if ($filtro['marcas']== 0) {
@@ -987,7 +972,7 @@ class vistas_access extends toba_datos_relacion
 		
 		$agente = $agentes[$key];
 		//------------------------
-		//ei_arbol($dia_ref, $dia_leyenda, $key, $agentes, $array_marcas, $contador_marcas, $dia, $filtro_marca);
+		
 		
 		$agentes[$key]['laborables']++;
 						
@@ -1011,7 +996,7 @@ class vistas_access extends toba_datos_relacion
 				'descripcion'  => 'Parte' # sanidad '.$parte['id_parte'].': '.$parte['motivo']
 					);
 			}elseif (isset($hay_feriado)){
-					//ei_arbol($hay_feriado);
+					
 					if ($hay_feriado == 'Todos'){
 						$agentes[$key]['feriados']++;
 						$agentes[$key]['laborables']--;	
@@ -1024,7 +1009,7 @@ class vistas_access extends toba_datos_relacion
 					}else {
 						$filtro_marca['badgenumber'] = $agente['legajo']; // NOTA: podriamos pasar legajo o dni, segun se use el badgenumber en los relojes
 						$filtro_marca['fecha']       = $dia; 
-					//ei_arbol($marcas);
+					
 						$marcas = $this->get_marcas($filtro_marca);
 			
 						if(count($marcas)>0){
@@ -1046,7 +1031,7 @@ class vistas_access extends toba_datos_relacion
 			$agentes[$key]['partes']++; 
 
 			$parte = toba::tabla('parte')->get_parte($id_parte);
-			//ei_arbol($parte);
+			
 			if($parte['id_motivo'] == 28){ // Permisos excepcionales, muestra las marcas pero no las cuenta
 
 				//---------------------------------------------------------------
@@ -1056,7 +1041,7 @@ class vistas_access extends toba_datos_relacion
 				$filtro_marca['fecha']       = $dia;                                    
 
 				$marcas = $this->get_marcas($filtro_marca);
-				//ei_arbol($marcas);
+				
 				if(count($marcas)>0){
 					
 					#$contador_marcas++;
@@ -1109,9 +1094,7 @@ class vistas_access extends toba_datos_relacion
 
 		}elseif(!empty($info_complementaria['id_info_complementaria'])){  
 
-			/*if($agente['legajo'] == '28983'){
-			ei_arbol($info_complementaria); 
-			}*/
+			
 
 			//seteamos marca complementaria
 			$marcas[0] = array(
@@ -1148,7 +1131,7 @@ class vistas_access extends toba_datos_relacion
 
 			$filtro_marca['badgenumber'] = $agente['legajo']; // NOTA: podriamos pasar legajo o dni, segun se use el badgenumber en los relojes
 			$filtro_marca['fecha']       = $dia; 
-			//ei_arbol($marcas);
+			
 			$marcas = $this->get_marcas($filtro_marca);
 			
 			if(count($marcas)>0){
