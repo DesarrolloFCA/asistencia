@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Informe Inasistencias - cuadro', --nombre
-	NULL, --titulo
+	'Informe Inasistencias', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -101,7 +101,7 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'nombre_catedra', --columnas_descripcion
 	'1', --pie_contar_filas
 	'0', --pie_mostrar_titular
-	'1', --pie_mostrar_titulos
+	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar
 	'1'  --modo_inicio_colapsado
 );

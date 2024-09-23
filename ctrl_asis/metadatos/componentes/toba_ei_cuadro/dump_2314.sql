@@ -21,7 +21,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Informes Comisión de Servicio - cuadro', --nombre
-	NULL, --titulo
+	'Informes Comisión de Servicio', --titulo
 	'0', --colapsable
 	NULL, --descripcion
 	NULL, --fuente_datos_proyecto
@@ -93,21 +93,6 @@ INSERT INTO apex_objeto_cuadro (objeto_cuadro_proyecto, objeto_cuadro, titulo, s
 INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
 	'ctrl_asis', --objeto_cuadro_proyecto
 	'2314', --objeto_cuadro
-	'30', --objeto_cuadro_cc
-	'pasada', --identificador
-	'Aprobadas', --descripcion
-	'2', --orden
-	'pasada', --columnas_id
-	'Comisiones aprobadas', --columnas_descripcion
-	'1', --pie_contar_filas
-	'0', --pie_mostrar_titular
-	'0', --pie_mostrar_titulos
-	NULL, --imp_paginar
-	'0'  --modo_inicio_colapsado
-);
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
-	'ctrl_asis', --objeto_cuadro_proyecto
-	'2314', --objeto_cuadro
 	'31', --objeto_cuadro_cc
 	'catedra', --identificador
 	'Catedra', --descripcion
@@ -115,25 +100,10 @@ INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto
 	'catedra', --columnas_id
 	'catedra', --columnas_descripcion
 	'1', --pie_contar_filas
-	'1', --pie_mostrar_titular
-	'1', --pie_mostrar_titulos
-	NULL, --imp_paginar
-	'1'  --modo_inicio_colapsado
-);
-INSERT INTO apex_objeto_cuadro_cc (objeto_cuadro_proyecto, objeto_cuadro, objeto_cuadro_cc, identificador, descripcion, orden, columnas_id, columnas_descripcion, pie_contar_filas, pie_mostrar_titular, pie_mostrar_titulos, imp_paginar, modo_inicio_colapsado) VALUES (
-	'ctrl_asis', --objeto_cuadro_proyecto
-	'2314', --objeto_cuadro
-	'32', --objeto_cuadro_cc
-	'fuera', --identificador
-	'Fuera de la provincia', --descripcion
-	'3', --orden
-	'fuera', --columnas_id
-	'fuera de la provincia', --columnas_descripcion
-	'1', --pie_contar_filas
 	'0', --pie_mostrar_titular
 	'0', --pie_mostrar_titulos
 	NULL, --imp_paginar
-	'0'  --modo_inicio_colapsado
+	'1'  --modo_inicio_colapsado
 );
 --- FIN Grupo de desarrollo 0
 
