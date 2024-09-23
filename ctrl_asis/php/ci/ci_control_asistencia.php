@@ -369,6 +369,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			$this ->s__datos = $todos;
 		//	
 			$todos=$this->dep('access')->get_lista_gral_mod ($todos,$filtro);
+			//ei_arbol($todos);
 			
 			$this->s__datos['total'] =count($this->s__datos); 
 			
