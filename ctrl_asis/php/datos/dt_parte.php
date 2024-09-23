@@ -275,7 +275,7 @@ class dt_parte extends toba_datos_tabla
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		}
-		//ei_arbol($sql);
+		
 		$datos = toba::db('ctrl_asis')->consultar($sql);
 		
 		
@@ -327,9 +327,9 @@ class dt_parte extends toba_datos_tabla
 
 		#$where[] = "t_p.fecha_alta >= ".quote($dia);
 			
-		$fecha_desde = $filtro['fecha_licencia'];
+		//$fecha_desde = $filtro['fecha_licencia'];
 		$fecha_hasta = $dia." 23:59:59";
-		$where[] = "t_p.fecha_inicio_licencia <= ".quote($fecha_hasta);
+		$where[] = "t_p.fecha_inicio_licencia = ".quote($fecha_hasta);
 
 		$sql = "SELECT t_p.id_parte, t_p.legajo, t_p.fecha_inicio_licencia,    t_p.dias
 				FROM parte as t_p    
@@ -340,6 +340,7 @@ class dt_parte extends toba_datos_tabla
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		}
+		
 
 
 		$datos = toba::db('sanidad')->consultar($sql);
@@ -347,7 +348,7 @@ class dt_parte extends toba_datos_tabla
 
 		if(count($datos)>0){
 
-			foreach($datos as $dato) {
+			/*foreach($datos as $dato) {
 
 				$dias_calculo = $dato['dias'] - 1;
 				$dias = '+'.$dias_calculo.' day';
@@ -358,15 +359,17 @@ class dt_parte extends toba_datos_tabla
 					/*if($legajo == '32009' and $dia == '2015-09-21'){
 						ei_arbol($dato,'parte');
 					}*/
-
-					return $dato['id_parte'];// true;
+					
+					//ei_arbol($datos);
+					return $datos[0]['id_parte'];// true;
 				//}else{
 				//    return false;
-				}    
+				}  else {  
+					return 0;   
 			}
-		}    
+		   
 
-		return false;    
+		 
 
 	}
 	

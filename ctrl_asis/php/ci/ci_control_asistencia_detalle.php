@@ -504,7 +504,7 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 			#return $agentes;
 			//-----------------------------------------------------------------------------------------------------------------
 
-
+			//ei_arbol($array_marcas);
 			$this->s__agente = $agente;
 			$this->s__fecha_desde = $fecha_desde;
 			$this->s__fecha_hasta = $fecha_hasta;
@@ -525,10 +525,11 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 			$agente['laborables']++;
 							
 			$id_parte = toba::tabla('parte')->tiene_parte($agente['legajo'], $dia);  
-
+			
 			$id_parte_sanidad = toba::tabla('parte')->tiene_parte_sanidad($agente['legajo'], $dia);
+			
 			$info_complementaria = toba::tabla('info_complementaria')->tiene_info_complementaria($agente['legajo'], $dia);                    
-			//ei_arbol($id_parte);
+			
 			if($id_parte_sanidad > 0){  
 				
 				$agente['partes_sanidad']++; 
@@ -559,6 +560,7 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 					$filtro_marca['fecha']       = $dia;                                    
 
 					$marcas = $this->dep('access')->get_marcas($filtro_marca);
+					
 					if(count($marcas)>0){
 						
 						#$contador_marcas++;
@@ -651,8 +653,8 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 				$filtro_marca['fecha']       = $dia;                                    
 
 				$marcas = $this->dep('access')->get_marcas($filtro_marca);
-
-				if(count($marcas)>0){
+				
+				if($marcas[0]['entrada'] <> null){
 					
 					$contador_marcas++;
 

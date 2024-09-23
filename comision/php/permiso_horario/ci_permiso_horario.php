@@ -8,8 +8,7 @@ class ci_permiso_horario extends comision_ci
 
 	function evt__formulario__alta($datos)
 	{
-		//ei_arbol ($datos);
-		//$this->dep('datos')->nueva_fila($datos);
+		
 
 		$anio = date('Y');
 		$legajo = $datos['legajo'];
