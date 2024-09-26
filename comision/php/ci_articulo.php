@@ -1467,7 +1467,7 @@ class ci_articulo extends comision_ci
 				WHERE legajo = $legajo ;";
 		$agente = toba::db('comision')->consultar($sql);*/
 
-		$this->$s__agentes = $legajo;
+		$this->s__agentes = $legajo;
 		$datos['legajo'] = $legajo[0]['legajo'];
 		$datos['apellido'] = $legajo[0]['apellido'];
 		$datos['nombre'] = $legajo[0]['nombre'];

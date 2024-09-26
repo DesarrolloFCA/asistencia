@@ -27,7 +27,7 @@ class dt_catedra extends comision_datos_tabla
 	}
 	
 	function autoridades ($legajo) {
-		//ei_arbol ($legajo);
+	
 		if ($legajo < 10 ) {
 			$sql = "SELECT   legajo , autoridad as legajo_aut
                     FROM reloj.legajos_autoridad 
