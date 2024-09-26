@@ -7,6 +7,7 @@ use Laminas\Validator\InArray;
 class ci_incio extends comision_ci
 {
 	protected $s__datos;
+	protected $s__cargo;
 	//-----------------------------------------------------------------------------------
 	//---- cuadro -----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -16,11 +17,15 @@ class ci_incio extends comision_ci
 		include("usuario_logueado.php");
 		$legajo = usuario_logueado::get_legajo(toba::usuario()->get_id());
 		$legajo = $legajo[0]['legajo'];
-		$sql = "SELECT max(ncargo) cant from reloj.agentes
+		$sql = "SELECT count(*) cant from reloj.agentes
 				WHERE legajo = $legajo ";
 		$cargos = toba::db('comision')->consultar_fila($sql);
-		//ei_arbol($cargos);
-		if ($cargos['cant'] == 0){
+		$this->s__cargo = $cargos['cant'];
+		/*$agente = $this->legajo_cargo();
+		$legajo = $agente['legajo'];*/
+		//ei_arbol($agente);
+
+		if ($cargos['cant'] == 1){
 		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
 		from reloj.vm_detalle_pres
 		where legajo = $legajo
@@ -101,7 +106,10 @@ class ci_incio extends comision_ci
 	}
 	function conf__cuadrograf(comision_ei_cuadro $cuadro){
 		$j = count($this->s__datos);
-		//ei_arbol ($this->s__datos);
+		
+		
+		$cargos = $this->s__cargo;
+		//ei_arbol ($agente);
 		for ($i = 0; $i < $j; $i++) {
 			if ($this->s__datos[$i]['estado'] <> 'Ausente Justificado'){
 			list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
@@ -114,8 +122,8 @@ class ci_incio extends comision_ci
 		$prom_hora = round(array_sum ($datos_1)/(count($datos_1)-1),2);
 				
 		list($hora, $minuto, $segundos) = explode(":", $this->s__datos[0]['horas_requeridad']);
-		$minut = intval($hora * 60) + (intval($minuto));
-		$horas_requ = round($minut / 60, 2);
+		$minut = (intval($hora * 60) + (intval($minuto)))/($cargos);
+		$horas_requ = round($minut / 60, 2) ;
 		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
 		$max = $horas_requ + 2;
 		$majorTicks = [];
@@ -194,6 +202,7 @@ class ci_incio extends comision_ci
 	{
 		require_once(toba_dir() . "/php/3ros/jpgraph/jpgraph.php");
 		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_bar.php');
+		$cargos = $this->s__cargo;
 
 		//$graficob->conf()->canvas__set_titulo("Barras!");
 		//$datos = array(13, 5, 3, 15, 10);
@@ -203,7 +212,7 @@ class ci_incio extends comision_ci
 			$minu = intval($horas * 60) + (intval($minutos));
 			$datos_1[] = round($minu / 60, 2);
 			list($hora, $minuto, $segundos) = explode(":", $this->s__datos[$i]['horas_requeridad']);
-			$minut = intval($hora * 60) + (intval($minuto));
+			$minut = (intval($hora * 60) + (intval($minuto)))/$cargos;
 			$datos_2[] = round($minut / 60, 2);
 			list($anio, $mes, $dia) = explode("-", $this->s__datos[$i]['fecha']);
 			$dias[] = $dia; //.'/' . $mes;
@@ -257,5 +266,6 @@ class ci_incio extends comision_ci
 		$canvas->legend->SetPos(0.83,0.15,'left','bottom');
 		$graficob->conf()->canvas__set($canvas);
 	}
+	
 
 }
