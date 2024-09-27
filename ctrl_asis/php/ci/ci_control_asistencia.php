@@ -112,30 +112,6 @@ class ci_control_asistencia extends ctrl_asis_ci
 			$_SESSION['basedatos']   = $this->s__datos_filtro['basedatos'];  
 			
 
-			/*if($_SESSION['dependencia']  == '64'){ // damsu
-
-			//---------------------------------------------------------------------------------------------------
-			
-			$agentes_total =  $this->dep('damsu')->get_agentes_control_asistencia($this->s__datos_filtro);
-			$total_registros = count($agentes_total);
-			unset($agentes_total);
-
-			$agentes =  $this->dep('damsu')->get_agentes_control_asistencia($this->s__datos_filtro, 'LIMIT '.$limit, 'OFFSET '.$offset);
-
-			//---------------------------------------------------------------------------------------------------
-
-			}else{*/
-			//---------------------------------------------------------------------------------------------------
-			
-			
-
-			//$agentes_total =  $this->dep('mapuche')->get_agentes_control_asistencia($this->s__datos_filtro);
-			//$total_registros = count($agentes_total);
-			//ei_arbol($agentes_total);
-			
-			
-			//unset($agentes_total);
-
 			$agentes =  $this->dep('mapuche')->get_agentes_control_asistencia($this->s__datos_filtro, 'LIMIT '.$limit, 'OFFSET '.$offset);
 			
 			//ei_arbol($agentes);
