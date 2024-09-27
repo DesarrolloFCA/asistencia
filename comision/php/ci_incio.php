@@ -24,20 +24,12 @@ class ci_incio extends comision_ci
 		/*$agente = $this->legajo_cargo();
 		$legajo = $agente['legajo'];*/
 		//ei_arbol($agente);
-
-		if ($cargos['cant'] == 1){
+			
 		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
 		from reloj.vm_detalle_pres
 		where legajo = $legajo
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
-		} else {
-		$sql= "SELECT fecha, hora_entrada, hora_salida, horas_trabajadas, SUM(horas_requeridad)::time AS horas_requeridad, 
-		 descripcion,estado
-		FROM  reloj.vm_detalle_pres
-		WHERE   legajo = $legajo
-		AND fecha >= CURRENT_DATE - INTERVAL '30 days'
-		GROUP BY fecha, hora_entrada, hora_salida, horas_trabajadas, descripcion,estado";
-		}
+		
 		$presentismo = toba::db('comision')->consultar($sql);
 		$sql1 = "SELECT 
 			id_parte,
@@ -108,7 +100,7 @@ class ci_incio extends comision_ci
 		$j = count($this->s__datos);
 		
 		
-		$cargos = $this->s__cargo;
+		
 		//ei_arbol ($agente);
 		for ($i = 0; $i < $j; $i++) {
 			if ($this->s__datos[$i]['estado'] <> 'Ausente Justificado'){
@@ -122,7 +114,7 @@ class ci_incio extends comision_ci
 		$prom_hora = round(array_sum ($datos_1)/(count($datos_1)-1),2);
 				
 		list($hora, $minuto, $segundos) = explode(":", $this->s__datos[0]['horas_requeridad']);
-		$minut = (intval($hora * 60) + (intval($minuto)))/($cargos);
+		$minut = intval($hora * 60) + intval($minuto);
 		$horas_requ = round($minut / 60, 2) ;
 		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
 		$max = $horas_requ + 2;
@@ -202,7 +194,7 @@ class ci_incio extends comision_ci
 	{
 		require_once(toba_dir() . "/php/3ros/jpgraph/jpgraph.php");
 		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_bar.php');
-		$cargos = $this->s__cargo;
+		
 
 		//$graficob->conf()->canvas__set_titulo("Barras!");
 		//$datos = array(13, 5, 3, 15, 10);
@@ -212,7 +204,7 @@ class ci_incio extends comision_ci
 			$minu = intval($horas * 60) + (intval($minutos));
 			$datos_1[] = round($minu / 60, 2);
 			list($hora, $minuto, $segundos) = explode(":", $this->s__datos[$i]['horas_requeridad']);
-			$minut = (intval($hora * 60) + (intval($minuto)))/$cargos;
+			$minut = intval($hora * 60) + intval($minuto);
 			$datos_2[] = round($minut / 60, 2);
 			list($anio, $mes, $dia) = explode("-", $this->s__datos[$i]['fecha']);
 			$dias[] = $dia; //.'/' . $mes;
