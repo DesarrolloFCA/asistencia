@@ -118,6 +118,7 @@ class ci_incio extends comision_ci
 		$horas_requ = round($minut / 60, 2) ;
 		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
 		$max = $horas_requ + 2;
+		ei_arbol($max,$horas_requ);
 		$majorTicks = [];
 			for ($i = 0; $i <= $max; $i++) {
 				$majorTicks[] = (string)$i;

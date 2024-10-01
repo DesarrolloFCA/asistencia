@@ -17,6 +17,8 @@
 		}
 		$lis =$lis.")";	
 	}
+	
+
 	$sql = "SELECT legajo, apellido, nombre, fec_nacim, fec_ingreso, dni, estado_civil, caracter, categoria,escalafon, agrupamiento, cod_depcia, cuil, mayor_dedicacion, funcion_critica, tipo_sexo, email, telefono, codc_dedic, cant_horas, subrogancia
 	FROM uncu.legajo
 	where cod_depcia = '04'";
@@ -101,9 +103,44 @@
 			VALUES ($legajo,'$pais','$provincia' ,'$cp', '$localidad' , '$manzana', '$zona', '$calle' ,  '$numero', '$piso' , '$oficina',' $telefono' , '$telefono_celular')";
 			toba::db('ctrl_asis')->ejecutar($sql);
 		}
+		//// Parte sanidad 
+		$sql = "SELECT legajo from reloj.agentes_mail";
+		$agentes= toba::db('ctrl_asis')->consultar($sql);
+		$cant= count($agentes);
+		$filtro_sanidad ['legajo'] = 'IN ( '; 
+		for ($i=0; $i< $cant;$i++) {
+			if ($agentes[$i]['legajo']> 10000)	{
 
-		//ei_arbol($sql);
-		 echo("Sincronización con éxito"); 
+				$filtro_sanidad['legajo'].=  $agentes[$i]['legajo'].' , ';
+			}
+						
+		}
+		
+		$filtro_sanidad ['legajo'].= '3 )';
+		
+		$filtro_sanidad['fecha_desde'] = date("2019-01-01", strtotime("-1 month"));
+    	$filtro_sanidad['fecha_hasta'] = date("2024-10-01");
+    	$filtro_sanidad['estado'] = 'C';
+   	 	$filtro_sanidad['motivos_sincronizacion'] = 1;
+		
+    	$partes_cerrados = toba::componente('vistas_sanidad')->get_listado($filtro_sanidad);
+		
+    	foreach ($partes_cerrados as $key => $parte_cerrado) {
+        toba::componente('dt_parte')->guardar_parte_desde_sanidad($parte_cerrado);
+    	}
+
+    	$filtro_sanidad['estado'] = 'E';
+    	$filtro_sanidad['eliminados'] = 1;
+    	$partes_eliminado = toba::componente('vistas_sanidad')->get_listado($filtro_sanidad);
+    	foreach ($partes_eliminado as $key => $parte_eliminado) {
+        toba::componente('dt_parte')->guardar_parte_desde_sanidad($parte_eliminado);
+   		 } 
+
+    echo("Sincronización con éxito");   
+	
+	////
+
+		
 	}
 
 

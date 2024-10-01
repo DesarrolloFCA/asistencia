@@ -2,11 +2,12 @@
     //Este procedimiento busca partes de sanidad cerrados y eliminados integrandolos a la base
     // de asistencia para su posterior uso en reportes
  
-    $filtro_sanidad['fecha_desde'] = date("Y-m-d", strtotime("-1 month"));
-    $filtro_sanidad['fecha_hasta'] = date("Y-m-d");
+    $filtro_sanidad['fecha_desde'] = date("2019-01-01", strtotime("-1 month"));
+    $filtro_sanidad['fecha_hasta'] = date("2024-10-01");
     $filtro_sanidad['estado'] = 'C';
     $filtro_sanidad['motivos_sincronizacion'] = 1;
     $partes_cerrados = toba::componente('vistas_sanidad')->get_listado($filtro_sanidad);
+    
     foreach ($partes_cerrados as $key => $parte_cerrado) {
         toba::componente('dt_parte')->guardar_parte_desde_sanidad($parte_cerrado);
     }

@@ -420,11 +420,15 @@ class dt_parte extends toba_datos_tabla
 	}
 
 	function get_parte_por_id_parte_sanidad($id_parte_sanidad){
-		$filtro['id_parte_sanidad'] = $id_parte_sanidad;
+		$sql = "SELECT parte from reloj.parte
+				where id_parte_sanidad = $id_parte_sanidad";
+		return toba::db('ctrl_asis')->consultar_fila($sql);
+
+		/*$filtro['id_parte_sanidad'] = $id_parte_sanidad;
 		$filtro['con_sanidad'] = 1;
 		$filtro["eliminados"] = 2; // filtra partes con cualquier estado actuals
 		$datos = $this->get_listado($filtro);
-		return $datos[0];
+		return $datos[0];*/
 	}
 
 	// Guarda partes de sanidad de acuerdo a la estructura interna de los partes de asistencia
@@ -456,7 +460,8 @@ class dt_parte extends toba_datos_tabla
 		$fecha_cierre = isset($parte_sanidad_datos['fecha_cierre']) ? $parte_sanidad_datos['fecha_cierre'] : $fecha_alta;
 		$usuario_cierre = $parte_sanidad_datos['usuario_cierre'];
 		$parte = $this->get_parte_por_id_parte_sanidad($id_parte_sanidad);
-		if (isset($parte) and $parte['id_parte'] != null){
+		
+		if (isset($parte)){
 			//actualizar parte
 			$sql = "UPDATE parte
 			SET edad = '$edad', legajo = '$legajo',estado = '$estado', fecha_inicio_licencia = '$fecha_inicio_licencia', 
@@ -466,6 +471,7 @@ class dt_parte extends toba_datos_tabla
 			id_motivo = '$id_motivo', id_decreto = '$id_decreto', id_articulo = '$id_articulo', 
 			tipo_sexo = '$tipo_sexo', observaciones_cierre = '$observaciones_cierre', fecha_cierre = '$fecha_cierre', usuario_cierre = '$usuario_cierre'
 			WHERE id_parte_sanidad = '$id_parte_sanidad'";
+			
 		}
 		else{
 			//crear parte
@@ -479,7 +485,7 @@ class dt_parte extends toba_datos_tabla
 				'$fecha_nacimiento', '$apellido', '$nombre', '$estado_civil', '$observaciones', 
 				'$id_decreto', '$id_motivo', '$id_articulo', '$tipo_sexo', '$observaciones_cierre', '$fecha_cierre', '$usuario_cierre')";
 			}
-		return toba::db('ctrl_asis')->consultar($sql);
+		 toba::db('ctrl_asis')->ejecutar($sql);
 	}
 
 	private function get_id_motivo_desde_sanidad($id_motivo_sanidad){
@@ -588,6 +594,7 @@ class dt_parte extends toba_datos_tabla
 		
 		return toba::db('ctrl_asis')->consultar_fila($sql);
 	}
+	
 
 }
 ?>
