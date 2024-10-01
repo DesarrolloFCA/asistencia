@@ -65,7 +65,8 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 						FROM uncu.legajo WHERE legajo = '".$claves_originales['legajo']."
 						'";*/
 			//$agente =  toba::db('mapuche')->consultar_fila($sql); 
-			$agente =  toba::db('ctrl_asis')->consultar_fila($sql); 			
+			$agente =  toba::db('ctrl_asis')->consultar_fila($sql); 	
+			//toba::tabla('parte')->cargar_partes_sanidad($agente['legajo'], $fecha_desde,$fecha_hasta);		
 			//ei_arbol($sql);
 			$horas_diarias= $agente['horas_diarias'];
 			$horas_esp = $this->dep('datos')->tabla('conf_jornada')->get_horas_diarias($claves_originales['legajo']);
@@ -538,13 +539,14 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 				$agente['justificados']++;
 
 				$parte = toba::tabla('parte')->get_parte_sanidad($id_parte_sanidad);
+				//ei_arbol($parte);
 				$array_marcas[] = array(
 					'legajo'    => $agente['legajo'],
 					'fecha'        => $dia,
 					'dia'       => $dia_leyenda,
 					'descripcion'  => 'Parte sanidad '.$parte['id_parte'].': '.$parte['motivo']
 						);
-
+					
 
 			}elseif($id_parte > 0){ 
 				$agente['partes']++; 

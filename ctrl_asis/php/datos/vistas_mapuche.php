@@ -311,25 +311,7 @@ class vistas_mapuche extends toba_datos_relacion
             if (!isset($filtro['basedatos']) or $filtro['basedatos']=='access') { 
                 //--- access ----------------------------------------------------------------
                 $sql = "SELECT *, 'access' as basedatos from reloj.vm_detalle_pres";
-                /*$sql = "SELECT DISTINCT U.Badgenumber as legajo
-                FROM dbo.CHECKINOUT as C, dbo.USERINFO as U
-                WHERE U.USERID = C.USERID 
-                 AND CONVERT(varchar(10), C.CHECKTIME, 120) >= '".$filtro['fecha_desde']."'
-                 AND CONVERT(varchar(10), C.CHECKTIME, 120) <= '".$filtro['fecha_hasta']."'
-                  ";
-
-                //-------------------------------------------
-                $conf_access = file_get_contents('../php/datos/conf_access.txt');
-                list($UID,$PWD,$DB,$HOST)=explode(',',$conf_access); //UID:sa,PWD:CitReloj2015,DB:access,HOST:CIT-RELOJ\ASISTENCIA
-                $connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-                $conn = sqlsrv_connect($HOST, $connectionInfo);
-
-                if( $conn === false ){
-                echo "No es posible conectarse al servidor.</br>";
-                die( print_r( sqlsrv_errors(), true));
-                }*/
-
-               // $result = sqlsrv_query($conn,$sql);
+                
                 
                 $result = toba::db('ctrl_asis')->consultar($sql);
 		
@@ -348,46 +330,7 @@ class vistas_mapuche extends toba_datos_relacion
                 //sqlsrv_close($conn);
             }
 
-            /*if (!isset($filtro['basedatos']) or $filtro['basedatos']=='hander') { 
-                //--- hander ----------------------------------------------------------------
-                $sql = "SELECT DISTINCT Convert(Int, Tarjeta) as legajo
-                FROM Fichada
-                WHERE CONVERT(varchar(10), FechaHora, 120) >= '".$filtro['fecha_desde']."'
-                 AND CONVERT(varchar(10), FechaHora, 120) <= '".$filtro['fecha_hasta']."'
-                  ";
-
-                //-------------------------------------------
-                //$connectionInfo = array( "UID"=>"citreloj", "PWD"=>"reloj2015", "Database"=>"Hander");
-                //$conn = sqlsrv_connect( '172.22.32.27\SQLESPRESS,2523', $connectionInfo);
-                $conf_hander = file_get_contents('../php/datos/conf_hander.txt');
-                list($UID,$PWD,$DB,$HOST)=explode(';',$conf_hander);
-                $connectionInfo = array( "UID"=>$UID, "PWD"=>$PWD, "Database"=>$DB);
-                $conn = sqlsrv_connect($HOST, $connectionInfo);
-
-                if( $conn === false ){
-                echo "No es posible conectarse al servidor.</br>";
-                die( print_r( sqlsrv_errors(), true));
-                }
-
-                $result = sqlsrv_query($conn,$sql);
-                
-                if( $result === false ){
-                echo "Error al ejecutar consulta.</br>";
-                die( print_r( sqlsrv_errors(), true));
-                }
-
-                while ($row = sqlsrv_fetch_array($result)) {
-                    if($primero){
-                        $primero = false; 
-                        $string_legajo = "'".$row['legajo']."'"; 
-                    }else{
-                        $string_legajo .= ",'".$row['legajo']."'"; 
-                    }
-                }
-
-                sqlsrv_free_stmt($result);
-                sqlsrv_close($conn);
-            }*/
+            
 
             //-------------------------------------------
             if(!empty($string_legajo)){
