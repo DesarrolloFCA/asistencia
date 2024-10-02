@@ -19,7 +19,11 @@ class usuario_logueado
 		where legajo = $legajo
 		and jefe = true";
 		$jefe = toba::db('comision')->consultar($sql);
-		if (count($jefe)> 0) {
+		$sql = "SELECT * FROM reloj.departamento_director
+		where legajo_dir = $legajo";
+		$director = toba::db('comision')->consultar($sql);
+
+		if (count($jefe)> 0 or count($director)> 0) {
 			return true;
 		}else{
 			return false;
