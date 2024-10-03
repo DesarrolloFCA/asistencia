@@ -26,6 +26,7 @@ class ci_comisiones extends comision_ci
 				and legajo <> $legajo
 		Order by catedra, fecha, legajo ";
 			$datos = toba::db('comision')->consultar($sql);
+			
 			$tot = count($datos);
 
 			for ($i = 0; $i < $tot; $i++) {
