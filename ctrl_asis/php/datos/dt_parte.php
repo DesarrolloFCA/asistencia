@@ -420,9 +420,12 @@ class dt_parte extends toba_datos_tabla
 	}
 
 	function get_parte_por_id_parte_sanidad($id_parte_sanidad){
-		$sql = "SELECT parte from reloj.parte
+		
+		$sql = "SELECT id_parte from reloj.parte
 				where id_parte_sanidad = $id_parte_sanidad";
 		return toba::db('ctrl_asis')->consultar_fila($sql);
+		
+		
 
 		/*$filtro['id_parte_sanidad'] = $id_parte_sanidad;
 		$filtro['con_sanidad'] = 1;
@@ -460,20 +463,9 @@ class dt_parte extends toba_datos_tabla
 		$fecha_cierre = isset($parte_sanidad_datos['fecha_cierre']) ? $parte_sanidad_datos['fecha_cierre'] : $fecha_alta;
 		$usuario_cierre = $parte_sanidad_datos['usuario_cierre'];
 		$parte = $this->get_parte_por_id_parte_sanidad($id_parte_sanidad);
-		
-		if (isset($parte)){
-			//actualizar parte
-			$sql = "UPDATE parte
-			SET edad = '$edad', legajo = '$legajo',estado = '$estado', fecha_inicio_licencia = '$fecha_inicio_licencia', 
-			dias = '$dias', cod_depcia = '$cod_depcia', domicilio = '$domicilio', localidad = '$localidad',
-			agrupamiento = '$agrupamiento',
-			fecha_nacimiento = '$fecha_nacimiento', apellido = '$apellido', nombre = '$nombre', estado_civil = '$estado_civil', observaciones = '$observaciones',
-			id_motivo = '$id_motivo', id_decreto = '$id_decreto', id_articulo = '$id_articulo', 
-			tipo_sexo = '$tipo_sexo', observaciones_cierre = '$observaciones_cierre', fecha_cierre = '$fecha_cierre', usuario_cierre = '$usuario_cierre'
-			WHERE id_parte_sanidad = '$id_parte_sanidad'";
+	
+		if ($parte == null){
 			
-		}
-		else{
 			//crear parte
 			$sql = "INSERT INTO parte (id_parte, id_parte_sanidad, legajo, edad, fecha_alta, 
 			usuario_alta, estado, fecha_inicio_licencia, dias,cod_depcia, domicilio, localidad, agrupamiento,
@@ -484,7 +476,21 @@ class dt_parte extends toba_datos_tabla
 				'$fecha_inicio_licencia', '$dias', '$cod_depcia', '$domicilio', '$localidad', '$agrupamiento',
 				'$fecha_nacimiento', '$apellido', '$nombre', '$estado_civil', '$observaciones', 
 				'$id_decreto', '$id_motivo', '$id_articulo', '$tipo_sexo', '$observaciones_cierre', '$fecha_cierre', '$usuario_cierre')";
+			
+			
+		}
+		else{
+			//actualizar parte
+			$sql = "UPDATE parte
+			SET edad = '$edad', legajo = '$legajo',estado = '$estado', fecha_inicio_licencia = '$fecha_inicio_licencia', 
+			dias = '$dias', cod_depcia = '$cod_depcia', domicilio = '$domicilio', localidad = '$localidad',
+			agrupamiento = '$agrupamiento',
+			fecha_nacimiento = '$fecha_nacimiento', apellido = '$apellido', nombre = '$nombre', estado_civil = '$estado_civil', observaciones = '$observaciones',
+			id_motivo = '$id_motivo', id_decreto = '$id_decreto', id_articulo = '$id_articulo', 
+			tipo_sexo = '$tipo_sexo', observaciones_cierre = '$observaciones_cierre', fecha_cierre = '$fecha_cierre', usuario_cierre = '$usuario_cierre'
+			WHERE id_parte_sanidad = '$id_parte_sanidad'";
 			}
+		
 		 toba::db('ctrl_asis')->ejecutar($sql);
 	}
 
