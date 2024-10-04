@@ -9,12 +9,22 @@ class vistas_sanidad extends toba_datos_relacion
 		$limit= 'Limit 100';
 
 		$where = array();
-		//$where[] = "t_p.cod_depcia = 04";
+		
+		if (isset($filtro['cod_depcia'])){
+			$where[] = "t_p.cod_depcia = '04'";
+
+		}
+		
 		if (isset($filtro['id_parte'])) {
 			$where[] = "t_p.id_parte = ".quote($filtro['id_parte']);
 		}
 		if (isset($filtro['legajo'])) {
-			$where[] = "t_p.legajo ".$filtro['legajo'];
+			if (strlen($filtro['legajo']) > 6 ){
+				$where[] = "t_p.legajo ".$filtro['legajo'];
+			 } else {
+				$where[] = "t_p.legajo =".quote($filtro['legajo']);
+			 }
+			
 		}
 		if (isset($filtro['fecha_alta'])) {
 			$where[] = "t_p.fecha_alta = ".quote($filtro['fecha_alta']);
