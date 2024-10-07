@@ -23,7 +23,7 @@ class ci_parte_sanidad extends toba_ci
 
 	function evt__filtro__filtrar($datos)
 	{
-		$datos['cod_depcia']=04;
+		$datos['cod_depcia']='04';
 		
 		$this->s__datos_filtro = $datos;
 	}
@@ -41,7 +41,7 @@ class ci_parte_sanidad extends toba_ci
 		$tamanio_pagina = $cuadro->get_tamanio_pagina();
 		$limit  = "LIMIT $tamanio_pagina";
 		$offset = "OFFSET ". ($cuadro->get_pagina_actual() - 1) * $tamanio_pagina;
-
+		$this->s__datos_filtro['cod_depcia'] ='04';
 		if (isset($this->s__datos_filtro)) {
 			$total_registros =  $this->dep('sanidad')->get_total_registros($this->s__datos_filtro);
 
