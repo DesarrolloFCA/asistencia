@@ -117,7 +117,8 @@ class ci_incio extends comision_ci
 		$minut = intval($hora * 60) + intval($minuto);
 		$horas_requ = round($minut / 60, 2) ;
 		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
-		$max = $horas_requ + 2;
+		$max = intval($horas_requ) + 2;
+		
 		$majorTicks = [];
 			for ($i = 0; $i <= $max; $i++) {
 				$majorTicks[] = (string)$i;
@@ -140,7 +141,7 @@ class ci_incio extends comision_ci
 
 		var options = {
           width: 400, height: 220,
-          greenFrom: $horas_requ, greenTo: $horas_requ + 2 ,
+          greenFrom: $horas_requ, greenTo: $max ,
           yellowFrom:$horas_requ - 1, yellowTo: $horas_requ,
 		  max : $max,
 		//  redFrom:80, redTo: 0
