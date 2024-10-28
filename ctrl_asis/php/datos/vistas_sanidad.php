@@ -6,7 +6,7 @@ class vistas_sanidad extends toba_datos_relacion
 	
 	function get_listado($filtro=array(), $limit = '', $offset = '')
 	{
-		$limit= 'Limit 100';
+		//$limit= 'Limit 100';
 
 		$where = array();
 		$where[] = "t_p.cod_depcia = 04";
@@ -167,6 +167,7 @@ class vistas_sanidad extends toba_datos_relacion
 		$limit $offset";
 		if (count($where)>0) {
 			$sql1 = sql_concatenar_where($sql1, $where);
+			ei_arbol($sql1);
 		}
 		
 		$datos = toba::db('sanidad')->consultar($sql1);
@@ -219,7 +220,8 @@ class vistas_sanidad extends toba_datos_relacion
 
 				}    
 				
-				($datos_nuevos);
+				
+
 
 				return $datos_nuevos;
 			//}
