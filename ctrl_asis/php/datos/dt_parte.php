@@ -463,7 +463,7 @@ class dt_parte extends toba_datos_tabla
 		$fecha_cierre = isset($parte_sanidad_datos['fecha_cierre']) ? $parte_sanidad_datos['fecha_cierre'] : $fecha_alta;
 		$usuario_cierre = $parte_sanidad_datos['usuario_cierre'];
 		$parte = $this->get_parte_por_id_parte_sanidad($id_parte_sanidad);
-	
+	//	ei_arbol($id_parte_sanidad);
 		if ($parte == null){
 			
 			//crear parte

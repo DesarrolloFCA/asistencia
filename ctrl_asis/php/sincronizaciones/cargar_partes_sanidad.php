@@ -7,7 +7,7 @@
     $filtro_sanidad['estado'] = 'C';
     $filtro_sanidad['motivos_sincronizacion'] = 1;
     $partes_cerrados = toba::componente('vistas_sanidad')->get_listado($filtro_sanidad);
-    
+    //ei_arbol($partes_cerrado);
     foreach ($partes_cerrados as $key => $parte_cerrado) {
         toba::componente('dt_parte')->guardar_parte_desde_sanidad($parte_cerrado);
     }

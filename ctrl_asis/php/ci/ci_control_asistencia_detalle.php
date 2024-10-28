@@ -540,12 +540,14 @@ class ci_control_asistencia_detalle extends ctrl_asis_ci
 
 				$parte = toba::tabla('parte')->get_parte_sanidad($id_parte_sanidad);
 				//ei_arbol($parte);
+				
 				$array_marcas[] = array(
 					'legajo'    => $agente['legajo'],
 					'fecha'        => $dia,
 					'dia'       => $dia_leyenda,
 					'descripcion'  => 'Parte sanidad '.$parte['id_parte'].': '.$parte['motivo']
 						);
+					
 					
 
 			}elseif($id_parte > 0){ 
