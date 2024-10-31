@@ -43,7 +43,7 @@ class ci_articulo extends comision_ci
 
 
 
-				if ($depto[0]['id_departamento'] < 10 or ($depto[0]['id_departamento'] == 12) or ($depto[0]['id_departamento'] == 11)) {
+			
 					$sql = "SELECT t_l.legajo, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fecha_ingreso, t_l.estado_civil, 
 						t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, 
 						t_l.fec_nacim as fecha_nacimiento, t_l.cuil,
@@ -52,22 +52,9 @@ class ci_articulo extends comision_ci
 						t_d.telefono_celular
 						FROM reloj.agentes  as t_l LEFT JOIN reloj.domicilio as t_d
 						ON t_l.legajo = t_d.legajo
-						WHERE t_l.legajo = $legajo
-						--AND cod_depcia = '04'
-						AND escalafon<> 'NODO'";
-				} else {
-					$sql = "SELECT t_l.legajo, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fecha_ingreso, t_l.estado_civil, 
-						t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, 
-						t_l.fec_nacim as fecha_nacimiento, t_l.cuil,
-						t_d.pais, t_d.provincia, t_d.codigo_postal, t_d.localidad, t_d.manzana, 
-						t_d.zona_paraje_barrio, t_d.calle, t_d.numero, t_d.piso, t_d.dpto_oficina, t_d.telefono, t_l.tipo_sexo,
-						t_d.telefono_celular
-						FROM reloj.agentes  as t_l LEFT JOIN reloj.domicilio as t_d
-						ON t_l.legajo = t_d.legajo
-						WHERE t_l.legajo = $legajo
-					--	AND cod_depcia = '04'
-						AND escalafon in ('NODO','AUTO')  ";
-				}
+						WHERE t_l.legajo = $legajo";
+					
+				
 			} else {
 
 				$ya_tomo = 0;
@@ -75,8 +62,7 @@ class ci_articulo extends comision_ci
 				WHERE id_catedra = $id_catedra";
 				$depto = toba::db('comision')->consultar($sql);
 
-				//ei_arbol($depto);
-				if ($depto[0]['id_departamento'] < 10 or ($depto[0]['id_departamento'] == 12) or ($depto[0]['id_departamento'] == 11)) {
+			
 					$sql = "SELECT t_l.legajo, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fecha_ingreso, t_l.estado_civil, 
 						t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, 
 						t_l.fec_nacim as fecha_nacimiento, t_l.cuil,
@@ -85,25 +71,11 @@ class ci_articulo extends comision_ci
 						t_d.telefono_celular
 						FROM reloj.agentes  as t_l LEFT JOIN reloj.domicilio as t_d
 						ON t_l.legajo = t_d.legajo
-						WHERE t_l.legajo = $legajo
-					--	AND cod_depcia = '04'
-						AND escalafon<> 'NODO'";
-				} else {
-					$sql = "SELECT t_l.legajo, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fecha_ingreso, t_l.estado_civil, 
-						t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, 
-						t_l.fec_nacim as fecha_nacimiento, t_l.cuil,
-						t_d.pais, t_d.provincia, t_d.codigo_postal, t_d.localidad, t_d.manzana, 
-						t_d.zona_paraje_barrio, t_d.calle, t_d.numero, t_d.piso, t_d.dpto_oficina, t_d.telefono, t_l.tipo_sexo,
-						t_d.telefono_celular
-						FROM reloj.agentes  as t_l LEFT JOIN reloj.domicilio as t_d
-						ON t_l.legajo = t_d.legajo
-						WHERE t_l.legajo = $legajo
-						--AND cod_depcia = '04'
-						AND escalafon in ('NODO','AUTO')";
-				}
+						WHERE t_l.legajo = $legajo";
+				
 			}
 
-			if ($legajo == 26010 or $legajo == 20738 or $legajo == 18615 or $legajo == 34394 or 
+		/*	if ($legajo == 26010 or $legajo == 20738 or $legajo == 18615 or $legajo == 34394 or 
 			$legajo == 33672 or $legajo == 18176 or $legajo == 25549 or $legajo == 20738 or $legajo == 17052) {
 				$sql = "SELECT t_l.legajo, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fecha_ingreso, t_l.estado_civil, 
 						t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, 
@@ -114,8 +86,7 @@ class ci_articulo extends comision_ci
 						FROM reloj.agentes  as t_l LEFT JOIN reloj.domicilio as t_d
 						ON t_l.legajo = t_d.legajo
 						WHERE t_l.legajo = $legajo";
-			}
-
+			}  */
 
 			$agente = toba::db('comision')->consultar($sql);
 
