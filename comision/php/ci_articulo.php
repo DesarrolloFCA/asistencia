@@ -75,8 +75,13 @@ class ci_articulo extends comision_ci
 				
 			}
 
+<<<<<<< HEAD
 		/*	if ($legajo == 26010 or $legajo == 20738 or $legajo == 18615 or $legajo == 34394 or 
 			$legajo == 33672 or $legajo == 18176 or $legajo == 25549 or $legajo == 20738 or $legajo == 17052) {
+=======
+			if ($legajo == 26010 or $legajo == 20738 or $legajo == 18615 or $legajo == 34394 or 
+			$legajo == 33672 or $legajo == 18176 or $legajo == 25549 or $legajo == 20738 or $legajo == 17052 or $legajo = 29002 ) {
+>>>>>>> 546b9066ed24d0801ca18a35adce6f4ed1d61984
 				$sql = "SELECT t_l.legajo, t_l.apellido, t_l.nombre, t_l.fec_nacim, t_l.dni, t_l.fecha_ingreso, t_l.estado_civil, 
 						t_l.caracter, t_l.categoria, t_l.agrupamiento, t_l.escalafon, 
 						t_l.fec_nacim as fecha_nacimiento, t_l.cuil,
