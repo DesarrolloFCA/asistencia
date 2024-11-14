@@ -131,8 +131,7 @@ class ci_comisiones extends comision_ci
 							legajo, edad, id_comision ,fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, $id_comision,'$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
-							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,	  $id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
-					ei_arbol($sql);		
+							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,	  $id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";	
 					$resultado = toba::db('comision')->ejecutar($sql);
 
 					if ($resultado) {
