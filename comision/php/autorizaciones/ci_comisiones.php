@@ -88,8 +88,10 @@ class ci_comisiones extends comision_ci
 				where legajo=$legajo";
 				$correo = toba::db('comision')->consultar($sql);
 				
+				
+				
 				if ($estado == 'C' && ($autoriza_sup)) {
-
+					
 					$edad = $this->dep('mapuche')->get_edad($legajo, null);
 					$direccion = $this->dep('mapuche')->get_datos_agente($filtro);
 					$domicilio = $direccion[0]['calle'] || ' ' || $direccion[0]['numero'];
@@ -107,7 +109,7 @@ class ci_comisiones extends comision_ci
 					$dia = date_diff($fecha_inicio1, $hoy);
 					$dias = $dia->format('%a') + 1;
 					
-					$fecha_ini = $datos[$i]['fecha'];
+					$fecha_ini = date("Y-m-d", strtotime($datos[$i]['fecha']));
 					
 					$estado_civil = $direccion[0]['estado_civil'];
 					if ($agrupamiento == 'DOCE') {
@@ -121,7 +123,7 @@ class ci_comisiones extends comision_ci
 					}
 					$sexo = $this->dep('mapuche')->get_tipo_sexo($legajo, null);
 					$sql= "UPDATE reloj.comision
-						SET observaciones = '$obs', pasada = true ,autoriza_sup = $autoriza_sup, autoriza_aut = false
+						SET observaciones = '$obs', pasada = true ,autoriza_sup = CAST('$autoriza_sup' as BOOLEAN), autoriza_aut = false
 						WHERE id_comision = $id";
 						toba::db('ctrl_asis')->ejecutar($sql);	
 
@@ -130,6 +132,7 @@ class ci_comisiones extends comision_ci
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, $id_comision,'$fecha_alta', '$usuario_alta', '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', '$fecha_nacimiento',
 							'$apellido', '$nombre',    '$estado_civil', '$obs', $id_decreto,  $id_motivo,	  $id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
+					ei_arbol($sql);		
 					$resultado = toba::db('comision')->ejecutar($sql);
 
 					if ($resultado) {
@@ -141,7 +144,7 @@ class ci_comisiones extends comision_ci
 
 
 				} else  if ($estado == 'C' && !$autoriza_sup ) {
-
+					
 					$this->enviar_correos($correo[0]['email'], false);
 				}
 				if ($estado == 'C') {
