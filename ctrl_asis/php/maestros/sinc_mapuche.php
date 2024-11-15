@@ -118,8 +118,8 @@
 		
 		$filtro_sanidad ['legajo'].= '3 )';
 		
-		$filtro_sanidad['fecha_desde'] = date("2019-01-01", strtotime("-1 month"));
-    	$filtro_sanidad['fecha_hasta'] = date("2024-10-01");
+		$filtro_sanidad['fecha_desde'] = date("2024-01-01", strtotime("-1 month"));
+    	$filtro_sanidad['fecha_hasta'] = date('Y-m-d');
     	$filtro_sanidad['estado'] = 'C';
    	 	$filtro_sanidad['motivos_sincronizacion'] = 1;
 		
