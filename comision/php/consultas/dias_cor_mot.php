@@ -45,19 +45,21 @@ function dias_motivos_legajo($legajo,$id_motivo)
 			$anio_anterior = $anio - 1;
 			//ei_arbol($id_motivo);
 			$dias_tomados=0;
-			/*$sql = "SELECT dias FROM reloj.parte 
-			WHERE  legajo = $legajo
-			and id_motivo = 35
-			and fecha_inicio_licencia between '$anio_anterior-12-01' AND '$anio-11-30'" ;
-			$partes = toba::db('comision')->consultar($sql);*/
-			//ei_arbol($partes);
+			
 			$partes = toba::tabla('parte')->get_listado($filtro);
 					if(count($partes)>0){
 						foreach ($partes as $parte) {
 							$dias_tomados = $dias_tomados + $parte['dias'];
 						}
 					}
-				//ei_arbol($dias_tomados);	
+			$filtro['id_motivo'] = 57;
+			$partes_pendientes = toba::tabla('parte')->get_listado($filtro);
+					if(count($partes_pendientes)>0){
+						foreach ($partes as $parte) {
+							$dias_tomados = $dias_tomados + $partes_pendientes['dias'];
+						}
+					}
+			
 			
 			$sql= "SELECT min(dias) dias_v from reloj.antiguedad
 				where legajo = $legajo";
