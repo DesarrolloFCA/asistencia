@@ -124,7 +124,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 			if (isset($this->s__datos_filtro['basedatos'])) {
 			$filtro['basedatos'] = $this->s__datos_filtro['basedatos'];
 			}
-			switch (isset($this->s__datos_filtro['agrup'])){
+			/*switch (isset($this->s__datos_filtro['agrup'])){
 				case 'ppa': $agru= 'NODO'	;
 				break;
 				case 'doc' : $agru = 'DOCE';
@@ -132,10 +132,11 @@ class ci_control_asistencia extends ctrl_asis_ci
 			default :
 				$agru = 'Todos';
 				break;
-			}
+			}*/
 			
-			//ei_arbol($agru);
+			
 			if(count($agentes)>0){
+			
 			for ($i=0;$i<count($agentes);$i++){
 				$leg[] = $agentes[$i]['legajo'];
 				
@@ -144,21 +145,15 @@ class ci_control_asistencia extends ctrl_asis_ci
 
 			}
 		
-			//ei_arbol($agentes);
-			unset($agentes);
-
 			
+			//unset($agentes);
 			$fecha_desde = $this->s__datos_filtro['fecha_desde'];
 			$fecha_hasta = $this->s__datos_filtro['fecha_hasta'];
 			$inicio = new DateTime($fecha_desde);
 			$fin = new DateTime($fecha_hasta);
-			$sql = "SELECT count(*) feriado from reloj.vw_feriados
-				where generate_series BETWEEN " . "'$fecha_desde'"." AND "."'$fecha_hasta'"."
-				AND agru IN ( "."'$agru'".",'Todos')
-				and numero not in (0,6)";
-				$feriado = toba::db('ctrl_asis')->consultar($sql);
-
-			$feriados = $feriado[0]['feriado'];
+			
+			
+			
 			$laborables = 0;
 			
 				// Iterar sobre el rango de fechas
@@ -175,14 +170,29 @@ class ci_control_asistencia extends ctrl_asis_ci
 				}
 				
 			$todo = $this->s__datos;
+			
+			for($i=0;$i<count($todo);$i++) {
+				$agru =$todo[$i]['escalafon'];
+				$sql = "SELECT count(*) feriado from reloj.vw_feriados
+				where generate_series BETWEEN " . "'$fecha_desde'"." AND "."'$fecha_hasta'"."
+				AND agru IN ( "."'$agru'".",'Todos')
+				and numero not in (0,6)";
+				$feriado = toba::db('ctrl_asis')->consultar($sql);
+
+				$todo[$i]['feriados'] = $feriado[0]['feriado'];
+				$todo[$i]['laborables'] =$laborables - $todo[$i]['feriados'];
+			}
+			
+
+				
 			$total_registros = count($todo);
-						$dias_laborales = $laborables - $feriados;
+					
 				
 						
 			for ($i = 0;$i<$total_registros;$i++){
 					
-				$todo[$i]['feriados'] = $feriados;
-				$todo[$i]['laborables'] = $dias_laborales; 
+				//$todo[$i]['feriados'] = $feriados;
+				//$todo[$i]['laborables'] = $dias_laborales; 
 				$todo[$i]['ausentes'] = $todo[$i]['laborables']-$todo[$i]['presentes'];
 				$todo[$i]['justificados'] = $todo[$i]['partes'] + $todo[$i]['partes_sanidad'];
 				//$todo[$i]['injustificados'] = $todo[$i]['ausentes'] - $todo[$i]['justificados'];

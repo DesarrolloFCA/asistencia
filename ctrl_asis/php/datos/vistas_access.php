@@ -283,7 +283,7 @@ class vistas_access extends toba_datos_relacion
 		GROUP BY legajo, ayn, agrupamiento, categoria, nombre_catedra,cuil,escalafon,caracter";
 		$sql= sql_concatenar_where($sql, $where);
 		$condicion = toba::db('ctrl_asis')->consultar($sql); 
-		
+		//ei_arbol($condicion);
 		for ($i=0;$i<count($condicion);$i++){
 			for ($j=0;$j<count($horas);$j++){
 				
