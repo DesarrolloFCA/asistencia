@@ -28,13 +28,15 @@ class ci_vacaciones extends ctrl_asis_ci
 	{
 		$formula = $this->s__formula;
 		//ei_arbol($formula);
-		//ei_arbol($datos);
+		
 		$usuario_cierre   =  toba::usuario()->get_id();
 		$fecha_cierre = date("Y-m-d H:i:s");
 		$cant = count($datos);
 
 		for ($i = 0; $i < $cant; $i++) {
+			if (isset($datos[$i]['legajo'])  ){
 
+			
 			if ($datos[$i]['apex_ei_analisis_fila'] == 'M') {
 
 				$id_inasistencia = $formula[$i]['id_inasistencia'];
@@ -136,7 +138,8 @@ class ci_vacaciones extends ctrl_asis_ci
 					}
 				}
 			}
-		}
+				}
+				}
 		//$this->dep('datos')->procesar_filas($datos);
 	}
 
