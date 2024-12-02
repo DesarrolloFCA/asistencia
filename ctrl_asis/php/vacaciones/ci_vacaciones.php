@@ -34,9 +34,9 @@ class ci_vacaciones extends ctrl_asis_ci
 		$cant = count($datos);
 
 		for ($i = 0; $i < $cant; $i++) {
-			if (isset($datos[$i]['legajo'])  ){
-
 			
+			if ($datos[$i]['legajo']<>null  ){
+				
 			if ($datos[$i]['apex_ei_analisis_fila'] == 'M') {
 
 				$id_inasistencia = $formula[$i]['id_inasistencia'];
