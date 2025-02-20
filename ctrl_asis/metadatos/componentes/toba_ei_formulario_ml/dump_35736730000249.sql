@@ -138,7 +138,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'legajo', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'legajo', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'2', --orden
 	'Legajo', --etiqueta
@@ -300,7 +300,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha_inicio', --identificador
 	'ef_editable_fecha', --elemento_formulario
 	'fecha_inicio', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'5', --orden
 	'Fecha Inicio Licencia', --etiqueta
@@ -381,7 +381,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'fecha_fin', --identificador
 	'ef_editable_fecha', --elemento_formulario
 	'fecha_fin', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'6', --orden
 	'Fecha de Regreso', --etiqueta
@@ -462,7 +462,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'anio', --identificador
 	'ef_editable_numero', --elemento_formulario
 	'anio', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'7', --orden
 	'Año', --etiqueta
@@ -867,7 +867,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	'id_motivo', --identificador
 	'ef_combo', --elemento_formulario
 	'id_motivo', --columnas
-	'1', --obligatorio
+	'0', --obligatorio
 	'0', --oculto_relaja_obligatorio
 	'13', --orden
 	'Id Motivo', --etiqueta

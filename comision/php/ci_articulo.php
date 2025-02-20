@@ -1383,7 +1383,7 @@ class ci_articulo extends comision_ci
 		  {
 		  	if (this.ef('id_motivo').get_estado() == '35'){
 		  		var ano = new Date().getFullYear();
-		  		const inicio = new Date(ano, 12, 23);
+		  		const inicio = new Date(ano, 11, 23);
 		  		this.ef('fecha_inicio_licencia').set_fecha(inicio);
 		  		this.ef('observaciones').set_estado('');
 		  		this.ef('observaciones').desactivar();
