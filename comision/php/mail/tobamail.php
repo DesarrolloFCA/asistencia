@@ -27,7 +27,7 @@ class TobaMail
     protected $reply_to;
     protected $confirmacion;
     protected $nombre_conf = null;
-    protected $config_file = '/usr/local/proyectos/comision/php/mail/config_smtp.json';
+    protected $config_file = '/usr/local/proyectos/comision/php/mail/formularios_asistencia.json';
 
     /**
      * Constructor de la clase
@@ -101,7 +101,7 @@ class TobaMail
         try {
             $mail->isSMTP();
             //$mail->SMTPDebug = $this->datos_configuracion['debug'];
-            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->Host = $this->datos_configuracion['host'];
             $mail->Port = $this->datos_configuracion['port'];
             //$mail->SMTPSecure = $this->datos_configuracion['security'];
@@ -164,9 +164,9 @@ class TobaMail
             }
 
             $mail->send();
-            //echo "Message has been sent successfully";
+            echo "Message has been sent successfully";
         } catch (Exception $e) {
-            //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
 
