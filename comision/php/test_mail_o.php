@@ -21,7 +21,7 @@ $mail->setHtml(true); // Si el cuerpo es HTML
 //$mail->setConfirmacion('confirm@example.com'); // Dirección de confirmación
 
 // Agregar un archivo adjunto
-//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
+$mail->agregarAdjunto('informe_mensual_legajo_26010.pdf', '/usr/local/proyectos/comision/php/reporte/informe_mensual_legajo_26010.pdf');
 
 try {
     $mail->ejecutar();

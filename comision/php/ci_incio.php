@@ -24,106 +24,44 @@ class ci_incio extends comision_ci
 		/*$agente = $this->legajo_cargo();
 		$legajo = $agente['legajo'];*/
 		//ei_arbol($agente);
-			
-		$sql= "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
+
+		$sql = "SELECT Distinct  fecha,hora_entrada,hora_salida,horas_trabajadas,horas_requeridad,descripcion,estado 
 		from reloj.vm_detalle_pres
 		where legajo = $legajo
 		and fecha >= CURRENT_DATE - INTERVAL '30 days'";
-		
+
 		$presentismo = toba::db('comision')->consultar($sql);
-		$sql1 = "SELECT 
-			id_parte,
-			estado,
-			fecha_inicio_licencia,
-			dias
-			
-		FROM
-			sanidad.parte as t_p    
-			
-		where t_p.legajo = $legajo
-		and fecha_inicio_licencia >= CURRENT_DATE - INTERVAL '30 days'
-		and estado = 'C'
-
-		";
-		
-			$sanidad = toba::db('mapuche')->consultar($sql1);
-			
-			$j= count($sanidad);
-			if ($j>0){
-				for ($i=0;$i<$j;$i++){
-					
-					if ($sanidad[$i]['dias'] > 1) {
-						$k=$sanidad[$i]['dias'];
-						for ($h=0;$h<$k;$h++){
-							$fecha = new DateTime($sanidad[$i]['fecha_inicio_licencia']);
-							$fecha->modify('+'.$h.' day');
-							$sani[]=$fecha->format('Y-m-d');
-							
-						}
-						
-					}else {
-					
-					$sani[] = $sanidad[$i]['fecha_inicio_licencia'];
-					}
-				}
-		
-			}
-				
-		$j = count($presentismo);
-		$sql = "SELECT   CONCAT(FLOOR(EXTRACT(EPOCH FROM (b.h2 - b.h1)) / 3600),':',LPAD(EXTRACT(MINUTE FROM (b.h2 - b.h1))::TEXT, 2, '0') )
-		 AS horas_corregidas from reloj.agentes a
-				left join reloj.conf_jornada b on a.legajo = b.legajo
-				where EXTRACT(EPOCH FROM (b.h2 - b.h1)) / 3600 < 6
-				AND a.legajo = $legajo
-				and (fecha_fin >= CURRENT_DATE - INTERVAL '30 days' or fecha_fin is null);";	
-		$jornada = 	toba::db('comision')->consultar($sql);
-		if (count($jornada)>0){
-			for($i=0;$i<$j;$i++){
-				$presentismo[$i]['horas_requeridad']=$jornada[0]['horas_corregidas'];
-			}
-		}	
-		
-		for ($i=0;$i<$j;$i++)	{
-			if(in_array($presentismo[$i]['fecha'],$sani )){
-				$presentismo[$i]['estado'] = 'Ausente Justificado';
-				$presentismo [$i]['descripcion'] = 'Parte Sanidad';
-
-			}
-			
-		}
-		
-	//	ei_arbol($presentismo);
 		$this->s__datos = $presentismo;
-				$cuadro->set_datos($presentismo);
+		$cuadro->set_datos($presentismo);
 	}
-	function conf__cuadrograf(comision_ei_cuadro $cuadro){
+	function conf__cuadrograf(comision_ei_cuadro $cuadro)
+	{
 		$j = count($this->s__datos);
-		
-		
-		
+
+
+
 		//ei_arbol ($agente);
 		for ($i = 0; $i < $j; $i++) {
-			if ($this->s__datos[$i]['estado'] <> 'Ausente Justificado'){
-			list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
-			$minu = intval($horas * 60) + (intval($minutos));
-			$datos_1[] = round($minu / 60, 2);
+			if ($this->s__datos[$i]['estado'] <> 'Ausente Justificado') {
+				list($horas, $minutos, $segundos) = explode(":", $this->s__datos[$i]['horas_trabajadas']);
+				$minu = intval($horas * 60) + (intval($minutos));
+				$datos_1[] = round($minu / 60, 2);
 			}
-			
 		}
-		
-		$prom_hora = round(array_sum ($datos_1)/(count($datos_1)-1),2);
-				
+
+		$prom_hora = round(array_sum($datos_1) / (count($datos_1) - 1), 2);
+
 		list($hora, $minuto, $segundos) = explode(":", $this->s__datos[0]['horas_requeridad']);
 		$minut = intval($hora * 60) + intval($minuto);
-		$horas_requ = round($minut / 60, 2) ;
+		$horas_requ = round($minut / 60, 2);
 		//$horas_cumpli = ($prom_hora/$horas_requ) *100;
 		$max = intval($horas_requ) + 2;
-		
+
 		$majorTicks = [];
-			for ($i = 0; $i <= $max; $i++) {
-				$majorTicks[] = (string)$i;
-			}
-			$majorTicksJson = json_encode($majorTicks);
+		for ($i = 0; $i <= $max; $i++) {
+			$majorTicks[] = (string)$i;
+		}
+		$majorTicksJson = json_encode($majorTicks);
 
 		$script = "<html>
   <head>
@@ -176,17 +114,16 @@ class ci_incio extends comision_ci
   <body>
     <div id='chart_div' style='width: 400px; height: 220px;'></div>
   </body>
-</html>"
-;
-	$datos[0]['grafico'] = $script;
-	$cuadro->set_datos($datos);
+</html>";
+		$datos[0]['grafico'] = $script;
+		$cuadro->set_datos($datos);
 	}
 
 	//-----------------------------------------------------------------------------------
 	//---- grafico ----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
 
-	
+
 	//-----------------------------------------------------------------------------------
 	//---- grafico barras----------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -195,7 +132,7 @@ class ci_incio extends comision_ci
 	{
 		require_once(toba_dir() . "/php/3ros/jpgraph/jpgraph.php");
 		require_once(toba_dir() . '/php/3ros/jpgraph/jpgraph_bar.php');
-		
+
 
 		//$graficob->conf()->canvas__set_titulo("Barras!");
 		//$datos = array(13, 5, 3, 15, 10);
@@ -213,7 +150,7 @@ class ci_incio extends comision_ci
 
 		$canvas = new Graph(900, 400);
 		$canvas->SetScale("textlin", 0, 12);
-		
+
 		$majorTickPositions = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12); // Posiciones principales
 		$canvas->yaxis->SetTickPositions($majorTickPositions);
 		// Configurar los títulos
@@ -249,16 +186,14 @@ class ci_incio extends comision_ci
 
 
 		//$canvas->legend->SetLayout(LEGEND_HOR);
-		
+
 		//$canvas->legend->SetFont(FF_ARIAL, FS_NORMAL, 12);
 		//$canvas->legend->SetFillColor('white');
-		
+
 		//$canvas->legend->SetColumns(1);
 		//$canvas->graph_theme = null;
 		$canvas->SetFrame(true, 'black', 1);
-		$canvas->legend->SetPos(0.83,0.15,'left','bottom');
+		$canvas->legend->SetPos(0.83, 0.15, 'left', 'bottom');
 		$graficob->conf()->canvas__set($canvas);
 	}
-	
-
 }
