@@ -46,7 +46,7 @@ class TobaMail
         $this->cc = $ccopia;
         //$this->config_file = $config_file;
     }
-   
+
     /**
      * Permite modificar en runtime el nombre de la configuracion smtp a ser utilizada
      * @param string $nombre_conf  Nombre de la configuracion en el archivo smtp.ini
@@ -71,7 +71,7 @@ class TobaMail
         $config_data = file_get_contents($config_path);
         return json_decode($config_data, true);
     }
-    
+
 
     /**
      * Servicio que dispara el envio del email
@@ -89,7 +89,7 @@ class TobaMail
         //SMTP needs accurate times, and the PHP time zone MUST be set
         //This should be done in your php.ini, but this is how to do it if you don't have access to that
         date_default_timezone_set('Etc/UTC');
-        
+
         // Se obtiene la configuración del SMTP
         $this->datos_configuracion = $this->getDatosConfiguracionSmtp();
         if (!isset($this->desde)) {
@@ -101,7 +101,7 @@ class TobaMail
         try {
             $mail->isSMTP();
             //$mail->SMTPDebug = $this->datos_configuracion['debug'];
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->Host = $this->datos_configuracion['host'];
             $mail->Port = $this->datos_configuracion['port'];
             //$mail->SMTPSecure = $this->datos_configuracion['security'];
@@ -164,7 +164,7 @@ class TobaMail
             }
 
             $mail->send();
-            echo "Message has been sent successfully";
+            //echo "Message has been sent successfully";
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
@@ -209,7 +209,7 @@ class TobaMail
             'type' => $tipo
         ];
     }
-     /**
+    /**
      * Obtiene la ruta absoluta del archivo de configuración
      * @param string $path Ruta relativa del archivo
      * @return string Ruta absoluta del archivo
@@ -223,4 +223,3 @@ class TobaMail
         return __DIR__ . DIRECTORY_SEPARATOR . $path;
     }
 }
-?>
