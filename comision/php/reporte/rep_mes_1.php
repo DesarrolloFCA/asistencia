@@ -123,7 +123,7 @@ $fecha_inicio = $fecha_inicio->format('Y-m-d');
 $legajos_prueba = [26010,25734]; // Reemplaza estos valores con los legajos que deseas probar
 
 foreach ($agentes as $agente) {
-    if (in_array($agente['legajo'], $legajos_prueba)) {
+    //if (in_array($agente['legajo'], $legajos_prueba)) {
         $legajo = $agente['legajo'];
         $email = $agente['email'];
         $nombre = trim($agente['nombre']);
@@ -135,5 +135,5 @@ foreach ($agentes as $agente) {
         } else {
             echo "No se encontraron datos para el legajo $legajo.<br>";
         }
-    }
+    //}
 }

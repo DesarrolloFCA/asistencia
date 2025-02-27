@@ -5,24 +5,30 @@
 CREATE MATERIALIZED VIEW IF NOT EXISTS reloj.vm_detalle_pres
 TABLESPACE pg_default
 AS
- SELECT DISTINCT a.legajo,
-    (TRIM(BOTH FROM d.apellido) || ', '::text) || TRIM(BOTH FROM d.nombre) AS ayn,
+ SELECT DISTINCT d.cuil,
+    a.legajo,
+    (btrim(d.apellido::text) || ', '::text) || btrim(d.nombre::text) AS ayn,
     d.agrupamiento,
     d.categoria,
+    d.escalafon,
+    d.caracter,
     b.nombre_catedra,
     a.fecha,
+    h.horas_requeridad,
+    LEAST(a.hora_entrada::time with time zone, g.horario) AS hora_entrada,
+    GREATEST(a.hora_salida::time with time zone, g.horario_fin) AS hora_salida,
+    GREATEST(a.hora_salida, g.horario_fin::time without time zone) - LEAST(a.hora_entrada, g.horario::time without time zone) AS horas_trabajadas,
         CASE
-            WHEN SUBSTRING(d.categoria FROM 4 FOR 4) = '1'::text THEN '05:36'::text
-            WHEN SUBSTRING(d.categoria FROM 4 FOR 4) = '2'::text THEN '02:48'::text
-            WHEN SUBSTRING(d.categoria FROM 4 FOR 4) = '3'::text THEN '01:24'::text
-            ELSE '06:00'::text
-        END::time without time zone AS horas_requeridad,
-    a.hora_entrada,
-    a.hora_salida,
-    a.horas_trabajadas,
-    c.descripcion,
+            WHEN a.id_motivo = 58 THEN 'Permiso Horario'::character varying
+            WHEN a.legajo = g.legajo AND a.fecha = g.fecha THEN ((('Comision de servicio desde '::text || g.horario) || ' hasta '::text) || g.horario_fin)::character varying
+            ELSE c.descripcion
+        END AS descripcion,
         CASE
-            WHEN f.feriado IS NOT NULL THEN f.feriado::text
+            WHEN a.id_parte_sanidad IS NOT NULL THEN 'Asuente Justicado Sanidad'::text
+            WHEN a.id_motivo = 56 THEN 'Presente'::text
+            WHEN a.id_motivo IS NOT NULL THEN 'Ausente Justicado'::text
+            WHEN g.fecha IS NOT NULL THEN 'Presente'::text
+            WHEN f.feriado IS NOT NULL THEN 'Feriado'::text
             ELSE a.condicion
         END AS estado
    FROM reloj.vm_pres_aus_jus a
@@ -30,8 +36,11 @@ AS
      LEFT JOIN reloj.catedras b ON e.id_catedra = b.id_catedra
      LEFT JOIN reloj.motivo c ON a.id_motivo = c.id_motivo
      LEFT JOIN reloj.agentes d ON a.legajo = d.legajo
-     LEFT JOIN reloj.vw_feriados f ON a.fecha = f.generate_series AND (f.agru = 'Todos'::text OR f.agru = d.agrupamiento::text)
+     LEFT JOIN reloj.vw_feriados f ON a.fecha = f.generate_series AND (f.agru = 'Todos'::text OR f.agru = d.escalafon::text)
+     LEFT JOIN reloj.vw_comision g ON a.legajo = g.legajo AND a.fecha = g.fecha
+     LEFT JOIN reloj.vw_agentes_horas_req h ON a.legajo = h.legajo
   WHERE d.nombre IS NOT NULL
+  GROUP BY d.cuil, a.legajo, d.apellido, d.nombre, d.agrupamiento, d.categoria, d.escalafon, d.caracter, b.nombre_catedra, a.fecha, a.hora_salida, a.hora_entrada, g.horario, g.horario_fin, a.id_motivo, c.descripcion, f.feriado, a.condicion, a.id_parte_sanidad, g.legajo, g.fecha, h.horas_requeridad
   ORDER BY a.legajo, a.fecha DESC
 WITH DATA;
 
