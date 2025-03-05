@@ -78,9 +78,11 @@ function enviar_email($email, $filename)
     require_once('../mail/tobamail.php');
 
     $asunto = 'Informe de Horas Trabajadas';
-    $cuerpo = 'ver adjunto';
+    $cuerpo = 'El siguiente informa adjunto contiene un resumes de las horas trabajadas en el mes anterior.';
+    $cuerpo .= 'Saludos cordiales.';   
+    $cuerpo .= 'Direccion de personal - Facultad de Ciencias Agrarias';
 
-    $mail = new TobaMail($email, $asunto, $cuerpo, 'lfontes@fca.uncu.edu.ar', '');
+    $mail = new TobaMail($email, $asunto, $cuerpo, 'formualrios_asistencia@fca.uncu.edu.ar', '');
     $mail->agregarAdjunto('nombre_archivo.pdf', $filename);
 
     try {
@@ -123,7 +125,7 @@ $fecha_inicio = $fecha_inicio->format('Y-m-d');
 $legajos_prueba = [26010,25734]; // Reemplaza estos valores con los legajos que deseas probar
 
 foreach ($agentes as $agente) {
-    if (in_array($agente['legajo'], $legajos_prueba)) {
+   // if (in_array($agente['legajo'], $legajos_prueba)) {
         $legajo = $agente['legajo'];
         $email = $agente['email'];
         $nombre = trim($agente['nombre']);
@@ -135,5 +137,5 @@ foreach ($agentes as $agente) {
         } else {
             echo "No se encontraron datos para el legajo $legajo.<br>";
         }
-    }
+    //}
 }
