@@ -200,7 +200,7 @@ class ci_comisiones extends comision_ci
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
 
 		try {
-			$mail->ejecutar();
+			//$mail->ejecutar();
 			echo "Correo enviado exitosamente.<br>";
 		} catch (Exception $e) {
 			echo "Error al enviar el correo: " . $e->getMessage();

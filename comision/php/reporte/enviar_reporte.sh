@@ -14,6 +14,6 @@ cd /usr/local/proyectos/comision/php/reporte
 log_file="reporte_$(date +'%Y%m%d_%H%M%S').log"
 
 # Ejecutar el comando y redirigir stdout y stderr al archivo de log
-toba item ejecutar -t 24234000011 >> "$log_file" 2>&1
+toba cd p >> "$log_file" 2>&1
 
 #exit

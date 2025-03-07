@@ -87,9 +87,9 @@ function enviar_email($email, $filename)
         $mail->ejecutar();
         echo "Correo enviado exitosamente a $email.<br>";
         // Eliminar el archivo PDF después de enviar el correo
-        if (file_exists($filename)) {
-            unlink($filename);
-        }
+        //if (file_exists($filename)) {
+        //    unlink($filename);
+       // }
     } catch (Exception $e) {
         echo "Error al enviar el correo a $email: " . $e->getMessage();
     }
