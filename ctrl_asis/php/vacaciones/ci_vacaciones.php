@@ -87,19 +87,72 @@ class ci_vacaciones extends ctrl_asis_ci
 							$dias = $dia->format('%a') + 1;
 							//ei_arbol($dias);
 							$fecha_ini = $datos[$i]['fecha_inicio'];
-
-
 							$estado_civil = $direccion[0]['estado_civil'];
 							$id_decreto = $formula[$i]['id_decreto'];
 							$id_motivo = $datos[$i]['id_motivo'];
 							$id_articulo = $formula[$i]['id_articulo'];
 							$sexo = $this->dep('mapuche')->get_tipo_sexo($legajo, null);
 							if ($id_motivo != 30) {
+								
+								$dato_antiguedad = toba::tabla('antiguedad')->get_antiguedad($legajo);
+								$bandera = 1;
+			//ei_arbol($dato_antiguedad);
+								if(!empty($dato_antiguedad['fecha_ingreso'])){
+									$agente['fec_ingreso'] = $dato_antiguedad['fecha_ingreso'];
+								}else{
+						
+									$sql = "SELECT fec_ingreso FROM reloj.agentes WHERE legajo = '$legajo' and agrupamiento = '$agrupamiento' ";
+									$agente =  toba::db('ctrl_asis')->consultar_fila($sql); 
+								}    
+								if(!empty($agente['fec_ingreso'])){
+
+									//obtenemos dias por antiguedad ------------------------------
+									$antiguedad = toba::tabla('vacaciones_antiguedad')->get_array_antiguedad($agente['fec_ingreso'],$agrupamiento, $anio);
+									$dias_tomados = 0;
+									list($anio_lic,$mes_lic,$dia_lic) = explode('-', $fecha_inicio_licencia);
+									$filtro['legajo']      = $legajo;
+									$filtro['id_motivo']   = $id_motivo;
+									$filtro['agrupamiento']= $agrupamiento;
+									$filtro['parte_anio']  = $datos_correo['anio']; //ano seleccionado por vacaciones
+									$filtro['anio']        = $datos_correo['anio'];
+									$anio=$datos_correo['anio'];
+									$partes = toba::tabla('parte')->get_listado_vaca($filtro);
+									$dias_tomados =0;
+									if ($partes[0]['sum']>0){
+										$dias_tomados = $partes[0]['sum'];
+									}
+									$vacaciones_restantes = toba::tabla('vacaciones_restantes')->get_dias($legajo, $datos_correo['anio'], $agrupamiento);
+										
+									if (is_null($vacaciones_restantes)){
+
+										$dias_disponibles = $dato_antiguedad['dias'] - $dias_tomados ; //$antiguedad['dias'] - $dias_tomados;
+										$dias_restantes = $dias_disponibles - $dias;
+										if ($dias_restantes >0){
+											$sql = "INSERT INTO reloj.vacaciones_restantes(
+											legajo, cod_depcia, agrupamiento, anio, dias)
+											VALUES ($legajo, 4, '$agrupamiento', $anio, $dias_restantes);";
+
+										}
+									}else{
+										$dias_disponibles = $vacaciones_restantes - $dias_tomados;
+										$dias_restantes = $dias_disponibles - $dias;
+										if ($dias_restantes >0){
+											$sql = "UPDATE reloj.vacaciones_restantes
+													SET  dias=$dias_restantes
+													WHERE legajo = $legajo and agrupamiento = '$agrupamiento' and anio = $anio ;";
+										} else {
+											$sql = "DELETE FROM reloj.vacaciones_restantes
+													WHERE legajo = $legajo and agrupamiento = '$agrupamiento' and anio = $anio ; ";
+										}
+									}
+									
+								toba::db('ctrl_asis')->ejecutar($sql); 
 								$sql = "INSERT INTO reloj.parte(
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
 							apellido, nombre, estado_civil, observaciones, id_decreto, id_motivo, id_articulo, tipo_sexo,usuario_cierre,fecha_cierre)
 							VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
 							'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,$id_articulo,'$sexo','$usuario_cierre','$fecha_cierre');";
+
 							} else {
 								$sql = "INSERT INTO reloj.parte(
 							legajo, edad, fecha_alta, usuario_alta, estado, fecha_inicio_licencia, dias, cod_depcia, domicilio, localidad, agrupamiento, fecha_nacimiento,
@@ -107,7 +160,9 @@ class ci_vacaciones extends ctrl_asis_ci
 						VALUES ($legajo, $edad, '$fecha_alta', $usuario_alta, '$estado', '$fecha_ini', $dias, '04', '$domicilio', '$localidad', '$agrupamiento', 
 						'$fecha_nacimiento','$apellido', '$nombre',    '$estado_civil', '$observaciones', $id_decreto, $id_motivo,'$sexo','$usuario_cierre','$fecha_cierre');";
 							}
+						}	
 							toba::db('ctrl_asis')->ejecutar($sql);
+
 
 
 
@@ -129,11 +184,7 @@ class ci_vacaciones extends ctrl_asis_ci
 
 						toba::db('ctrl_asis')->ejecutar($sql);
 
-						if ($id_motivo == 35) {
-							$sql = "DELETE FROM reloj.vacaciones_restantes
-							where legajo = $legajo;";
-							toba::db('ctrl_asis')->ejecutar($sql);
-						}
+						
 						$this->enviar_correos($correo[0]['email'], $datos[$i]['aprobado']);	
 					}
 				}
