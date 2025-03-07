@@ -1,4 +1,6 @@
 #!/bin/bash
+# Establecer la zona horaria
+export TZ='America/Argentina/Buenos_Aires'
 
 #proceso parametrizado
 export TOBA_DIR='/usr/local/proyectos/comision/vendor/siu-toba/framework'

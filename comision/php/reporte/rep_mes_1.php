@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Argentina/Buenos_Aires');
 require '../../vendor/autoload.php'; // Asegúrate de tener FPDF y PHPMailer instalados
 
 use setasign\Fpdi\Fpdi;
@@ -78,20 +78,22 @@ function enviar_email($email, $filename)
     require_once('../mail/tobamail.php');
 
     $asunto = 'Informe de Horas Trabajadas';
-    $cuerpo = 'El siguiente informa adjunto contiene un resumes de las horas trabajadas en el mes anterior.';
-    $cuerpo .= 'Saludos cordiales.';   
+    $cuerpo = 'El informe adjunto contiene un resumen de sus horas trabajadas.<br>';
+    $cuerpo .= 'Si tiene Comisiones de Servicio no autorizadas, consulte con su Jefe inmediato superior.<br>';
+    $cuerpo .='Por otras consultas comunicarse con asistencia@fca.uncu.edu.ar <br><br>';
+    $cuerpo .= 'Saludos cordiales.<br>';   
     $cuerpo .= 'Direccion de personal - Facultad de Ciencias Agrarias';
 
-    $mail = new TobaMail($email, $asunto, $cuerpo, 'formualrios_asistencia@fca.uncu.edu.ar', '');
+    $mail = new TobaMail($email, $asunto, $cuerpo, 'formularios_asistencia@fca.uncu.edu.ar', '');
     $mail->agregarAdjunto('nombre_archivo.pdf', $filename);
 
     try {
         $mail->ejecutar();
         echo "Correo enviado exitosamente a $email.<br>";
         // Eliminar el archivo PDF después de enviar el correo
-        if (file_exists($filename)) {
-            unlink($filename);
-        }
+        //   if (file_exists($filename)) {
+        //      unlink($filename);
+        //   }
     } catch (Exception $e) {
         echo "Error al enviar el correo a $email: " . $e->getMessage();
     }
@@ -101,7 +103,9 @@ function obtener_legajos_agentes()
 {
 
     // Consulta para obtener los legajos y correos de los agentes
-    $sql = "SELECT legajo, email, nombre, apellido FROM reloj.agentes";
+    $sql = "SELECT a.legajo,  apellido, nombre, agentes_mail.email as email
+	            FROM reloj.agentes a
+	            join reloj.agentes_mail on agentes_mail.legajo=a.legajo";
     $agentes = toba::db('comision')->consultar($sql);
 
     return $agentes;
@@ -122,10 +126,10 @@ $fecha_fin = $fecha_fin->format('Y-m-d');
 $fecha_inicio = $fecha_inicio->format('Y-m-d');
 
 // Filtrar solo algunos legajos específicos para pruebas
-$legajos_prueba = [26010,25734]; // Reemplaza estos valores con los legajos que deseas probar
+$legajos_prueba = [31831]; // Reemplaza estos valores con los legajos que deseas probar
 
 foreach ($agentes as $agente) {
-   // if (in_array($agente['legajo'], $legajos_prueba)) {
+    if (in_array($agente['legajo'], $legajos_prueba)) {
         $legajo = $agente['legajo'];
         $email = $agente['email'];
         $nombre = trim($agente['nombre']);
@@ -133,9 +137,10 @@ foreach ($agentes as $agente) {
         $datos = obtener_datos_mensuales($legajo, $fecha_inicio, $fecha_fin);
         if (!empty($datos)) {
             $filename = generar_pdf($datos, $legajo, $nombre, $apellido, $fecha_inicio, $fecha_fin);
-            //enviar_email($email, $filename);
+            enviar_email($email, $filename);
+            date_default_timezone_set('America/Argentina/Buenos_Aires');
         } else {
             echo "No se encontraron datos para el legajo $legajo.<br>";
         }
-    //}
+   }
 }
