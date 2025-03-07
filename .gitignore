@@ -7,3 +7,5 @@ comision/instalacion/i__desarrollo/p__toba_editor/logs/
 comision/php/mail/config_smtp.json
 credenciales_de_google.txt
 TO-DO.txt
+*.log
+comision/php/reporte/enviar_reporte.sh

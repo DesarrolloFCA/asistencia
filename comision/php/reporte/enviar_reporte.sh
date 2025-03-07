@@ -1,4 +1,6 @@
 #!/bin/bash
+# Establecer la zona horaria
+export TZ='America/Argentina/Buenos_Aires'
 
 #proceso parametrizado
 export TOBA_DIR='/usr/local/proyectos/comision/vendor/siu-toba/framework'
@@ -14,6 +16,6 @@ cd /usr/local/proyectos/comision/php/reporte
 log_file="reporte_$(date +'%Y%m%d_%H%M%S').log"
 
 # Ejecutar el comando y redirigir stdout y stderr al archivo de log
-toba cd p >> "$log_file" 2>&1
+toba item ejecutar -t 1842000005 >> "$log_file" 2>&1
 
 #exit
