@@ -44,8 +44,8 @@ class ci_comisiones_de_servicio extends ctrl_asis_ci
 		
 		$sql = "SELECT  *  FROM reloj.comision
 					WHERE (pasada is null or pasada = false)
-					order by fecha desc
-					";
+					order by fecha asc
+					LIMIT 100";
 		if (count($where)>0) {
 			$sql = sql_concatenar_where($sql, $where);
 		}	
