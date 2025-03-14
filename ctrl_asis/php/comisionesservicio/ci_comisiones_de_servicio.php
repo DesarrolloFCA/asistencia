@@ -107,12 +107,12 @@ class ci_comisiones_de_servicio extends ctrl_asis_ci
 		
 
 				if ($estado=='C'&& (($autoriza_sup == 1 )|| ($autoriza_aut == 1))) {	 
-						if ($autoriza_aut == 1){
+						if ($autoriza_aut === 1){
 							$autoridad_aut= true;
 						} else {
 							$autoridad_aut= false;
 						}
-						if ($autoriza_sup == 1) {
+						if ($autoriza_sup === 1) {
 							$superior_aut =true;
 						} else {
 							$superior_aut =false;
