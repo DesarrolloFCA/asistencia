@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
 	'35736730000002', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_ci_permisohorario', --subclase
+	'permiso_horario/form_ci_permisohorario.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Permiso Horario - formulario', --nombre

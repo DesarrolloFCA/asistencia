@@ -16,8 +16,8 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	'toba', --clase_proyecto
 	'toba_ei_formulario', --clase
 	'35736730000002', --punto_montaje
-	NULL, --subclase
-	NULL, --subclase_archivo
+	'form_parte', --subclase
+	'form_parte.php', --subclase_archivo
 	NULL, --objeto_categoria_proyecto
 	NULL, --objeto_categoria
 	'Justificación Inasistencias - formulario', --nombre
