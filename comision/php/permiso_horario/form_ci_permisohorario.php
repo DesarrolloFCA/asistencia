@@ -15,7 +15,8 @@ class form_ci_permisohorario extends comision_ei_formulario
 		//alert('Entrando en la funci�n de validaci�n de fecha'); // Alerta para confirmar la ejecuci�n
 				var fechaAlta = this.ef('fecha').fecha(); // Obtiene la fecha ingresada
 				var fechaActual = new Date();
-
+				fechaAlta.setHours(0, 0, 0, 0);
+				fechaActual.setHours(0, 0, 0, 0);
 				// Asegúrate de convertir fechaAlta a un objeto Date si no lo es ya
 				if (fechaAlta < fechaActual) {
     				this.ef('fecha').set_error('La fecha  debe ser mayor o igual a la fecha actual.');
