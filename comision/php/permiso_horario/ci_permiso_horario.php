@@ -105,7 +105,7 @@ class ci_permiso_horario extends comision_ci
 				</table>';
 
 
-		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, '');
+		$mail = new TobaMail($correo, $asunto, $cuerpo, $desde, ['asistencia@fca.uncu.edu.ar']);
 
 		// Agregar un archivo adjunto
 		//$mail->agregarAdjunto('nombre_archivo.pdf', '/ruta/al/archivo/nombre_archivo.pdf');
