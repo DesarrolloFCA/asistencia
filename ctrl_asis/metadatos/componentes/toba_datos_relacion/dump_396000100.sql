@@ -25,7 +25,7 @@ INSERT INTO apex_objeto (proyecto, objeto, anterior, identificador, reflexivo, c
 	NULL, --colapsable
 	NULL, --descripcion
 	'ctrl_asis', --fuente_datos_proyecto
-	'ctrl_asis', --fuente_datos
+	'toba', --fuente_datos
 	NULL, --solicitud_registrar
 	NULL, --solicitud_obj_obs_tipo
 	NULL, --solicitud_obj_observacion
