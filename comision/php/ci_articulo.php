@@ -634,7 +634,7 @@ class ci_articulo extends comision_ci
 							$sql = "SELECT count(*) cant FROM reloj.parte 
 								where id_motivo = $id_motivo
 								and legajo = $legajo
-								and anio = $anio";
+								and DATE_PART('year', fecha_inicio_licencia) = $anio";
 							$tomo = toba::db('comision')->consultar($sql);
 							if ($tomo[0]['cant'] <= 12) {
 								if ($datos['certificado'] <> null) {
@@ -659,7 +659,7 @@ class ci_articulo extends comision_ci
 							$sql = "SELECT count(*) cant FROM reloj.parte 
 								where id_motivo = $id_motivo
 								and legajo = $legajo
-								and anio = $anio";
+								and DATE_PART('year', fecha_inicio_licencia)= $anio";
 							$tomo = toba::db('comision')->consultar($sql);
 							if ($tomo[0]['cant'] <= 5) {
 								if ($datos['certificado'] <> null) {
@@ -786,7 +786,7 @@ class ci_articulo extends comision_ci
 							$sql = "SELECT count(*) cant FROM reloj.parte 
 								where id_motivo = $id_motivo
 								and legajo = $legajo
-								and anio = $anio";
+								and DATE_PART('year', fecha_inicio_licencia) = $anio";
 							$tomo = toba::db('comision')->consultar($sql);
 							if ($tomo[0]['cant'] <= 28) {
 								if ($datos['certificado'] <> null) {
