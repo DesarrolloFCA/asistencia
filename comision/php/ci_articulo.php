@@ -811,7 +811,7 @@ class ci_articulo extends comision_ci
 							$sql = "SELECT count(*) cant FROM reloj.parte 
 								where id_motivo = $id_motivo
 								and legajo = $legajo
-								and anio = $anio";
+								and DATE_PART('year', fecha_inicio_licencia) = $anio";
 							$tomo = toba::db('comision')->consultar($sql);
 							if ($tomo[0]['cant'] <= 3) {
 								if ($datos['certificado'] <> null) {
@@ -985,9 +985,9 @@ class ci_articulo extends comision_ci
 												if ($id_motivo <> 35) {
 
 													$sql = "SELECT id_inasistencia FROM reloj.inasistencias
-								WHERE legajo = $usuario_alta
-								AND fecha_inicio = '$fecha_inicio'
-								AND id_motivo = $id_motivo ;";
+													WHERE legajo = $usuario_alta
+													AND fecha_inicio = '$fecha_inicio'
+													AND id_motivo = $id_motivo ;";
 													$ina = toba::db('comision')->consultar($sql);
 													$id_inasistencia = $ina[0]['id_inasistencia'];
 													$ruta = 'C:/Toba/proyectos/ctrl_asis/www/certificados/';
