@@ -359,7 +359,9 @@ class ci_articulo extends comision_ci
 
 						$agente[$i]['articulo'] = null;
 						if ($datos['certificado'] <> null) {
-							$dias = 10;
+							$dias = $this->contarDiasCorridosParaHabiles($datos['fecha_inicio_licencia'],10);
+							
+							//$dias = 10;
 							$agente[$i]['articulo'] = 28;
 							$agente[$i]['id_decreto'] = 4;
 							$bandera = true;
@@ -736,7 +738,8 @@ class ci_articulo extends comision_ci
 
 						$agente[$i]['articulo'] = null;
 						if ($datos['certificado'] <> null) {
-							$dias = 10;
+							$dias = $this->contarDiasCorridosParaHabiles($datos['fecha_inicio_licencia'],10);
+
 							$agente[$i]['articulo'] = 81;
 							$agente[$i]['id_decreto'] = 8;
 							$bandera = true;
@@ -947,7 +950,7 @@ class ci_articulo extends comision_ci
 
 					//ei_arbol($datos);
 					if ($datos['fecha_inicio_licencia'] < '2022-12-26') {
-						toba::notificacion()->agregar('Ingrese una fecha mayor o igual al 26/12/2022', "info");
+						toba::notificacion()->agregar('Ingrese una fecha mayor o igual al 26/12/2026', "info");
 					} else {
 						//	ei_arbol($datos);
 						if ($ya_tomo == 0) {
@@ -1413,5 +1416,34 @@ class ci_articulo extends comision_ci
 		$datos['apellido'] = $legajo[0]['apellido'];
 		$datos['nombre'] = $legajo[0]['nombre'];
 		$form->set_datos($datos);
+	}
+	function contarDiasCorridosParaHabiles($fechaInicio,$diasHabilesNecesarios) {
+		$fecha = $fechaInicio ? new DateTime($fechaInicio) : new DateTime();
+		$contadorHabiles = 0;
+		$diasTotales = 0;
+		
+		$sql = "SELECT generate_series FROM reloj.vw_feriados";
+		$tf= toba::db('comision')->consultar($sql);
+		$feriados=[];
+		if(!empty($tf)){
+		for ($i=0;$i<count($tf);$i++){
+			$feriados = $tf[$i]['generate_series'];
+		}
+		}	
+		while ($contadorHabiles < $diasHabilesNecesarios) {
+			$diaSemana = $fecha->format('N'); // 6 = sábado, 7 = domingo
+       		$fechaActual = $fecha->format('Y-m-d');
+			
+			if ($diaSemana < 6 && !in_array($fechaActual, $feriados)) {
+				$contadorHabiles++;
+			}
+	
+			$diasTotales++;
+			if ($contadorHabiles < $diasHabilesNecesarios) {
+				$fecha->modify('+1 day');
+			}
+		}
+	
+		return $diasTotales;
 	}
 }
