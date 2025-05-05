@@ -322,7 +322,10 @@ class ci_parte extends toba_ci
 		$agrupamiento = $datos['agrupamiento'];
 		$dias_restantes = 0;
 		$dias = $datos['dias'];
-		//ei_arbol($datos);
+		if($datos['id_motivo'] == '36'){
+			$datos['dias'] =$this->contarDiasCorridosParaHabiles( $datos['fecha_inicio_licencia'],10);
+		   }
+		
 		$this->dep('datos')->tabla('parte')->set($datos);
 		//ei_arbol($datos);
 		//validar que venga un anio para partes de vacaciones
@@ -451,6 +454,7 @@ class ci_parte extends toba_ci
 
 					
 		}
+		
 		$sql= "SELECT email from reloj.agentes_mail
 					where legajo=$legajo";
 					$correo = toba::db('ctrl_asis')->consultar($sql);
@@ -459,6 +463,35 @@ class ci_parte extends toba_ci
 		$this->enviar_correos($correo[0]['email']);
 		}
 		//$this->s__accion = 'alta';
+	}
+	function contarDiasCorridosParaHabiles($fechaInicio,$diasHabilesNecesarios) {
+		$fecha = $fechaInicio ? new DateTime($fechaInicio) : new DateTime();
+		$contadorHabiles = 0;
+		$diasTotales = 0;
+		
+		$sql = "SELECT generate_series FROM reloj.vw_feriados";
+		$tf= toba::db('ctrl_asis')->consultar($sql);
+		$feriados=[];
+		if(!empty($tf)){
+		for ($i=0;$i<count($tf);$i++){
+			$feriados = $tf[$i]['generate_series'];
+		}
+		}	
+		while ($contadorHabiles < $diasHabilesNecesarios) {
+			$diaSemana = $fecha->format('N'); // 6 = sábado, 7 = domingo
+       		$fechaActual = $fecha->format('Y-m-d');
+			
+			if ($diaSemana < 6 && !in_array($fechaActual, $feriados)) {
+				$contadorHabiles++;
+			}
+	
+			$diasTotales++;
+			if ($contadorHabiles < $diasHabilesNecesarios) {
+				$fecha->modify('+1 day');
+			}
+		}
+	
+		return $diasTotales;
 	}
 
 
