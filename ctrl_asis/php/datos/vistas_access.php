@@ -264,11 +264,17 @@ class vistas_access extends toba_datos_relacion
 		$where[]= "fecha BETWEEN "."'$fecha_ini'"." AND "." '$fecha_fin'";
 		$where1[] = "fecha_inicio_licencia <= "." '$fecha_fin'";
 		// Suma horas y promedio de cada agente
-		$sql = "SELECT distinct legajo, count(*) cuenta,
-		sum(horas_requeridad) horas_requeridas_prom,  sum(horas_trabajadas) horas_totales , avg(horas_trabajadas) horas_promedio
-		FROM reloj.vm_detalle_pres
-		group by legajo,categoria,nombre_catedra
-		order by legajo";
+		$sql = "SELECT  legajo,
+    			COUNT(*) AS cuenta,
+    			SUM(horas_requeridad) AS horas_requeridas_prom,
+    			SUM(horas_trabajadas) AS horas_totales,
+    			AVG(horas_trabajadas) AS horas_promedio
+				FROM (
+    					SELECT DISTINCT legajo, fecha, horas_requeridad, horas_trabajadas
+    					FROM reloj.vm_detalle_pres
+					) AS sub
+				GROUP BY legajo
+				ORDER BY legajo";
 		$sql= sql_concatenar_where($sql, $where);
 		// Cuenta ausente justificados, presentes y ausentes
 		$horas=  toba::db('ctrl_asis')->consultar($sql); 

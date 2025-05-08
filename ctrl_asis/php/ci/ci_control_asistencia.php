@@ -347,7 +347,17 @@ class ci_control_asistencia extends ctrl_asis_ci
 					
 			}*/
 		
+			$legajos_vistos = [];
+			$todos_filtrados = [];
 
+			foreach ($todos as $item) {
+    			if (!in_array($item['legajo'], $legajos_vistos)) {
+        			$todos_filtrados[] = $item;
+        			$legajos_vistos[] = $item['legajo'];
+    			}
+			}
+
+			$todos = $todos_filtrados;
 			
 
 
@@ -408,7 +418,9 @@ class ci_control_asistencia extends ctrl_asis_ci
 			
 			
 		}
+		
 		$this ->s__datos = $todos;
+		//ei_arbol($todos);
 		unset($cuadro);
 		} // End de $agentes_0
 		}
