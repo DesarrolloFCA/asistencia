@@ -193,7 +193,40 @@ class ci_control_asistencia extends ctrl_asis_ci
 					
 				//$todo[$i]['feriados'] = $feriados;
 				//$todo[$i]['laborables'] = $dias_laborales; 
-				$todo[$i]['ausentes'] = $todo[$i]['laborables']-$todo[$i]['presentes'];
+				$todo[$i]['ausentes'] = $todo[$i]['laborables']-$todo[$i]['presentes']; 
+				$legajo = $todo[$i]['legajo'];
+				if($todo[$i]['ausentes'] < 0){
+					$sql = "SELECT distinct horas_requeridad from reloj.vm_detalle_pres
+					WHERE legajo = $legajo 
+					and fecha = '$fecha_desde'";
+					$horas_diarias= toba::db('ctrl_asis')->consultar_fila($sql);
+					$horas_min = explode(":",$horas_diarias['horas_requeridad']);
+					$horas_requeridas = explode(":",$todo[$i]['horas_requeridas_prom']);
+					$todo[$i]['h_min'] = $horas_min[0] +($horas_min[1]/60);
+					$horas= ($todo[$i]['ausentes'] * $horas_min[0])+ $horas_requeridas[0];
+					$minutos =($todo[$i]['ausentes'] * $horas_min[1])+ $horas_requeridas[1];
+					$tmp= 0;
+						while ($minutos >= 60){
+							$minutos = $minutos - 60;
+							$tmp ++;
+						}
+
+						$horas = $horas + $tmp;
+						
+						if($minutos < 10 or $minutos == 0) {
+							$minutos = '0'.$minutos;
+						} 
+
+						$requerido = $horas .':'.$minutos;
+					
+						
+						$todo[$i]['horas_requeridas_prom']= $requerido;
+					
+					$todo[$i]['ausentes'] = 0;
+					$todo[$i]['presentes'] = $todo[$i]['laborables'];
+				//	$dias_laborales = $todo[$i]['laborables'];
+
+				}
 				$todo[$i]['justificados'] = $todo[$i]['partes'] + $todo[$i]['partes_sanidad'];
 				//$todo[$i]['injustificados'] = $todo[$i]['ausentes'] - $todo[$i]['justificados'];
 				$dias_trab = $todo[$i]['laborables'] - $todo[$i]['justificados'];

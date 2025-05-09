@@ -284,12 +284,13 @@ class vistas_access extends toba_datos_relacion
 		$sql = "SELECT  distinct cuil, legajo, ayn nombre_completo, agrupamiento , categoria, nombre_catedra, escalafon,caracter,
     	COUNT(CASE WHEN estado = 'Ausente' THEN 1 END) AS injustificados,
     	COUNT(CASE WHEN estado = 'Presente' THEN 1 END) AS presentes,
-    	COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes
+    	COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes,
+		COUNT(CASE WHEN estado = 'Asuente Justicado Sanidad' THEN 1 END) AS partes_sanidad
 		FROM reloj.vm_detalle_pres
 		GROUP BY legajo, ayn, agrupamiento, categoria, nombre_catedra,cuil,escalafon,caracter";
 		$sql= sql_concatenar_where($sql, $where);
 		$condicion = toba::db('ctrl_asis')->consultar($sql); 
-		//ei_arbol($condicion);
+		
 		for ($i=0;$i<count($condicion);$i++){
 			for ($j=0;$j<count($horas);$j++){
 				
@@ -308,8 +309,8 @@ class vistas_access extends toba_datos_relacion
 			}
 		}
 		unset($item); 
-		
-		$sql1 = "SELECT distinct
+		//ei_arbol($condicion);
+		/*$sql1 = "SELECT distinct
 			legajo, 
 			fecha_inicio_licencia,
 			dias
@@ -352,6 +353,7 @@ class vistas_access extends toba_datos_relacion
 					}
 					
 				}
+
 				$condicion[$i]['partes_sanidad'] = $parte_sanidad;
 				$condicion[$i]['injustificados'] = $condicion[$i]['injustificados'] - $parte_sanidad;
 				if($condicion[$i]['injustificados'] < 0){
@@ -359,7 +361,7 @@ class vistas_access extends toba_datos_relacion
 					$condicion[$i]['injustificados'] = 0;
 				}
 				$condicion[$i]['justificados']= $condicion[$i]['justificados'] + $condicion[$i]['parte_sanidad'];
-			}
+			}*/
 			$sql= "SELECT legajo, cod_depcia_destino FROM reloj.adscripcion
 			where cod_depcia_destino <> '04' and (fecha_fin >= "." '$fecha_fin'"." or fecha_fin is null)";
 			$adsc= toba::db('ctrl_asis')->consultar($sql);
@@ -372,7 +374,7 @@ class vistas_access extends toba_datos_relacion
 					}
 				}
 			}
-			
+		//	ei_arbol($condicion);
 			return $condicion;
 
 		
