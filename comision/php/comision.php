@@ -2,6 +2,7 @@
 class comision extends toba_ci
 {
 	protected $s__datos;
+	protected $s__agentes;
 	//-----------------------------------------------------------------------------------
 	//---- formulario -------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------
@@ -29,8 +30,15 @@ class comision extends toba_ci
 		
 		if ($datos['fecha'] <= $datos['fecha_fin']) {
 			// Preparar datos
-			$fecha = $datos['fecha'];
-			$fecha_fin = $datos['fecha_fin'];
+			
+			//$fecha = $datos['fecha'];
+			//$fecha_fin = $datos['fecha_fin'];
+			$fecha = new DateTime($datos['fecha']);
+			$fecha_fin = new DateTime($datos['fecha_fin']);
+			$fecha_fin->modify('+1 day');
+			$dias_seleccionados = !empty($datos['dias']) ? $datos['dias'] : [1, 2, 3, 4, 5];
+			$intervalo = new DateInterval('P1D');
+			$periodo = new DatePeriod($fecha, $intervalo, $fecha_fin);
 			$legajo = $datos['legajo'];
 			$superior = $datos['superior'];
 			$autoridad = $datos['autoridad'];
@@ -73,7 +81,8 @@ class comision extends toba_ci
 			}
 			 	
 			
-
+			$fecha_stri = $fecha_str = $fecha->format('Y-m-d');
+			$fecha_fin_stri = $fecha_fin->format('Y-m-d');
 			
 			// Obtener nombre de la cátedra
 			$sql = "SELECT nombre_catedra FROM reloj.catedras WHERE id_catedra = $catedra";
@@ -83,19 +92,21 @@ class comision extends toba_ci
 			// Verificar si ya existe una comisión pedida
 			$sql = "SELECT legajo, fecha, fecha_fin FROM reloj.comision
 					WHERE legajo = $legajo
-					AND fecha BETWEEN '$fecha' AND '$fecha_fin'
+					AND fecha BETWEEN '$fecha_stri' AND '$fecha_fin_stri'
+					and horario = '$horario'
+					and horario_fin = '$horario_fin'
 					AND catedra = $catedra
 					AND (pasada IS NULL OR pasada = true)";
 			$comision_pedida = count(toba::db('comision')->consultar($sql));
 			$sql = "Select id_parte from reloj.parte
-				where legajo = $legajo and fecha_inicio_licencia = '$fecha' and id_motivo = 56";
+				where legajo = $legajo and fecha_inicio_licencia = '$fecha_stri' and id_motivo = 56";
 			$comision_pedida = $comision_pedida +count(toba::db('comision')->consultar($sql));
 	
 			if ($comision_pedida == 0) {
 				// Obtener correos electrónicos
 				$correo_agente = !empty($datos['legajo']) ? $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['legajo'])[0]['descripcion'] : null;
 				$correo_sup = !empty($datos['superior']) ? $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['superior'])[0]['descripcion'] : null;
-				$correo_aut = !empty($datos['legajo_autoridad']) ? $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['autoridad'])[0]['descripcion'] : null;
+		//		$correo_aut = !empty($datos['legajo_autoridad']) ? $this->dep('datos')->tabla('agentes_mail')->get_correo($datos['autoridad'])[0]['descripcion'] : null;
 	
 				// Obtener descripción del agente
 				$agente = $this->dep('mapuche')->get_legajo_todos($legajo);
@@ -105,12 +116,19 @@ class comision extends toba_ci
 				
 				
 				// Insertar nueva comisión
-					$sql = "INSERT INTO reloj.comision
-					(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, fecha_fin, horario_fin, fuera) VALUES
-					($legajo, $catedra, '$lugar', '$motivo', '$fecha', '$horario', '$obs', $superior, $autoridad, '$fecha_fin', '$horario_fin', $fuera)";
-					$resultado = toba::db('comision')->ejecutar($sql);
-	
-					if ($resultado) {
+				foreach ($periodo as $fecha_actual) {
+    				$dia_semana = (int)$fecha_actual->format('N'); // 1 (lunes) a 7 (domingo)
+    				if (in_array($dia_semana, $dias_seleccionados)) {
+        				$fecha_str = $fecha_actual->format('Y-m-d');
+            			$sql = "INSERT INTO reloj.comision
+        			    	(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, fecha_fin, horario_fin, fuera)
+            				VALUES
+            				($legajo, $catedra, '$lugar', '$motivo', '$fecha_str', '$horario', '$obs', $superior, $autoridad, '$fecha_str', '$horario_fin', $fuera)";
+		
+       					$resultado = toba::db('comision')->ejecutar($sql);
+    				}
+				}	
+				if ($resultado) {
 					// Enviar correos electrónicos
 						if ($correo_agente) {
 							$this->enviar_correos($correo_agente);
@@ -121,12 +139,13 @@ class comision extends toba_ci
 							toba::notificacion()->agregar('Su solicitud ha sido ingresada.', 'info');
 						if ($fuera ) {
 							toba::notificacion()->agregar('Si viaja fuera de la provincia de Mendoza diríjase a la oficina de Personal para tramitar su seguro', 'info');
+						}
 					} else {
 						toba::notificacion()->agregar('Error al insertar la comisión en la base de datos', 'error');
 					}
-				}
+				
 			} else {
-				toba::notificacion()->agregar('Ud. ya ha solicitado una comisión para las fechas consignadas', 'error');
+				toba::notificacion()->agregar('Ud. ya ha solicitado una comisión para las fechas y horas consignadas', 'error');
 			}
 		 } else {
 			toba::notificacion()->agregar('Coloque una fecha hasta mayor o igual que la fecha desde', 'error');
@@ -139,17 +158,45 @@ class comision extends toba_ci
 		require_once('mail/tobamail.php');
 
 		$datos = $this->s__datos;
+
 		$hacia = $correo;
 		$asunto = 'Formulario Comision de Servicio';
-		$fecha = date('d/m/Y', strtotime($datos['fecha']));
-		$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
+		//$fecha = date('d/m/Y', strtotime($datos['fecha']));
+		//$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
+		$fecha_inicio_raw = $datos['fecha'];
+		$fecha_fin_raw = $datos['fecha_fin'];
+		$fecha = date('d/m/Y', strtotime($fecha_inicio_raw));
+		$fecha_fin = date('d/m/Y', strtotime($fecha_fin_raw));
+		$texto_dias = '';
+		$es_mismo_dia = ($fecha_inicio_raw === $fecha_fin_raw);
+		$fecha_inicio = new DateTime($datos['fecha']);
+		$fecha_fin = new DateTime($datos['fecha_fin']);
 
+		$fecha = $fecha_inicio->format('d/m/Y');
+		$fecha_fin_str = $fecha_fin->format('d/m/Y');
+		if (!$es_mismo_dia) {
+	    	if (!empty($datos['dias']) && is_array($datos['dias'])) {
+    	    	$dias_texto = $this->obtener_nombres_dias($datos['dias']);
+        		$texto_dias = ' en los días seleccionados: <b>' . $dias_texto . '</b>';
+    		} else {
+        		$texto_dias = ' en días hábiles (lunes a viernes)';
+    		}
+		}
+		
+		
 		$cuerpo = '<table>
-						El/la agente  <b>' . $datos['descripcion'] . '</b> perteneciente a  <b>' . $datos['catedra'] . '</b>.<br/>
-						Solicita <b>Comision de Servicio</b> a realizarse el dia ' . $fecha . ' hasta el dia ' . $fecha_fin . '
-						en ' . $datos['lugar'] . ' a partir de la hora ' . $datos['horario'] . ' hasta la hora ' . $datos['horario_fin'] . ' con el siguiente motivo de: ' . $datos['motivo'] . '  observaciones: ' . $datos['observaciones'] . '
-											
-			</table>';
+    				El/la agente <b>' . $datos['descripcion'] . '</b> perteneciente a <b>' . $datos['catedra'] . '</b>.<br/>
+    				Solicita <b>Comisión de Servicio</b> a realizarse ';
+
+					if ($es_mismo_dia) {
+    					$cuerpo .= 'el día <b>' . $fecha . '</b>';
+					} else {
+    				$cuerpo .= 'desde el día <b>' . $fecha . '</b> hasta el día <b>' . $fecha_fin_str . '</b>' . $texto_dias;
+					}
+
+					$cuerpo .= ',<br/>en <b>' . $datos['lugar'] . '</b> a partir de la hora <b>' . $datos['horario'] . '</b> hasta la hora <b>' . $datos['horario_fin'] . '</b>,<br/>
+					con el siguiente motivo: <b>' . $datos['motivo'] . '</b>.<br/>Observaciones: ' . $datos['observaciones'] . '
+				</table>';
 
 		//Enviamos el correo
 
@@ -175,17 +222,40 @@ class comision extends toba_ci
 		$datos = $this->s__datos;
 
 		$asunto = 'Formulario Comisión de Servicio - Agente';
-		$fecha = date('d/m/Y', strtotime($datos['fecha']));
-		$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
+		//$fecha = date('d/m/Y', strtotime($datos['fecha']));
+		//$fecha_fin = date('d/m/Y', strtotime($datos['fecha_fin']));
+		$fecha_inicio_raw = $datos['fecha'];
+		$fecha_fin_raw = $datos['fecha_fin'];
+		$fecha = date('d/m/Y', strtotime($fecha_inicio_raw));
+		$fecha_fin = date('d/m/Y', strtotime($fecha_fin_raw));
+		$texto_dias = '';
+		$es_mismo_dia = ($fecha_inicio_raw === $fecha_fin_raw);
+		$fecha_inicio = new DateTime($datos['fecha']);
+		$fecha_fin = new DateTime($datos['fecha_fin']);
 
+		$fecha = $fecha_inicio->format('d/m/Y');
+		$fecha_fin_str = $fecha_fin->format('d/m/Y');
+		if (!$es_mismo_dia) {
+	    	if (!empty($datos['dias']) && is_array($datos['dias'])) {
+    	    	$dias_texto = $this->obtener_nombres_dias($datos['dias']);
+        		$texto_dias = ' en los días seleccionados: <b>' . $dias_texto . '</b>';
+    		} else {
+        		$texto_dias = ' en días hábiles (lunes a viernes)';
+    		}
+		}
 		$cuerpo = '<table>
-						El/la agente  <b>' . $datos['descripcion'] . '</b> perteneciente a la catedra/oficina/ direccion <b>' . $datos['catedra'] . '</b>.<br/>
-						Solicita <b>Comision de Servicio</b> con motivo de ' . $datos['motivo'] . ' a realizarse el dia ' . $fecha . ' hasta el dia' . $fecha_fin . '
-						en ' . $datos['lugar'] . ' a partir de la hora ' . $datos['horario'] . ' hasta la hora ' . $datos['horario_fin'] . '. Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '</br>
-						Para aprobar/rechazar la solicitud ingresar a https://sistemas.fca.uncu.edu.ar/solicitudes, menu autorizaciones -> Comisiones </br>
+    		El/la agente <b>' . $datos['descripcion'] . '</b> perteneciente a la catedra/oficina/dirección <b>' . $datos['catedra'] . '</b>.<br/>
+    		Solicita <b>Comisión de Servicio</b> con motivo de <b>' . $datos['motivo'] . '</b> a realizarse ';
 
+		if ($es_mismo_dia) {
+			$cuerpo .= 'el día <b>' . $fecha . '</b>';
+		} else {
+			$cuerpo .= 'desde el día <b>' . $fecha . '</b> hasta el día <b>' . $fecha_fin_str . '</b>' . $texto_dias;
+		}
 
-											
+		$cuerpo .= ',<br/>en <b>' . $datos['lugar'] . '</b> a partir de la hora <b>' . $datos['horario'] . '</b> hasta la hora <b>' . $datos['horario_fin'] . '</b>.<br/>
+    			Teniendo en cuenta las siguientes Observaciones: ' . $datos['observaciones'] . '<br/>
+    			Para aprobar/rechazar la solicitud ingresar a <a href="https://sistemas.fca.uncu.edu.ar/solicitudes" target="_blank">https://sistemas.fca.uncu.edu.ar/solicitudes</a>, menú autorizaciones -> Comisiones.<br/>
 			</table>';
 
 		//Enviamos el correo
@@ -201,4 +271,24 @@ class comision extends toba_ci
 			echo "Error al enviar el correo: " . $e->getMessage();
 		}
 	}
+	function obtener_nombres_dias($dias_numeros) {
+    $nombres = [
+        1 => 'lunes',
+        2 => 'martes',
+        3 => 'miércoles',
+        4 => 'jueves',
+        5 => 'viernes',
+        6 => 'sábado',
+        7 => 'domingo'
+    ];
+    // Ordenar de lunes a domingo
+    sort($dias_numeros);
+    $nombres_dias = [];
+    foreach ($dias_numeros as $d) {
+        if (isset($nombres[$d])) {
+            $nombres_dias[] = $nombres[$d];
+        }
+    }
+    return implode(', ', $nombres_dias);
+}
 }
