@@ -98,6 +98,7 @@ class comision extends toba_ci
 					AND catedra = $catedra
 					AND (pasada IS NULL OR pasada = true)";
 			$comision_pedida = count(toba::db('comision')->consultar($sql));
+
 			$sql = "Select id_parte from reloj.parte
 				where legajo = $legajo and fecha_inicio_licencia = '$fecha_stri' and id_motivo = 56";
 			$comision_pedida = $comision_pedida +count(toba::db('comision')->consultar($sql));
@@ -137,7 +138,7 @@ class comision extends toba_ci
 							$this->enviar_correos_sup($correo_sup);
 						}
 							toba::notificacion()->agregar('Su solicitud ha sido ingresada.', 'info');
-						if ($fuera ) {
+						if ($fuera) {
 							toba::notificacion()->agregar('Si viaja fuera de la provincia de Mendoza diríjase a la oficina de Personal para tramitar su seguro', 'info');
 						}
 					} else {
