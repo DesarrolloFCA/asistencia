@@ -24,6 +24,8 @@ class ci_comisiones extends comision_ci
 				WHERE (pasada is null or pasada = false)
 				and legajo_sup  = $legajo							
 				and legajo <> $legajo
+				AND fecha >= date_trunc('month', CURRENT_DATE)
+    			AND fecha < (date_trunc('month', CURRENT_DATE) + interval '1 month')
 		Order by catedra, fecha, legajo ";
 			$datos = toba::db('comision')->consultar($sql);
 			
