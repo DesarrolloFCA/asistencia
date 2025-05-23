@@ -234,7 +234,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --editor_alto
 	NULL, --editor_botonera
 	NULL, --editor_config_file
-	'1', --selec_cant_minima
+	'0', --selec_cant_minima
 	'5', --selec_cant_maxima
 	'1', --selec_utilidades
 	NULL, --selec_tamano
