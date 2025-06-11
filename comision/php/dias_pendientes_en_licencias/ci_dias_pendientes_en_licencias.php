@@ -49,7 +49,8 @@ class ci_dias_pendientes_en_licencias extends comision_ci
 						FROM reloj.parte a
 						INNER JOIN reloj.motivo c on a.id_motivo = c.id_motivo
 						WHERE EXTRACT(YEAR FROM fecha_inicio_licencia) = $anio
-						AND legajo = $legajo ";
+						AND legajo = $legajo
+						AND estado = 'C' ";
 				$dias = toba::db('comision')->consultar($sql);
 			
 			
