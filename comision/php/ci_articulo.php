@@ -524,11 +524,12 @@ class ci_articulo extends comision_ci
 									$agente[$j]['id_decreto'] = 8;
 								}
 
-								$sql = "SELECT -SUM(dias) +2 dias_restantes 
-									FROM reloj.parte
-							WHERE legajo = $legajo
-							AND id_motivo = 30
-							AND  DATE_PART('month', fecha_inicio_licencia) = $m";
+								$sql = "SELECT -COALESCE(SUM(dias),0) +2 dias_restantes 
+												FROM reloj.parte
+												WHERE legajo = $legajo
+												AND id_motivo = 30
+												AND  DATE_PART('month', fecha_inicio_licencia) = $m
+												AND DATE_PART('year',fecha_inicio_licencia) = $anio";
 								$parte = toba::db('comision')->consultar($sql);
 								/*$sql = "SELECT fecha_inicio, fecha_fin*/
 								$sql = "SELECT  fecha_fin - fecha_inicio + 1 dias_rp
@@ -538,14 +539,14 @@ class ci_articulo extends comision_ci
 								$pendiente = toba::db('comision')->consultar($sql);
 								$lim = count($pendiente);
 								$dias_tomados = 0;
-								//ei_arbol($pendiente);	
+							//	ei_arbol($pendiente);	
 								for ($i = 0; $i < $lim; $i++) {
 									$dias_tomados = $dias_tomados + $pendiente[$i]['dias_rp'];
 								}
 
 
-								$temp[0]['dias_restantes'] = $parte[0]['dias_restantes'] + $dias_tomados + $dias;
-								//ei_arbol($temp);
+								$temp[0]['dias_restantes'] = -$parte[0]['dias_restantes'] - $dias_tomados + $dias;
+							//	ei_arbol( $parte[0]['dias_restantes'].' en parte' , $dias_tomados .'dias tomados' , $dias.' dias a tomar');
 								if (!is_null($temp) && ($temp[0]['dias_restantes'] >= 0 && $temp[0]['dias_restantes'] <= 2)) {
 									$sql = "SELECT -SUM(dias) +6 dias_restantes 
 									FROM reloj.parte
