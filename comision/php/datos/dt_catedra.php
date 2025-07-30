@@ -304,6 +304,28 @@ class dt_catedra extends comision_datos_tabla
        //ei_arbol($d);
        return $d;
 	}
+	static function lis_descripciones()
+	{	$usuario = toba::usuario()-> get_id();
+	   	$sql = "SELECT a.legajo legajo,apellido,nombre from reloj.agentes_mail a
+			inner join reloj.agentes b on a.legajo = b.legajo
+				WHERE a.email = '$usuario' ";
+		$legajo_1 =toba::db('comision')->consultar_fila($sql);	
+		$legajo = $legajo_1['legajo'];
+		$sql = "SELECT  nombre_catedra FROM reloj.vw_catedra_agente
+		WHERE legajo = $legajo
+		ORDER BY nombre_catedra";
+		$catedra = toba::db('comision')->consultar($sql);
+		$sql = "SELECT distinct departamento nombre_catedra FROM reloj.vw_directores
+				where legajo_dir = $legajo";
+		$depto = toba::db('comision')->consultar($sql);
+		
+		$resultado= array_merge($catedra,$depto);
+		for ($i = 0; $i< count($resultado); $i++){
+			$resultado[$i]['item'] = $i;
+		}
+		
+		return $resultado;
+	}
 
 }
 ?>
