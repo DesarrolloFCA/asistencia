@@ -516,7 +516,7 @@ class ci_articulo extends comision_ci
 					// Docentes
 
 					if ($id_motivo == 30) { //Razones particulares
-						//ei_arbol($id_motivo);
+						
 						if (date("Y") == $anio) {
 							if ($dias <= 2) {
 								for ($j = 0; $j < $cant; $j++) {
@@ -524,28 +524,30 @@ class ci_articulo extends comision_ci
 									$agente[$j]['id_decreto'] = 8;
 								}
 
-								$sql = "SELECT -COALESCE(SUM(dias),0) +2 dias_restantes 
-												FROM reloj.parte
-												WHERE legajo = $legajo
-												AND id_motivo = 30
-												AND  DATE_PART('month', fecha_inicio_licencia) = $m
-												AND DATE_PART('year',fecha_inicio_licencia) = $anio";
+								$sql = "SELECT SUM(dias) dias_restantes 
+										FROM reloj.parte
+										WHERE legajo = $legajo    
+										AND id_motivo = 30    
+										AND  DATE_PART('month', fecha_inicio_licencia) = $m
+										and DATE_PART('year', fecha_inicio_licencia) = $anio";
 								$parte = toba::db('comision')->consultar($sql);
 								/*$sql = "SELECT fecha_inicio, fecha_fin*/
-								$sql = "SELECT  fecha_fin - fecha_inicio + 1 dias_rp
+								$sql = "SELECT  fecha_fin - fecha_inicio + 1 dias_no_pasados
 								FROM reloj.inasistencias
 								Where legajo = $legajo AND id_motivo=30 AND extract (month from fecha_inicio)=$m And extract(year from fecha_inicio) = $anio";
-
+								
 								$pendiente = toba::db('comision')->consultar($sql);
 								$lim = count($pendiente);
 								$dias_tomados = 0;
-							//	ei_arbol($pendiente);	
+								
 								for ($i = 0; $i < $lim; $i++) {
-									$dias_tomados = $dias_tomados + $pendiente[$i]['dias_rp'];
+									$dias_tomados = $dias_tomados + $pendiente[$i]['dias_no_pasados'];
 								}
-
-
-								$temp[0]['dias_restantes'] = -$parte[0]['dias_restantes'] - $dias_tomados + $dias;
+								if ($parte[0]['dias_restantes'] == null) {
+									$parte[0]['dias_restantes'] = 2;
+								}
+							//	ei_arbol($parte);
+								$temp[0]['dias_restantes'] = $parte[0]['dias_restantes'] - $dias_tomados - $dias;
 							//	ei_arbol( $parte[0]['dias_restantes'].' en parte' , $dias_tomados .'dias tomados' , $dias.' dias a tomar');
 								if (!is_null($temp) && ($temp[0]['dias_restantes'] >= 0 && $temp[0]['dias_restantes'] <= 2)) {
 									$sql = "SELECT -SUM(dias) +6 dias_restantes 
@@ -554,6 +556,7 @@ class ci_articulo extends comision_ci
 									AND id_motivo = 30
 									AND  DATE_PART('year', fecha_inicio_licencia) = $y";
 									$temp = toba::db('comision')->consultar($sql);
+									$bandera = false;
 									//ei_arbol($temp);
 									if (is_null($temp[0]['dias_restantes']) || ($temp[0]['dias_restantes'] >= 0 && $temp[0]['dias_restantes'] <= 6)) {
 										$lim = count($agente);
@@ -564,6 +567,7 @@ class ci_articulo extends comision_ci
 										//ei_arbol($agente);
 
 									} else {
+										$bandera = false;
 										toba::notificacion()->agregar('Ud ha excedido la cantidad anual de razones particulares este a&ntilde;o cuenta con ' . $temp[0]['dias_restantes'] . ' d&iacute;as', "info");
 									}
 								} else {
@@ -577,6 +581,7 @@ class ci_articulo extends comision_ci
 									}
 
 									toba::notificacion()->agregar('Ud ha excedido la cantidad mensual de razones particulares este mes cuenta con ' . $temp[0]['dias_restantes'] . ' días', "info");
+									$bandera = false;
 								}
 							}
 							/*else {
