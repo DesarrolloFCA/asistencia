@@ -194,7 +194,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --carga_consulta_php
 	NULL, --carga_sql
 	'comision', --carga_fuente
-	'1/Lunes,2/Martes,3/Miercoles,4/Jueves,5/Viernes', --carga_lista
+	'1/Lunes,2/Martes,3/Miercoles,4/Jueves,5/Viernes,6/Sabado,7/Domingo', --carga_lista
 	NULL, --carga_col_clave
 	NULL, --carga_col_desc
 	NULL, --carga_maestros
@@ -235,7 +235,7 @@ INSERT INTO apex_objeto_ei_formulario_ef (objeto_ei_formulario_fila, objeto_ei_f
 	NULL, --editor_botonera
 	NULL, --editor_config_file
 	'0', --selec_cant_minima
-	'5', --selec_cant_maxima
+	'7', --selec_cant_maxima
 	'1', --selec_utilidades
 	NULL, --selec_tamano
 	NULL, --selec_ancho

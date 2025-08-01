@@ -36,7 +36,7 @@ class comision extends toba_ci
 			$fecha = new DateTime($datos['fecha']);
 			$fecha_fin = new DateTime($datos['fecha_fin']);
 			$fecha_fin->modify('+1 day');
-			$dias_seleccionados = !empty($datos['dias']) ? $datos['dias'] : [1, 2, 3, 4, 5];
+			$dias_seleccionados = !empty($datos['dias']) ? $datos['dias'] : [1, 2, 3, 4, 5,6,7];
 			$intervalo = new DateInterval('P1D');
 			$periodo = new DatePeriod($fecha, $intervalo, $fecha_fin);
 			$legajo = $datos['legajo'];
@@ -50,7 +50,7 @@ class comision extends toba_ci
 			$motivo = $datos['motivo'];
 			$fuera = $datos['fuera'];
 			
-
+			
 
 			/*if ($datos['fuera'] == 1){
 				$fuera = true;

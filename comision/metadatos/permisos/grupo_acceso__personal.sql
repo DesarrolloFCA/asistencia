@@ -50,6 +50,12 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'comision', --proyecto
 	'personal', --usuario_grupo_acc
 	NULL, --item_id
+	'24234000001'  --item
+);
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'comision', --proyecto
+	'personal', --usuario_grupo_acc
+	NULL, --item_id
 	'24234000002'  --item
 );
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
@@ -71,6 +77,15 @@ INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, i
 	'24234000010'  --item
 );
 --- FIN Grupo de desarrollo 24234
+
+--- INICIO Grupo de desarrollo 24234236
+INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
+	'comision', --proyecto
+	'personal', --usuario_grupo_acc
+	NULL, --item_id
+	'24234236000001'  --item
+);
+--- FIN Grupo de desarrollo 24234236
 
 --- INICIO Grupo de desarrollo 35736730
 INSERT INTO apex_usuario_grupo_acc_item (proyecto, usuario_grupo_acc, item_id, item) VALUES (
