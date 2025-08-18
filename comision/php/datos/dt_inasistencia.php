@@ -2,155 +2,115 @@
 class dt_inasistencia extends comision_datos_tabla
 {
     
-    function get_inasistencia_sub($legajo_cat,$legajo_dep){
-           
-			if (isset($legajo_cat)){
-				for ($i =0;$i<count($legajo_cat);$i++){
-					$legajo_agente = $legajo_cat[$i]['legajo'];
-					if ($i==0 ){
-					$in="($legajo_agente";
-					}else {
-					$in =$in . ", $legajo_agente";
-				}
-			}
-				$in = $in . ")";	
-				
-				//horas		
-				$sql = "SELECT  legajo,
-    			COUNT(*) AS cuenta,
-    			SUM(horas_requeridad) AS horas_requeridas_prom,
-    			SUM(horas_trabajadas) AS horas_totales,
-    			AVG(horas_trabajadas) AS horas_promedio
-				FROM (
-    					SELECT DISTINCT legajo, fecha, horas_requeridad, horas_trabajadas
-    					FROM reloj.vm_detalle_pres
-						WHERE legajo in  $in and 
-						fecha >= CURRENT_DATE - INTERVAL '30 days'	
-					) AS sub
-				GROUP BY legajo
-				ORDER BY legajo";
-				$horas=  toba::db('ctrl_asis')->consultar($sql); 
-                
-			// Cuenta ausente justificados, presentes y ausentes
-				$sql1 = "SELECT  distinct cuil, legajo, ayn nombre_completo, agrupamiento , categoria, nombre_catedra, escalafon,caracter,
-    			COUNT(CASE WHEN estado = 'Ausente' THEN 1 END) AS injustificados,
-    			COUNT(CASE WHEN estado = 'Presente' THEN 1 END) AS presentes,
-    			COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes,
-				COUNT(CASE WHEN estado = 'Asuente Justicado Sanidad' THEN 1 END) AS partes_sanidad,
-                COUNT(CASE WHEN estado = 'Ausente Justificado' OR estado = 'Asuente Justicado Sanidad' THEN 1 END) as justificado
-				FROM reloj.vm_detalle_pres
-				WHERE legajo in  $in and 
-						fecha >= CURRENT_DATE - INTERVAL '30 days'	
-				GROUP BY legajo, ayn, agrupamiento, categoria, nombre_catedra,cuil,escalafon,caracter";
-				$condicion = toba::db('ctrl_asis')->consultar($sql1); 
-							
-			$resultado = [];
-
-// Combinamos ambos arrays
-$combinado = array_merge($horas, $condicion);
-
-// Agrupamos por legajo
-foreach ($combinado as $elemento) {
-    $legajo = $elemento['legajo'];
-    if (!isset($resultado[$legajo])) {
-        $resultado[$legajo] = [];
-    }
-    $resultado[$legajo] = array_merge($resultado[$legajo], $elemento);
-}
-
-// 1) Contar cuántas veces aparece cada nombre_catedra
-$contador_catedras = [];
-foreach ($resultado as $elemento) {
-    if (isset($elemento['nombre_catedra'])) {
-        $nombre_catedra = $elemento['nombre_catedra'];
-        if (!isset($contador_catedras[$nombre_catedra])) {
-            $contador_catedras[$nombre_catedra] = 0;
-        }
-        $contador_catedras[$nombre_catedra]++;
-    }
-}
-
-// 2) Obtener la más repetida
-$nombre_catedra_mas_repetida = null;
-$max_repeticiones = 0;
-foreach ($contador_catedras as $catedra => $cuenta) {
-    if ($cuenta > $max_repeticiones) {
-        $max_repeticiones = $cuenta;
-        $nombre_catedra_mas_repetida = $catedra;
-    }
-}
-
-// 3) Colocar la más repetida en todos los elementos
-foreach ($resultado as &$elemento) {
-    $elemento['nombre_catedra'] = $nombre_catedra_mas_repetida;
-}
-unset($elemento); // buenas prácticas
-
-// 4) Si quieres un array indexado:
-$resultado_cat = array_values($resultado);
-
-		}
-		 if(isset($legajo_dep)){
-			for ($i =0;$i<count($legajo_dep)-1;$i++){
-					$legajo_agente = $legajo_dep[$i]['legajo'];
-					if ($i==0 ){
-					$in="($legajo_agente";
-					}else {
-					$in =$in . ", $legajo_agente";
-				}
-			}
-				$in = $in . ")";	
-				
-				//horas		
-				$sql = "SELECT  legajo,
-    			COUNT(*) AS cuenta,
-    			SUM(horas_requeridad) AS horas_requeridas_prom,
-    			SUM(horas_trabajadas) AS horas_totales,
-    			AVG(horas_trabajadas) AS horas_promedio
-				FROM (
-    					SELECT DISTINCT legajo, fecha, horas_requeridad, horas_trabajadas
-    					FROM reloj.vm_detalle_pres
-						WHERE legajo in  $in and 
-						fecha >= CURRENT_DATE - INTERVAL '30 days'	
-					) AS sub
-				GROUP BY legajo
-				ORDER BY legajo";
-				$horas=  toba::db('ctrl_asis')->consultar($sql); 
-			// Cuenta ausente justificados, presentes y ausentes
-				$sql1 = "SELECT  distinct cuil, legajo, ayn nombre_completo, agrupamiento , categoria, departamento nombre_catedra, escalafon,caracter,
-    			COUNT(CASE WHEN estado = 'Ausente' THEN 1 END) AS injustificados,
-    			COUNT(CASE WHEN estado = 'Presente' THEN 1 END) AS presentes,
-    			COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes,
-				COUNT(CASE WHEN estado = 'Asuente Justicado Sanidad' THEN 1 END) AS partes_sanidad,
-                COUNT(CASE WHEN estado = 'Ausente Justificado' OR estado = 'Asuente Justicado Sanidad' THEN 1 END) as justificado
-				FROM reloj.vm_detalle_pres
-				WHERE legajo in  $in and 
-						fecha >= CURRENT_DATE - INTERVAL '30 days'	
-				GROUP BY legajo, ayn, agrupamiento, categoria, departamento,cuil,escalafon,caracter";
-				$condicion = toba::db('ctrl_asis')->consultar($sql1); 
-							
-			$resultado = [];
+    function get_inasistencia_sub($legajo_cat, $legajo_dep, $filtro)
+{
     
-   			 // Combinamos ambos arrays
-   			$combinado = array_merge($horas, $condicion);
-			
-    // Agrupamos por legajo
-    		foreach ($combinado as $elemento) {
-        		$legajo = $elemento['legajo'];
-       			if (!isset($resultado[$legajo])) {
-            		$resultado[$legajo] = [];
-        		}
-        		$resultado[$legajo] = array_merge($resultado[$legajo], $elemento);
-   			 }
-			$resultado_dep = array_values($resultado);
-		 }
-		 $resultado_final = array_values(
-   		 empty($resultado_cat) ? 
-        (empty($resultado_dep) ? [] : $resultado_dep) :
-        (empty($resultado_dep) ? $resultado_cat : array_merge($resultado_cat, $resultado_dep)));
-         //   ei_arbol($resultado_final);
-        return $resultado_final;
+    // 1. Armar condición de fecha
+    if (isset($filtro['fecha_desde'])) {
+        if ($filtro['fecha_desde']['condicion'] == 'BETWEEN') {
+            
+            $valor_fecha = "fecha ". $filtro['fecha_desde']['condicion'] . " '" . $filtro['fecha_desde']['valor']['desde'] . "' AND '" . $filtro['fecha_desde']['valor']['hasta'] . "'";
+        } else {
+            $valor_fecha = "fecha ". $filtro['fecha_desde']['condicion'] . " '" . $filtro['fecha_desde']['valor']. "'";
+        }
+    } else {
+        $valor_fecha = "fecha >= CURRENT_DATE - INTERVAL '30 days'";
     }
+
+    $resultado_cat = [];
+    $resultado_dep = [];
+	
+		
+    // 2. Si existe filtro['legajo'], usarlo
+    if (isset($filtro['legajo']) && !empty($filtro['legajo']['valor'])) {
+        if ($filtro['legajo']['condicion'] == '(') {
+            $valores_leg = implode(',', $filtro['legajo']['valor']);
+            $in = "($valores_leg)";
+        } else {
+            $in = "(" . $filtro['legajo']['valor'][0] . ")";
+        }
+        
+        // Solo una consulta para todos los legajos del filtro
+        $resultado_cat =$this->obtener_resultado_legajos($in, $valor_fecha,$legajo_cat[0]['nombre_catedra']);
+    } else {
+        // 3. Si NO hay filtro, usar legajo_cat
+        if (!empty($legajo_cat)) {
+            $legajos = array_column($legajo_cat, 'legajo');
+            $in = "(" . implode(',', $legajos) . ")";
+            $resultado_cat = $this->obtener_resultado_legajos($in, $valor_fecha, $legajo_cat[0]['nombre_catedra']);
+
+        }
+
+        // 4. Y también usar legajo_dep
+        if (!empty($legajo_dep)) {
+            $legajos = array_column($legajo_dep, 'legajo');
+            $in = "(" . implode(',', $legajos) . ")";
+            $resultado_dep = $this->obtener_resultado_legajos($in, $valor_fecha, $legajo_cat[0]['departamento']);
+        }
+    }
+
+    // 5. Unir resultados
+    $resultado_final = array_values(
+        empty($resultado_cat) ?
+            (empty($resultado_dep) ? [] : $resultado_dep) :
+            (empty($resultado_dep) ? $resultado_cat : array_merge($resultado_cat, $resultado_dep))
+    );
+   
+   
+    return $resultado_final;
+}
+
+// Función auxiliar para evitar duplicar código
+function obtener_resultado_legajos($in, $valor_fecha, $campo_catedra)
+{
+    $db = toba::db('ctrl_asis');
+   
+    // Consulta de horas
+    $sql = "SELECT legajo,
+                   COUNT(*) AS cuenta,
+                   SUM(horas_requeridad) AS horas_requeridas_prom,
+                   SUM(horas_trabajadas) AS horas_totales,
+                   AVG(horas_trabajadas) AS horas_promedio
+            FROM (
+                SELECT DISTINCT legajo, fecha, horas_requeridad, horas_trabajadas
+                FROM reloj.vm_detalle_pres
+                WHERE legajo in $in
+                  AND $valor_fecha
+            ) AS sub
+            GROUP BY legajo
+            ORDER BY legajo";
+    $horas = $db->consultar($sql);
+
+    // Consulta de asistencia
+    $sql1 = "SELECT DISTINCT cuil, legajo, ayn nombre_completo, agrupamiento, categoria, 
+        case when nombre_catedra = '$campo_catedra' then nombre_catedra else departamento END AS nombre_catedra, escalafon, caracter,
+                   COUNT(CASE WHEN estado = 'Ausente' THEN 1 END) AS injustificados,
+                   COUNT(CASE WHEN estado = 'Presente' THEN 1 END) AS presentes,
+                   COUNT(CASE WHEN estado = 'Ausente Justificado' THEN 1 END) AS partes,
+                   COUNT(CASE WHEN estado = 'Asuente Justicado Sanidad' THEN 1 END) AS partes_sanidad,
+                   COUNT(CASE WHEN estado = 'Ausente Justificado' OR estado = 'Asuente Justicado Sanidad' THEN 1 END) AS justificado
+            FROM reloj.vm_detalle_pres
+            WHERE legajo in $in
+              AND $valor_fecha
+            GROUP BY legajo, ayn, agrupamiento, categoria, nombre_catedra, departamento , cuil, escalafon, caracter";
+    $condicion = $db->consultar($sql1);
+
+    // Combinar ambos arrays
+    $resultado = [];
+    $combinado = array_merge($horas, $condicion);
+    foreach ($combinado as $elemento) {
+        $legajo = $elemento['legajo'];
+        if (!isset($resultado[$legajo])) {
+            $resultado[$legajo] = [];
+        }
+        $resultado[$legajo] = array_merge($resultado[$legajo], $elemento);
+    }
+
+   
+   
+    return array_values($resultado);
+}
+
 }
 
 ?>

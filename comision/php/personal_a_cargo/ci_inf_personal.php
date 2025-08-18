@@ -13,14 +13,12 @@ class inf_personal extends comision_ci
 		$legajo = $legajo_1[0]['legajo'];
 		$legajo_cat = usuario_logueado::get_legajo_jefe($legajo);
 		$legajo_dep = usuario_logueado::get_legajo_dir($legajo);
+		$filtro = $this->s__datos_filtro;
 		if (usuario_logueado::get_jefe($legajo)) {
-			if(isset($this->s__datos_filtro)) {
-				$datos = $this->dep('datos')->tabla('inasistencia')->get_inasistencia_sub($legajo_cat,$legajo_dep);
-				
-			}else {
-				$cuadro->set_datos($this->dep('datos')->tabla('inasistencia')->get_inasistencia_sub($legajo_cat,$legajo_dep));
+			
+				$cuadro->set_datos($this->dep('datos')->tabla('inasistencia')->get_inasistencia_sub($legajo_cat,$legajo_dep,$filtro));
 
-			}	
+				
 		
 		
 		}
@@ -63,7 +61,7 @@ class inf_personal extends comision_ci
 				$datos['legajo']['condicion'] = '=';
 
 			}else {
-				$datos['legajo']['condicion'] = 'in (';
+				$datos['legajo']['condicion'] = '(';
 			}
 		}
 		$this->s__datos_filtro = $datos;

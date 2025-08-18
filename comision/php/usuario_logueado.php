@@ -40,9 +40,10 @@ class usuario_logueado
 		if(isset($catedra)){
 		$id_catedra = $catedra['id_catedra'];
 		
-		$sql = "SELECT legajo FROM reloj.vw_agente_catedra
+		$sql = "SELECT legajo, nombre_catedra FROM reloj.vw_agente_catedra
 		where id_catedra = $id_catedra";
 		$legajo_sub = toba::db('comision')->consultar($sql);
+		
 		return $legajo_sub;
 		}
 		else {
@@ -53,6 +54,7 @@ class usuario_logueado
 		$sql = "SELECT legajo , departamento FROM reloj.vw_directores
 			where legajo_dir = $legajo";
 		$legajo_sub = toba::db('comision')->consultar($sql);
+		
 		return $legajo_sub;
 	}
 }
