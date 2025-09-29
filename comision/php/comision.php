@@ -35,10 +35,12 @@ class comision extends toba_ci
 			//$fecha_fin = $datos['fecha_fin'];
 			$fecha = new DateTime($datos['fecha']);
 			$fecha_fin = new DateTime($datos['fecha_fin']);
-			$fecha_fin->modify('+1 day');
+		//	$fecha_fin->modify('+1 day');
 			$dias_seleccionados = !empty($datos['dias']) ? $datos['dias'] : [1, 2, 3, 4, 5,6,7];
 			$intervalo = new DateInterval('P1D');
-			$periodo = new DatePeriod($fecha, $intervalo, $fecha_fin);
+			$fecha_fin_mod = (clone $fecha_fin)->add(new DateInterval('P1D'));
+			$periodo = new DatePeriod($fecha, $intervalo, $fecha_fin_mod);
+			
 			$legajo = $datos['legajo'];
 			$superior = $datos['superior'];
 			$autoridad = $datos['autoridad'];
@@ -121,7 +123,9 @@ class comision extends toba_ci
     				$dia_semana = (int)$fecha_actual->format('N'); // 1 (lunes) a 7 (domingo)
     				if (in_array($dia_semana, $dias_seleccionados)) {
         				$fecha_str = $fecha_actual->format('Y-m-d');
-            			$sql = "INSERT INTO reloj.comision
+						$resultado = false;
+				
+            		$sql = "INSERT INTO reloj.comision
         			    	(legajo, catedra, lugar, motivo, fecha, horario, observaciones, legajo_sup, legajo_aut, fecha_fin, horario_fin, fuera)
             				VALUES
             				($legajo, $catedra, '$lugar', '$motivo', '$fecha_str', '$horario', '$obs', $superior, $autoridad, '$fecha_str', '$horario_fin', $fuera)";
