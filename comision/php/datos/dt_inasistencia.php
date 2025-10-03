@@ -68,9 +68,9 @@ function obtener_resultado_legajos($in, $valor_fecha, $campo_catedra)
     // Consulta de horas
     $sql = "SELECT legajo,
                    COUNT(*) AS cuenta,
-                   SUM(horas_requeridad) AS horas_requeridas_prom,
-                   SUM(horas_trabajadas) AS horas_totales,
-                   AVG(horas_trabajadas) AS horas_promedio
+                   to_char(SUM(horas_requeridad), 'HH24:MI') AS horas_requeridas_prom,
+                   to_char(SUM(horas_trabajadas), 'HH24:MI') AS horas_totales,
+                   to_char(AVG(horas_trabajadas), 'HH24:MI') AS horas_promedio
             FROM (
                 SELECT DISTINCT legajo, fecha, horas_requeridad, horas_trabajadas
                 FROM reloj.vm_detalle_pres
