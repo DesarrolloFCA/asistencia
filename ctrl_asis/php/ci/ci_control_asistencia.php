@@ -187,7 +187,6 @@ class ci_control_asistencia extends ctrl_asis_ci
 				
 			$total_registros = count($todo);
 					
-				
 						
 			for ($i = 0;$i<$total_registros;$i++){
 					
@@ -205,6 +204,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 					$todo[$i]['h_min'] = $horas_min[0] +($horas_min[1]/60);
 					$horas= ($todo[$i]['ausentes'] * $horas_min[0])+ $horas_requeridas[0];
 					$minutos =($todo[$i]['ausentes'] * $horas_min[1])+ $horas_requeridas[1];
+					
 					$tmp= 0;
 						while ($minutos >= 60){
 							$minutos = $minutos - 60;
@@ -229,6 +229,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 				}
 				$todo[$i]['justificados'] = $todo[$i]['partes'] + $todo[$i]['partes_sanidad'];
 				//$todo[$i]['injustificados'] = $todo[$i]['ausentes'] - $todo[$i]['justificados'];
+
 				$dias_trab = $todo[$i]['laborables'] - $todo[$i]['justificados'];
 				
 				$horas_esp = $this->dep('datos')->tabla('conf_jornada')->get_horas_diarias($todo[$i]['legajo']);
@@ -241,10 +242,11 @@ class ci_control_asistencia extends ctrl_asis_ci
 						//Horas totales ideales trabajadas
 					//	ei_arbol($horas_min);
 						//$horas= $dias_trab * $horas_min[0];
-						$horas= $dias_laborales * $horas_min[0];
+				$dias_trab = $todo[$i]['laborables'] - $todo[$i]['justificados'];
+						$horas= $dias_trab * $horas_min[0];
 						// Calculos de minutos
 						//$minutos = $dias_trab * $horas_min[1];
-						$minutos = $dias_laborales * $horas_min[1];
+						$minutos = $dias_trab * $horas_min[1];
 						$tmp= 0;
 						while ($minutos >= 60){
 							$minutos = $minutos - 60;
@@ -266,6 +268,7 @@ class ci_control_asistencia extends ctrl_asis_ci
 						// guardo horas diarias
 			
 			}
+			
 			
 			$todos =	array_values($todo);		
 			$registros = count($todos)  ; 
@@ -397,7 +400,8 @@ class ci_control_asistencia extends ctrl_asis_ci
 
 			$this ->s__datos = $todos;
 		//	
-			$todos=$this->dep('access')->get_lista_gral_mod ($todos,$filtro);
+		//ei_arbol($todos);
+			$todos=$this->dep('access')->get_lista_gral_mod ($todos,$leg,$filtro);
 			//ei_arbol($todos);
 			
 			$this->s__datos['total'] =count($this->s__datos); 

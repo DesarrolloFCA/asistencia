@@ -277,6 +277,7 @@ class vistas_access extends toba_datos_relacion
 				ORDER BY legajo";
 		$sql= sql_concatenar_where($sql, $where);
 		// Cuenta ausente justificados, presentes y ausentes
+		
 		$horas=  toba::db('ctrl_asis')->consultar($sql); 
 		
 
@@ -291,6 +292,7 @@ class vistas_access extends toba_datos_relacion
 		$sql= sql_concatenar_where($sql, $where);
 		$condicion = toba::db('ctrl_asis')->consultar($sql); 
 		
+		
 		for ($i=0;$i<count($condicion);$i++){
 			for ($j=0;$j<count($horas);$j++){
 				
@@ -303,11 +305,13 @@ class vistas_access extends toba_datos_relacion
 
 				}
 			}
+		
 			if(!isset($condicion[$i]['horas_totales'])){
 				$condicion[$i]['horas_totales']= '00:00:00';
 				$condicion[$i]['horas_promedio']= '00:00:00';
 			}
 		}
+		
 		unset($item); 
 		//ei_arbol($condicion);
 		/*$sql1 = "SELECT distinct
@@ -381,23 +385,25 @@ class vistas_access extends toba_datos_relacion
 
 	}
 	
-	static function get_lista_gral_mod ($horas,$filtro){
+	static function get_lista_gral_mod ($horas,$leg,$filtro){
 		
-		
+	//	ei_arbol($horas);
 		$fecha_ini = $filtro['fecha_desde'];
 		$fecha_fin = $filtro ['fecha_hasta'];
 		$list = 'legajo in (';
 		for($i=0;$i<count($horas);$i++){
-			$leg = $horas[$i]['legajo'];
+			$lega = $horas[$i]['legajo'];
 			if ($i==0){
-				$list =$list . $leg;
+				$list =$list . $lega;
 			}else {
-			$list = $list . ', ' .$leg;
+			$list = $list . ', ' .$lega;
 			}
+			
 		}	
 		
 		
 		$list = $list. ')';
+	//	ei_arbol($list);
 		
 		//Suma y promedio Permisos Horario
 		
@@ -413,7 +419,7 @@ class vistas_access extends toba_datos_relacion
 					"' AND $list
 					group by legajo"
 					 ;
-					$permiso = toba::db('ctrl_asis')->consultar($sql);
+		$permiso = toba::db('ctrl_asis')->consultar($sql);
 		
 
 		for($i=0;$i<count($horas);$i++){
