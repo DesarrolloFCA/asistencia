@@ -3,51 +3,47 @@ class dt_inasistencia extends comision_datos_tabla
 {
     
     function get_inasistencia_sub($legajo_cat, $legajo_dep, $filtro)
-{
-    
-    // 1. Armar condición de fecha
-    if (isset($filtro['fecha_desde'])) {
-        if ($filtro['fecha_desde']['condicion'] == 'BETWEEN') {
-            
-            $valor_fecha = "fecha ". $filtro['fecha_desde']['condicion'] . " '" . $filtro['fecha_desde']['valor']['desde'] . "' AND '" . $filtro['fecha_desde']['valor']['hasta'] . "'";
-        } else {
-            $valor_fecha = "fecha ". $filtro['fecha_desde']['condicion'] . " '" . $filtro['fecha_desde']['valor']. "'";
-        }
-    } else {
-        $valor_fecha = "fecha >= CURRENT_DATE - INTERVAL '30 days'";
-    }
-
-    $resultado_cat = [];
-    $resultado_dep = [];
-	
-		
-    // 2. Si existe filtro['legajo'], usarlo
-    if (isset($filtro['legajo']) && !empty($filtro['legajo']['valor'])) {
-        if ($filtro['legajo']['condicion'] == '(') {
-            $valores_leg = implode(',', $filtro['legajo']['valor']);
-            $in = "($valores_leg)";
-        } else {
-            $in = "(" . $filtro['legajo']['valor'][0] . ")";
-        }
+    {
+        $resultado_cat = [];
+        $resultado_dep = [];
+        if (isset($filtro)) {
+         // 1. Si existe filtro['legajo'], usarlo
+             if (stripos($filtro, 'in') !== false) {
+                $bandera =true; 
+             } else {
+                $bandera = false;
+             } 
+        // 1. Armar condición de fecha
+            if(stripos($filtro,'fecha') == false) {
+                if ($bandera){
+                    $filtro = $filtro ." AND fecha >= CURRENT_DATE - INTERVAL '30 days'";
+                
+                 }else {
+                $filtro = "fecha >= CURRENT_DATE - INTERVAL '30 days'";
+                }
+                
+            }
+        $in=null;
         
         // Solo una consulta para todos los legajos del filtro
-        $resultado_cat =$this->obtener_resultado_legajos($in, $valor_fecha,$legajo_cat[0]['nombre_catedra']);
+        $resultado_cat =$this->obtener_resultado_legajos($in, $filtro,$legajo_cat[0]['nombre_catedra']);
     } else {
+        $filtro = "fecha >= CURRENT_DATE - INTERVAL '30 days'";
         // 3. Si NO hay filtro, usar legajo_cat
         if (!empty($legajo_cat)) {
             $legajos = array_column($legajo_cat, 'legajo');
-            $in = "(" . implode(',', $legajos) . ")";
-            $resultado_cat = $this->obtener_resultado_legajos($in, $valor_fecha, $legajo_cat[0]['nombre_catedra']);
+            $in = " AND legajo in (" . implode(',', $legajos) . ")";
+            $resultado_cat = $this->obtener_resultado_legajos($in, $filtro, $legajo_cat[0]['nombre_catedra']);
 
         }
 
         // 4. Y también usar legajo_dep
         if (!empty($legajo_dep)) {
             $legajos = array_column($legajo_dep, 'legajo');
-            $in = "(" . implode(',', $legajos) . ")";
-            $resultado_dep = $this->obtener_resultado_legajos($in, $valor_fecha, $legajo_cat[0]['departamento']);
+            $in = "AND legajo in (" . implode(',', $legajos) . ")";
+            $resultado_dep = $this->obtener_resultado_legajos($in, $filtro, $legajo_cat[0]['departamento']);
         }
-    }
+        }
 
     // 5. Unir resultados
     $resultado_final = array_values(
@@ -64,7 +60,7 @@ class dt_inasistencia extends comision_datos_tabla
 function obtener_resultado_legajos($in, $valor_fecha, $campo_catedra)
 {
     $db = toba::db('ctrl_asis');
-   
+    $filtro =$valor_fecha . $in;
     // Consulta de horas
     $sql = "SELECT legajo,
                    COUNT(*) AS cuenta,
@@ -74,8 +70,8 @@ function obtener_resultado_legajos($in, $valor_fecha, $campo_catedra)
             FROM (
                 SELECT DISTINCT legajo, fecha, horas_requeridad, horas_trabajadas
                 FROM reloj.vm_detalle_pres
-                WHERE legajo in $in
-                  AND $valor_fecha
+                WHERE $filtro
+
             ) AS sub
             GROUP BY legajo
             ORDER BY legajo";
@@ -90,8 +86,7 @@ function obtener_resultado_legajos($in, $valor_fecha, $campo_catedra)
                    COUNT(CASE WHEN estado = 'Asuente Justicado Sanidad' THEN 1 END) AS partes_sanidad,
                    COUNT(CASE WHEN estado = 'Ausente Justificado' OR estado = 'Asuente Justicado Sanidad' THEN 1 END) AS justificado
             FROM reloj.vm_detalle_pres
-            WHERE legajo in $in
-              AND $valor_fecha
+            WHERE $filtro
             GROUP BY legajo, ayn, agrupamiento, categoria, nombre_catedra, departamento , cuil, escalafon, caracter";
     $condicion = $db->consultar($sql1);
 

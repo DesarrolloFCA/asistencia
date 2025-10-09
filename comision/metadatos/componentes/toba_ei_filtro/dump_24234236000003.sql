@@ -191,8 +191,8 @@ INSERT INTO apex_objeto_ei_filtro_col (objeto_ei_filtro_col, objeto_ei_filtro, o
 	'24234236000003', --objeto_ei_filtro
 	'comision', --objeto_ei_filtro_proyecto
 	'fecha', --tipo
-	'fecha_desde', --nombre
-	'fecha_desde', --expresion
+	'fecha', --nombre
+	'fecha', --expresion
 	'Fecha', --etiqueta
 	NULL, --descripcion
 	'0', --obligatorio
