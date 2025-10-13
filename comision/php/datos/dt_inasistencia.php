@@ -6,14 +6,24 @@ class dt_inasistencia extends comision_datos_tabla
     {
         $resultado_cat = [];
         $resultado_dep = [];
+       if (!empty($legajo_cat)) {
+            $legajos = array_column($legajo_cat, 'legajo');
+       }
+       if (!empty($legajo_dep)) {
+            $legajos1 = array_column($legajo_dep, 'legajo');
+        }
+        $leg =array_merge($legajos,$legajos1);
+        $in =  $in = "AND legajo in (" . implode(',', $leg) . ")";
+      
         if (isset($filtro)) {
-         // 1. Si existe filtro['legajo'], usarlo
+      
              if (stripos($filtro, 'in') !== false) {
                 $bandera =true; 
+                $in = null;
              } else {
                 $bandera = false;
              } 
-        // 1. Armar condición de fecha
+      
             if(stripos($filtro,'fecha') == false) {
                 if ($bandera){
                     $filtro = $filtro ." AND fecha >= CURRENT_DATE - INTERVAL '30 days'";
@@ -23,29 +33,15 @@ class dt_inasistencia extends comision_datos_tabla
                 }
                 
             }
-        $in=null;
         
         // Solo una consulta para todos los legajos del filtro
         $resultado_cat =$this->obtener_resultado_legajos($in, $filtro,$legajo_cat[0]['nombre_catedra']);
     } else {
         $filtro = "fecha >= CURRENT_DATE - INTERVAL '30 days'";
-        // 3. Si NO hay filtro, usar legajo_cat
-        if (!empty($legajo_cat)) {
-            $legajos = array_column($legajo_cat, 'legajo');
-            $in = " AND legajo in (" . implode(',', $legajos) . ")";
-            $resultado_cat = $this->obtener_resultado_legajos($in, $filtro, $legajo_cat[0]['nombre_catedra']);
-
+      $resultado_cat =$this->obtener_resultado_legajos($in, $filtro,$legajo_cat[0]['nombre_catedra']);
         }
 
-        // 4. Y también usar legajo_dep
-        if (!empty($legajo_dep)) {
-            $legajos = array_column($legajo_dep, 'legajo');
-            $in = "AND legajo in (" . implode(',', $legajos) . ")";
-            $resultado_dep = $this->obtener_resultado_legajos($in, $filtro, $legajo_cat[0]['departamento']);
-        }
-        }
-
-    // 5. Unir resultados
+    
     $resultado_final = array_values(
         empty($resultado_cat) ?
             (empty($resultado_dep) ? [] : $resultado_dep) :
@@ -75,6 +71,7 @@ function obtener_resultado_legajos($in, $valor_fecha, $campo_catedra)
             ) AS sub
             GROUP BY legajo
             ORDER BY legajo";
+
     $horas = $db->consultar($sql);
 
     // Consulta de asistencia
