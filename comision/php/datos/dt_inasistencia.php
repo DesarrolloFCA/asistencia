@@ -11,8 +11,11 @@ class dt_inasistencia extends comision_datos_tabla
        }
        if (!empty($legajo_dep)) {
             $legajos1 = array_column($legajo_dep, 'legajo');
+            $leg =array_merge($legajos,$legajos1);
+        } else {
+            $leg=$legajos;
         }
-        $leg =array_merge($legajos,$legajos1);
+        
         $in =  $in = "AND legajo in (" . implode(',', $leg) . ")";
       
         if (isset($filtro)) {
