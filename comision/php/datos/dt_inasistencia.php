@@ -16,7 +16,7 @@ class dt_inasistencia extends comision_datos_tabla
             $leg=$legajos;
         }
         
-        $in =  $in = "AND legajo in (" . implode(',', $leg) . ")";
+        $in =  $in = " AND legajo in (" . implode(',', $leg) . ")";
       
         if (isset($filtro)) {
       
