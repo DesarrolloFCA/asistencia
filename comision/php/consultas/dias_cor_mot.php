@@ -70,7 +70,7 @@ function dias_motivos_legajo($legajo,$id_motivo)
 			sum(t_vt.dias) as dias_restantes																																																	
 			FROM reloj.vacaciones_restantes as t_vt 
 			where t_vt.legajo = '$legajo' 
-		and t_vt.anio = '$anio'		";
+		and t_vt.anio = '$anio_anterior' ";
 
 		$datos = toba::db('comision')->consultar_fila($sql);
 		if(is_numeric($datos['dias_restantes'])){
