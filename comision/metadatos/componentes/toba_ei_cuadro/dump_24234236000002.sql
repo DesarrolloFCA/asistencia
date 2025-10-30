@@ -180,7 +180,7 @@ INSERT INTO apex_objeto_ei_cuadro_columna (objeto_cuadro_proyecto, objeto_cuadro
 	'24234236000003', --objeto_cuadro_col
 	'horas_requeridas_prom', --clave
 	'4', --orden
-	'Horas Requeridas', --titulo
+	'Horas Prom Requeridas', --titulo
 	'ei-cuadro-col-tit', --estilo_titulo
 	'col-cen-s1', --estilo
 	NULL, --ancho

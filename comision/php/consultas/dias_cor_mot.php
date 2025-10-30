@@ -3,6 +3,7 @@ class dias_cor_mot
 {
 function dias_motivos_legajo($legajo,$id_motivo)
 {
+	//ei_arbol($id_motivo);
 	$anio = date("Y");
 	switch ($id_motivo) {
 		case 35 :
@@ -46,7 +47,7 @@ function dias_motivos_legajo($legajo,$id_motivo)
 			//ei_arbol($id_motivo);
 			$dias_tomados=0;
 			
-			$partes = toba::tabla('parte')->get_listado($filtro);
+			/*$partes = toba::tabla('parte')->get_listado($filtro);
 					if(count($partes)>0){
 						foreach ($partes as $parte) {
 							$dias_tomados = $dias_tomados + $parte['dias'];
@@ -64,7 +65,7 @@ function dias_motivos_legajo($legajo,$id_motivo)
 			$sql= "SELECT min(dias) dias_v from reloj.antiguedad
 				where legajo = $legajo";
 			$dias = toba::db('comision')->consultar($sql); // Vacaciones correspondientes por antigüedad
-		
+		*/
 			//Vacaciones por antigüedad
 			$sql = "SELECT
 			sum(t_vt.dias) as dias_restantes																																																	
