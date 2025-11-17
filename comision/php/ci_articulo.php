@@ -441,6 +441,7 @@ class ci_articulo extends comision_ci
 							if ($tomo[0]['cant'] <= 24) {
 								if ($datos['certificado'] <> null) {
 									$agente[$i]['articulo'] = 35;
+									$datos['fecha_inicio_licencia']  ='2025-12-29';
 									$agente[$i]['id_decreto'] = 4;
 									$bandera = true;
 								} else {
@@ -596,6 +597,7 @@ class ci_articulo extends comision_ci
 
 						$agente[$i]['articulo'] = 56;
 						$agente[$i]['id_decreto'] = 2;
+						$datos['fecha_inicio_licencia']  = '2025-12-29';
 						$bandera = true;
 						$dias_restantes = 0;
 
@@ -1392,7 +1394,7 @@ class ci_articulo extends comision_ci
 		  {
 		  	if (this.ef('id_motivo').get_estado() == '35'){
 		  		var ano = new Date().getFullYear();
-		  		const inicio = new Date(ano, 11, 23);
+		  		const inicio = new Date(ano, 11, 29);
 		  		this.ef('fecha_inicio_licencia').set_fecha(inicio);
 		  		this.ef('observaciones').set_estado('');
 		  		this.ef('observaciones').desactivar();

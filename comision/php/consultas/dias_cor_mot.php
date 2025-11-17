@@ -15,6 +15,7 @@ function dias_motivos_legajo($legajo,$id_motivo)
 				$sql = "SELECT sum(dias_adelanto) dias_a from reloj.vacaciones_adelantadas
 					where legajo = $legajo and anio = $anio";
 				$dias_ad = toba::db('comision')->consultar($sql);// Vacaciones adelantadas
+				
 				if (isset($dias_ad)){
 					$dias_totales = $dias[0]['dias_v'] -$dias_ad[0]['dias_a'];
 				} else{
@@ -80,7 +81,7 @@ function dias_motivos_legajo($legajo,$id_motivo)
 			$vaciones_restantes= NULL;
 		}
 					if (is_null($vacaciones_restantes)){
-						$dias_disponibles = $dias[0]['dias_v'] - $dias_tomados;
+						$dias_disponibles = 0;
 					}else{
 						$dias_disponibles = $vacaciones_restantes - $dias_tomados;
 					}
